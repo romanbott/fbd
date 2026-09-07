@@ -1,0 +1,141 @@
+\documentclass[11pt,letterpaper,spanish]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage{geometry}
+\usepackage{svg}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+\geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
+
+\definecolor{headergray}{gray}{0.3}
+\definecolor{rulecolor}{gray}{0.6}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{\small\textcolor{headergray}{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}}
+\fancyhead[R]{\small\textcolor{headergray}{\documentoTitulo}}
+\fancyfoot[L]{\small\textcolor{headergray}{FACULTAD DE CIENCIAS, 2027-I}}
+\fancyfoot[C]{\small\textcolor{headergray}{\thepage}}
+\fancyfoot[R]{\small\textcolor{headergray}{FUNDAMENTOS DE BASES DE DATOS}}
+
+% ==========================================
+% CONFIGURACIÓN DE VARIABLES (EDITAR AQUÍ)
+% ==========================================
+\newcommand{\documentoTitulo}{Respuestas Tarea 1}
+\newcommand{\documentoSubtitulo}{Tarea 1}
+
+\newcommand{\profesorNombre}{Gerardo Avilés Rosas}
+
+\newcommand{\ayudanteTeoriaUno}{Oscar Daniel Flores Linares}
+\newcommand{\ayudanteTeoriaDos}{Claudia Itzel Gutiérrez Sánchez}
+
+\newcommand{\ayudanteLabUno}{Ricardo Badillo Macías}
+\newcommand{\ayudanteLabDos}{Rocío Aylin Huerta González}
+
+\newcommand{\equipoNombre}{Dobles Comillas}
+
+\newcommand{\integranteUno}{Contreras}
+\newcommand{\integranteDos}{Avilés}
+\newcommand{\integranteTres}{Badillo}
+\newcommand{\integranteCuatro}{Flores}
+
+% ==========================================
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+    \vspace*{1cm}
+    
+    \begin{tabular}{cc}
+        \includesvg[width=3cm]{../template/unam_seal.svg} & \includesvg[width=3cm]{../template/fc_seal.svg}
+    \end{tabular}
+    
+    \vspace{0.8cm}
+    {\LARGE\bfseries UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}\\[0.3cm]
+    {\large FACULTAD DE CIENCIAS, 2027-I}\\[0.3cm]
+    {\large\bfseries FUNDAMENTOS DE BASES DE DATOS}
+    
+    \vspace{1.2cm}
+    {\huge\bfseries \documentoSubtitulo:}\\[0.3cm]
+    {\Large \documentoTitulo}
+    
+    \vspace{1.5cm}
+\end{center}
+
+\begin{multicols}{2}
+\raggedcolumns
+
+\textbf{PROFESOR:}\\
+\profesorNombre\\[1.2cm]
+
+\textbf{AYUDANTES DE TEORÍA:}\\
+\ayudanteTeoriaUno\\
+\ayudanteTeoriaDos\\[1.2cm]
+
+\textbf{AYUDANTES DE LABORATORIO:}\\
+\ayudanteLabUno\\
+\ayudanteLabDos\\[1.2cm]
+
+\columnbreak
+
+\textbf{EQUIPO:}\\
+\equipoNombre\\[1.2cm]
+
+\textbf{INTEGRANTES DEL EQUIPO:}\\
+\integranteUno\\
+\integranteDos\\
+\integranteTres\\
+\integranteCuatro
+
+\end{multicols}
+
+\vspace{1cm}
+
+% ==========================================
+% SECCIÓN 1: RESPUESTAS A PREGUNTAS
+% ==========================================
+\section*{Respuestas a Preguntas}
+
+\begin{enumerate}[label=\arabic*., leftmargin=*]
+    \item \textbf{¿Qué otros SMBD existen actualmente en el mercado?} \\
+    \input{respuestas/1.tex}
+
+    \item \textbf{¿Cuáles son las principales diferencias con PostgreSQL?} \\
+    \input{respuestas/2.tex}
+
+    \item \textbf{¿Por qué una empresa debería escoger una base de datos open source?} \\
+    \input{respuestas/3.tex}
+
+    \item \textbf{¿Cuáles son las ventajas, para un DBA, el trabajar con un SMBD open source?} \\
+    \input{respuestas/4.tex}
+
+    \item \textbf{¿Qué son las bases de datos NoSQL? Menciona 3 ventajas y desventajas contra las bases relacionales.} \\
+    \input{respuestas/5.tex}
+\end{enumerate}
+
+% ==========================================
+% SECCIÓN 2: ENSAYOS
+% ==========================================
+\section*{Ensayos}
+
+\subsection*{Ensayo - \integranteUno}
+\input{ensayos/integrante1.tex}
+
+\subsection*{Ensayo - \integranteDos}
+\input{ensayos/integrante2.tex}
+
+\subsection*{Ensayo - \integranteTres}
+\input{ensayos/integrante3.tex}
+
+\subsection*{Ensayo - \integranteCuatro}
+\input{ensayos/integrante4.tex}
+
+\end{document}
