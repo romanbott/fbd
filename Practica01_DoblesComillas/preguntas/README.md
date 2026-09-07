@@ -20,3 +20,9 @@ xelatex preguntas.tex
 biber preguntas
 xelatex preguntas.tex
 ```
+
+Otra opción es usar `tectonic` que maneja automáticamente las bibliotecas:
+
+```bash
+tectonic -Z search-path=$(dirname $(kpsewhich biblatex.sty)) preguntas.tex
+```
