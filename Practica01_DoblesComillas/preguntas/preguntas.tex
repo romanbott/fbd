@@ -36,6 +36,14 @@
 \fancyfoot[C]{\small\textcolor{headergray}{\thepage}}
 \fancyfoot[R]{\small\textcolor{headergray}{FUNDAMENTOS DE BASES DE DATOS}}
 
+
+% Required by biblatex-apa for context-sensitive quotes
+\usepackage{csquotes}
+
+% Load biblatex with official APA 7th edition style
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
 % ==========================================
 % CONFIGURACIÓN DE VARIABLES (EDITAR AQUÍ)
 % ==========================================
@@ -118,7 +126,7 @@
 % ==========================================
 % SECCIÓN 1: RESPUESTAS A PREGUNTAS
 % ==========================================
-\section*{Respuestas a Preguntas}
+\section*{Preguntas}
 
 \begin{enumerate}[label=\arabic*., leftmargin=*]
 	\input{respuestas/1.tex}
@@ -127,5 +135,8 @@
 	\input{respuestas/4.tex}
 	\input{respuestas/5.tex}
 \end{enumerate}
+
+\section*{Bibliografía}
+\printbibliography
 
 \end{document}
