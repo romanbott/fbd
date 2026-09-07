@@ -12,10 +12,11 @@ Es necesario editar las variables:
 
 
 # Para compilar
+Para compilar es necesario compilar, procesar las referencias y volver a compilar:
 
-Dependiendo de lo que se tenga instalado se puede usar cualquiera de los siguientes comandos:
-```pdflatex tarea1.tex```
 
-```tectonic -X compile tarea1.tex```
-
-```xelatex tarea1.tex```
+```bash
+xelatex preguntas.tex
+biber preguntas
+xelatex preguntas.tex
+```
