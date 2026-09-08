@@ -1,0 +1,17 @@
+% Respuesta a la pregunta 5
+\item
+Las bases de datos NoSQL (\textit{Not Only SQL}) son sistemas de almacenamiento no relacionales diseñados para escalabilidad horizontal, flexibilidad de esquema y alto rendimiento en casos de uso específicos.
+
+\textbf{3 Ventajas frente a bases relacionales:}
+\begin{enumerate}
+	\item \textbf{Escalabilidad horizontal nativa:} Sharding y replicación automáticos (MongoDB, Cassandra) sin rediseño de esquema.
+	\item \textbf{Flexibilidad de esquema (schema-less):} Documentos JSON variables, ideal para datos semi-estructurados y desarrollo ágil.
+	\item \textbf{Rendimiento en escrituras masivas:} Modelos como LSM-trees (Cassandra, RocksDB) optimizados para alta ingestión de datos.
+\end{enumerate}
+
+\textbf{3 Desventajas frente a bases relacionales:}
+\begin{enumerate}
+	\item \textbf{Consistencia eventual:} Modelo BASE vs ACID; transacciones distribuidas complejas o inexistentes.
+	\item \textbf{Falta de estándar de consulta:} Cada NoSQL tiene su API/QL (MQL, CQL, Cypher, Redis commands), curva de aprendizaje por tecnología.
+	\item \textbf{Integridad referencial limitada:} Sin foreign keys, cascadas, ni constraints declarativas; la lógica recae en la aplicación.
+\end{enumerate}
