@@ -9,6 +9,20 @@
 \usepackage{multicol}
 \usepackage{enumitem}
 
+
+% Required by biblatex-apa for context-sensitive quotes
+\usepackage{csquotes}
+
+% Load biblatex with official APA 7th edition style
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{references.bib}
+
+
+
+%% Paquetes caseros
+\usepackage{customcode}
+
+
 \geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
 
 \definecolor{headergray}{gray}{0.3}
@@ -137,5 +151,25 @@
 
 \subsection*{Ensayo - \integranteCuatro}
 \input{ensayos/integrante4.tex}
+
+
+
+
+Here is some normal text. We can now write variables like \code{my_first_variable} or \code{data_file_v2} without escaping the underscores!
+
+If your inline code contains curly braces, you can swap the command delimiters to any character, like vertical bars: \code|print("hello_{}")| or plus signs: \code+my_array[0]+.
+
+And for multi-line blocks, underscores work perfectly as well:
+
+\begin{codeblock}
+	def my_python_function(some_variable):
+	# The underscore works perfectly here
+	_private_var = some_variable + 10
+	return _private_var
+\end{codeblock}
+
+
+\section*{Bibliografía}
+\printbibliography
 
 \end{document}

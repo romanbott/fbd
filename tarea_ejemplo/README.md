@@ -13,9 +13,17 @@ Es necesario editar las variables:
 
 # Para compilar
 
-Dependiendo de lo que se tenga instalado se puede usar cualquiera de los siguientes comandos:
-```pdflatex tarea1.tex```
+```bash
+xelatex tarea1.tex
+biber tarea1
+xelatex tarea1.tex
+```
 
-```tectonic -X compile tarea1.tex```
+O también
 
-```xelatex tarea1.tex```
+```bash
+lualatex tarea1.tex
+biber tarea1
+lualatex tarea1.tex
+```
+
