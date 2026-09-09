@@ -1,1 +1,13 @@
 \item Investiga qué es la redundancia de datos. ¿Cuál sería la diferencia entre redundancia de datos controlada y no controlada? Proporciona un ejemplo claro de cada tipo. ¿Por qué la redundancia no controlada suele ser un problema para la integridad y consistencia de los datos?
+
+\begin{itemize}
+	\item \textbf{¿Qué es la redundancia de datos?}\\
+	      Es la repetición de la misma información en más de un lugar dentro de una base de datos. No siempre es mala: a veces se introduce a propósito para mejorar el rendimiento de las consultas, pero cuando aparece sin control genera inconsistencias.
+ 
+	\item \textbf{Redundancia controlada vs. no controlada}\\
+	      La redundancia controlada es aquella que el DBA o el propio DBMS gestiona de forma deliberada, normalmente mediante mecanismos que mantienen sincronizadas las copias (triggers, vistas materializadas, procesos de replicación). Por ejemplo, guardar el campo \code{total\_pedido} directamente en la tabla \code{Pedidos} en vez de calcularlo cada vez a partir de \code{Detalle\_Pedido}, actualizándolo automáticamente cada vez que cambia un detalle.\\
+	      La redundancia no controlada ocurre cuando el mismo dato se duplica en distintas tablas o sistemas sin ningún mecanismo que garantice que se actualicen juntos. Por ejemplo, si el nombre y la dirección de un cliente se guardan tanto en la tabla \code{Clientes} como en la tabla \code{Facturas}, y al cambiar de domicilio solo se actualiza una de las dos.
+ 
+	\item \textbf{¿Por qué la redundancia no controlada es un problema?}\\
+	      Porque al existir varias copias del mismo dato sin sincronización, es fácil que una se actualice y la otra no, generando anomalías de actualización, inserción o borrado. El resultado es que dos partes del sistema pueden mostrar valores distintos para lo que debería ser el mismo dato, rompiendo tanto la integridad como la consistencia de la base.
+\end{itemize}
