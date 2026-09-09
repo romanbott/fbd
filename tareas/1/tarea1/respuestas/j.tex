@@ -3,37 +3,41 @@
 El texto menciona cinco principales problemas asociados a no utilizar un SMBD y en vez de eso utilizar archivos simples:
 
 \begin{itemize}
-\item \emph{Redundancia e incosistencia en los datos}
-Este problema es muy relevante. Dependiendo de cómo se organicen los datos, por ejemplo se podría organizar de forma que los datos de cada paciente están asociados a un archivo, y jerárquicamente dependen de su médico tratante, u hospital de adscripción. Esto implicaria duplicar dichos datos para el caso de pacientes que sean referidos a otro hospital, que cambien de médico, o simplemente que requieran una consulta con otro especialista.
+	\item \emph{Redundancia e incosistencia en los datos}
 
-Con otros métodos de organización ocurrirían problemas similares.
+	      Este problema es muy relevante. Dependiendo de cómo se organicen los datos, por ejemplo se podría organizar de forma que los datos de cada paciente están asociados a un archivo, y jerárquicamente dependen de su médico tratante, u hospital de adscripción. Esto implicaria duplicar dichos datos para el caso de pacientes que sean referidos a otro hospital, que cambien de médico, o simplemente que requieran una consulta con otro especialista.
 
-Por ejemplo, duplicar datos de los médicos que dan consulta en más de una clínica etc.
+	      Con otros métodos de organización ocurrirían problemas similares.
 
-\item \emph{Dificultad en acceder a los datos}
-También relevante. Si se escoge alguna forma de organización que mantenga en un archivo los datos asociados a cada paciente, sería mucho más complicado hacer búsquedas de todos los pacientes de acuerdo a algún criterio médico. Por ejemplo si se sospecha que hay un brote de alguna enfermedad contagiosa en un hospital, sería conveniente encontrar rápidamente todos los pacientes admitidos en una cierta ventana de tiempo y que presenten alguno o varios síntomas específicos.
-Esto sería muy complicado de hacer.
+	      Por ejemplo, duplicar datos de los médicos que dan consulta en más de una clínica etc.
 
-\item \emph{Aislamiento de los datos}
-Muy relevante. Algunas operaciones, por ejemplo reservar un quirófano, podrían requerir simultáneamete una gran cantidad de datos dispersos: datos del paciente, del médico, anéstesiólogo, del quirófano, resultados de exámenes de laboratorio etc.
+	\item \emph{Dificultad en acceder a los datos}
+
+	      También relevante. Si se escoge alguna forma de organización que mantenga en un archivo los datos asociados a cada paciente, sería mucho más complicado hacer búsquedas de todos los pacientes de acuerdo a algún criterio médico. Por ejemplo si se sospecha que hay un brote de alguna enfermedad contagiosa en un hospital, sería conveniente encontrar rápidamente todos los pacientes admitidos en una cierta ventana de tiempo y que presenten alguno o varios síntomas específicos.
+	      Esto sería muy complicado de hacer.
+
+	\item \emph{Aislamiento de los datos}
+
+	      Muy relevante. Algunas operaciones, por ejemplo reservar un quirófano, podrían requerir simultáneamete una gran cantidad de datos dispersos: datos del paciente, del médico, anéstesiólogo, del quirófano, resultados de exámenes de laboratorio etc.
 
 
-\item \emph{Problemas de integridad}
+	\item \emph{Problemas de integridad}
 
-Relevante. Si el sistema se pretende usar, por ejemplo, para coordinar el acceso a recursos compartidos, como quirófanos, maquinas de resonancia magnética o rayos equis etc, sería muy complicado garantizar que no se reserva alguno de dichos recursos a más de un paciente a la vez.
+	      Relevante. Si el sistema se pretende usar, por ejemplo, para coordinar el acceso a recursos compartidos, como quirófanos, maquinas de resonancia magnética o rayos equis etc, sería muy complicado garantizar que no se reserva alguno de dichos recursos a más de un paciente a la vez.
 
-\item \emph{Problemas de atomicidad}
+	\item \emph{Problemas de atomicidad}
 
-Relevante. Similar al caso previo, si el sistema se usa para manejar recursos compartidos, podría darse el caso en que, por ejemplo, una operación muy urgente se programa a costa de reprogramar otra. Si el sistema falla en este punto, podría ser que la otra cirugía no se reprograme y quede en un estado indefinido.
+	      Relevante. Similar al caso previo, si el sistema se usa para manejar recursos compartidos, podría darse el caso en que, por ejemplo, una operación muy urgente se programa a costa de reprogramar otra. Si el sistema falla en este punto, podría ser que la otra cirugía no se reprograme y quede en un estado indefinido.
 
-\item \emph{Anomalias de accesso concurrente}
-De nueva cuenta el problema se presenta si el sistema se usa para manejar los recursos compartidos: podría darse el caso que en instantes casi iguales se reserven dos quirófanos, y ninguna de las personas que está reservando podría darse cuent que hay otra reserva.
+	\item \emph{Anomalias de accesso concurrente}
 
-\item \emph{Problemas de seguridad}
+	      De nueva cuenta el problema se presenta si el sistema se usa para manejar los recursos compartidos: podría darse el caso que en instantes casi iguales se reserven dos quirófanos, y ninguna de las personas que está reservando podría darse cuent que hay otra reserva.
 
-Muy relevante. En principio es necesario mantener todos los datos de los pacientes de forma confidencial, por lo que únicamente ciertas personas deberían acceder a los datos de cada paciente (técnicos de laboratorio que hayan realizado estudios, médico tratante, especialistas consultados etc).
+	\item \emph{Problemas de seguridad}
 
-El mantener los datos en archivos permitiría que cualquier persona con acceso a los archivos pudiera consultar los datos de potencialmente cualquier paciente, atentando contra la privacidad del mismo.
+	      Muy relevante. En principio es necesario mantener todos los datos de los pacientes de forma confidencial, por lo que únicamente ciertas personas deberían acceder a los datos de cada paciente (técnicos de laboratorio que hayan realizado estudios, médico tratante, especialistas consultados etc).
+
+	      El mantener los datos en archivos permitiría que cualquier persona con acceso a los archivos pudiera consultar los datos de potencialmente cualquier paciente, atentando contra la privacidad del mismo.
 \end{itemize}
 
 

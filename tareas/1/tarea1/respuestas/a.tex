@@ -1,1 +1,24 @@
 \item Explica las características fundamentales del enfoque de bases de datos frente al uso de hojas de cálculo. ¿Qué limitaciones enfrentan las hojas de cálculo cuando se trata de escalabilidad, integridad y consistencia de datos? Describe al menos dos escenarios concretos: uno donde no sea adecuado usar hojas de cálculo y otro donde sí sea preferible optar por ellas. Justifica cada caso.
+
+
+El enfoque de bases de datos se basa en estructurar la información con reglas estrictas, tipos de datos definidos y relaciones claras, manteniendo una separación entre el almacenamietno y manejo de los datos, de la interfaz que se presenta al usuario.
+
+En contraste, las hojas de cálculo mezclan datos, lógica (fórmulas) y presentación visual.
+
+Este diseño tiene como consecuencia una serie de problemas ya bien conocidos (\cite{wiki_spreadsheet}), principalmente cuando se pretenden usar para manejar cantidades grandes de información en entornos demandantes.
+Por ejemplo, estas herramientas enfrentan graves problemas de integridad, ya que su extrema flexibilidad carece de validación estricta y herramientas de auditoría, lo que facilita altas tasas de errores humanos indetectables.
+En cuanto a la consistencia, la ausencia de control de versiones y de una \emph{única fuente de verdad} provoca redundancia y datos desincronizados cuando los archivos se comparten.
+
+Finalmente, en términos de escalabilidad, no están diseñadas para manejar relaciones complejas ni volúmenes masivos de datos; su rendimiento decae significativamente y limitan o bloquean la edición concurrente de múltiples usuarios. Basta mencionar la limítación clásica del software de hojas de cálculo más común: el formato \emph{Microsoft xls} únicamente permite manejar 65,536 renglones.
+
+Un escenario donde \textbf{no es adecuado} usar hojas de cálculo podría ser el sistema integral de una escuela de tamaño medio/grande (con más de 100 alumnos) para gestionar estudiantes, profesores, cursos, inscripciones y calificaciones.
+En un entorno así, el uso de hojas de cálculo exigiría duplicar información constantemente (por ejemplo, reescribir datos del alumno en cada curso), carecería de integridad (se podría borrar un profesor pero dejar sus cursos asignados) y seguramente colapsaría cuando varios docentes intentaran capturar calificaciones simultáneamente.
+
+Por el contrario, un uso \textbf{correcto y adecuado} de la hoja de cálculo es el diseño de un presupuesto personal.
+Al planear y organizar el ingreso cotidiano, los gastos recurrentes, el ahorro y los gastos esporádicos, la hoja de cálculo brinda una interfaz fácil y flexible para el usuario común.
+En este caso es ideal pues es una tarea de un solo usuario (no requiere concurrencia), no maneja relaciones complejas de datos, y el formato libre permite ajustar fórmulas gráficamente y al instante para simular distintos escenarios financieros, por lo que tenemos todas las ventajas de este tipo de sistema y ninguna de sus desventajas.
+
+
+
+
+
