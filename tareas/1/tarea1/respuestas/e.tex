@@ -1,1 +1,11 @@
 \item Durante el desarrollo de un nuevo sistema empresarial surge una discusión entre quienes consideran que la base de datos debe diseñarse pensando únicamente en las necesidades actuales y quienes proponen anticipar futuros requerimientos. Analiza esta situación relacionándola con el ciclo de vida de una base de datos y argumenta cómo las decisiones tomadas durante las etapas iniciales pueden influir en el mantenimiento, evolución y costo del sistema a largo plazo.
+
+El diseño de una base de datos puede tener consecuencias a futuro en cuanto a escalabilidad. Si no anticipamos como evolucionará el sistema, puede traer problemas más adelante, sin embargo, lo contrario podría producir un diseño excesivamente complejo.
+
+Podemos partir por el análisis de requerimientos, esta primera etapa de es de vital importancia, pues un análisis incompleto puede provocar que nuestro modelo no contemple información necesaria para futuras funcionalidades, lo que provocará que cuando eventualmente aparezcan, sea necesario modificar tablas, relaciones, restricciones, consultas y en el peor de los casos hasta las propias aplicaciones que hagan uso de la base de datos.
+
+Siguiendo con el ciclo de vida, el diseño conceptual y lógico deben establecer estructuras que permitan mantener la integridad y consistencia de los datos. Un diseño deficiente podría ocasionar redundancia o problemas para implementar nuevas entidades y relaciones, lo que sería todavía más costoso una vez que la base de datos ya se encuentre en producción y con grandes cantidades de datos.
+
+Aquí es importante notar que si bien diseñar pensando en escalabilidad es bueno, tampoco hay que añadir complejidad innecesaria, pues esto aumentará los costos de desarrollo y mantenimiento a la vez que dificultará la comprensión del sistema. Lo mejor sería procurar tener un diseño modular, normalizado y flexible, que sea permisivo con posibles cambios a futuro.
+
+Con lo anterior, es evidente que todas estas decisiones afectan directamente al mantenimiento y costo del sistema a largo plazo. Tener una base de datos bien diseñada facilitará agregar funcionalidades o hacer modificaciones sin afectar significativamente lo que ya existe. La prioridad es tener una base sólida que satisfaga los requerimientos actuales a la vez que permite evolucionar y escalar el sistema.

@@ -1,1 +1,24 @@
-\item A lo largo del tiempo han existido diversos modelos de datos, como el modelo jerárquico, el modelo de red, el modelo relacional, el modelo orientado a objetos y los modelos NoSQL (llave-valor, documento, columnares, grafos). Responde lo siguiente: Elabora una tabla comparativa entre al menos cuatro modelos de datos, destacando sus principales características, ventajas, desventajas y casos de uso típicos. ¿Por qué crees que el modelo relacional se convirtió en el más ampliamente adoptado durante décadas? ¿En qué contextos actuales los modelos NoSQL superan al modelo relacional en eficiencia o flexibilidad? Justifica con ejemplos.
+\item A lo largo del tiempo han existido diversos modelos de datos, como el modelo jerárquico, el modelo de red, el modelo relacional, el modelo orientado a objetos y los modelos NoSQL (llave-valor, documento, columnares, grafos). Responde lo siguiente: Elabora una tabla comparativa entre al menos cuatro modelos de datos, destacando sus principales características, ventajas, desventajas y casos de uso típicos.\cite{mongodb2026types}
+
+\begin{center}
+\begin{tabular}{|p{2cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|p{3.5cm}|}
+ \hline
+ Modelo & Características & Ventajas & Desventajas & Casos de uso típicos \\ \hline
+ Jerárquico & Organización en estructura de árbol & Estructura sencilla y jerarquía fija & Demasiado rigido & Sistemas de archivos y sistemas legacy \\ \hline
+ Relacional & Organiza en tablas formadas por filas y columnas & Gran flexibilidad & No es tan eficiente al escalar horizontalmente & Sistemas de comercio \\ \hline
+ Orientada a Objetos & Representa los datos como objetos propios de la POO & Integración más directa con lenguajes orientados a objetos & Adopción limitada y mayor complejidad de uso & Investigación científica, aplicaciones multimedia \\ \hline
+ De red & Representa los datos como registro conectados mediante relaciones & Bueno para relaciones complejas & Mantenimiento complejo & Sistemas legacy \\ \hline
+ NoSQL Grafo & Representa las entidades como nodos y las relaciones como aristas & Puede recorrer directamente múltiples relaciones debido a su estructura & Es menos conveniente para datos tabulares y algunas operaciones masivas & Redes sociales, sistemas de recomendación \\
+ \hline
+\end{tabular}
+\end{center}
+
+¿Por qué crees que el modelo relacional se convirtió en el más ampliamente adoptado durante décadas?
+
+El modelo relacional se ha convertido en estándar por diversas razones, entre las que se encuentran su simplicidad, flexibilidad y consistencia. Asimismo, el uso de SQL permite consultar los datos de forma declarativa, lo que facilita su uso incluso para gente con experiencia limitada en programación. \cite{ibm_structured_query_language} Por otra parte, las restricciones de integridad permiten mantener la validez y consistencia de las relaciones entre datos, mientras que el uso de transacciones y mecanismos de control de concurrencia permite que múltiples usuarios realicen operaciones simultáneas. Finalmente, la propia popularidad del modelo relacional ha generado un ecosistema maduro de herramientas, estándares y tecnologías, apto para satisfacer gran parte de las necesidades reales.\cite{ibm_referential_integrity}
+
+¿En qué contextos actuales los modelos NoSQL superan al modelo relacional en eficiencia o flexibilidad? Justifica con ejemplos.
+
+Uno de los ejemplos actuales más prominentes es el Big Data, pues incluso manejando cantidades masivas de datos, las bases NoSQL permiten un escalado horizontal a través del \textit{sharding}, lo que permite un manejo distribuido de la información.\cite{ibm_nosql_databases}
+
+Otro contexto en el que los modelos NoSQL son más eficientes son los problemas donde las relaciones son el elemento central, como pueden ser las redes sociales, donde las personas se representarían como nodos y sus relaciones como aristas. Aquí los modelos de grafos resultan más naturales y eficientes que un modelo relacional que usaría numerosas operaciones \code{JOIN}.
