@@ -1,6 +1,9 @@
 **/*.aux
+**/*.out
 **/*.log
 **/*.bbl
 **/*.bcf
 **/*.blg
 **/*.run.xml
+**/*.zip
+**/*nogit*
