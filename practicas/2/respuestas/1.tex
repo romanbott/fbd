@@ -1,3 +1,23 @@
 \item \textbf{Menciona 5 diferencias entre almacenar la información utilizando un sistema de archivos a almacenarla utilizando una base de datos.}
 
+\begin{itemize}
+        \item Tipos de Datos
 
+En una base de datos podemos definir que dato acepta cada columna. En un sistema de archivos podemos poner un tipo de dato diferente al que se espera y no hay reestricción hasta que ocurre un problema de tipos de dato.
+
+        \item Datos repetidos
+
+En un sistema de archivos, el dato de una entidad puede estar en varios archivos. Si se desea cambiar ese dato, se debe cambiar en todos los archivos. En una base de datos, las entidades relacionadas a esta entidad y a ese dato apuntan a un registro único.
+
+        \item Rendimiento en busquedas
+
+Si crece la cantidad de información almacenada, en un sistema de archivos realizar una busqueda es ineficiente pues se tiene que leer linea por linea. Una base de datos utiliza estructuras de datos complejas \parencite{silberschatz2006} para realizar busquedas de un manera más eficiente.
+
+        \item Seguridad
+
+En un sistema de archivos, cualquier persona que tenga acceso a un archivo en específico puede ver y editar todos los datos detro del archivo. En una base de datos tenemos seguridad a nivel de columna, así, ciertos usuarios solo pueden acceder a información de cierta columna de la tabla y no a toda la información de la tabla \parencite{microsoftcls2026}.
+
+        \item Consultas
+
+En un sistema de archivos, cualquier consulta no anticipada requiere la escritura y compilación de nuevos programas de aplicación para extraer los datos. Por el contrario, una base de datos proporciona entornos y lenguajes de consulta declarativos, permitiendo recuperar información específica de manera flexible e inmediata sin necesidad de desarrollar rutinas de búsqueda manuales \parencite{silberschatz2006}.
+\end{itemize}
