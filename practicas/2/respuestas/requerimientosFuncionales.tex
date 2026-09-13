@@ -1,1 +1,36 @@
-\item funcionales...
+\item \textbf{Requerimientos funcionales}
+
+\begin{itemize}
+        \item Gestión de Clientes y Transacciones
+
+Se debe registrar clientes almacenando su nombre completo, fecha de nacimiento, edad, sexo, correos electrónicos y teléfonos.
+
+Se debe emitir y asociar una única tarjeta activa por cliente, procesando un cobro de emisión de \$20.00 MXN y una recarga inicial de \$10.00 MXN.
+
+Se debe registrar recargas de saldo (en múltiplos de 10), guardando la tarjeta, monto, fecha, hora, sucursal y método de abono.
+
+        \item Operatividad de Juegos y Puntajes
+        
+Se debe mantener un catálogo de juegos (nombre, tipo, costo) y registrar el estado operativo de cada máquina por sucursal.
+
+Se debe calcular puntos según el tipo de juego: 1 punto por acierto en Destreza/Disparos, o 20 puntos por quedar en el top 5 en Velocidad/Ritmo.
+
+Se debe contabilizar las visitas únicas por día de cada cliente para otorgar o mantener la categoría VIP al acumular 10 visitas en un mes.
+
+Se debe calcular y otorgar un 10\% de puntos adicionales en cada partida para los clientes que posean la categoría VIP activa.
+
+        \item Gestión de Inventario y Canjes
+        
+Se debe gestionar un inventario de premios por sucursal, clasificándolos por categoría, rango de edad, valor y puntos necesarios.
+
+Se debe procesar canjes validando los puntos mínimos requeridos (20 puntos) y que el premio corresponda a la edad del jugador.
+
+Se debe registrar cada transacción de canje almacenando el jugador, premio, sucursal, fecha, hora, cantidad y actualizando los puntos restantes.
+
+        \item Administración y Recursos Humanos
+        
+Se debe registrar empleados (RFC, CURP, nombre, contacto, contratación, salario) y vincularlos a sus roles operativos específicos.
+
+Se debe registrar bitácoras de mantenimiento de máquinas, almacenando la fecha, el técnico responsable, tipo de mantenimiento y descripción del problema.
+
+\end{itemize}
