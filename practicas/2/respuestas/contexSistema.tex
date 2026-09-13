@@ -1,48 +1,138 @@
 \item \textbf{Compresión del contexto del sistema}
 
 \begin{itemize}
-        \item Cliente:
-        
-        Debe proporcionar sus datos personales (nombre, fecha de nacimiento, edad, sexo, correo y teléfono) para registrarse en el sistema.
 
-Adquiere una única tarjeta de acceso activa por persona.
+          \item ADMINISTRAR — Gerente $\leftrightarrow$ Sucursal — 1:1
+          
+Gerente: total (1,1)
 
-Realiza recargas de saldo (múltiplos de 10) utilizando diferentes métodos de pago.
+Sucursal: parcial (0,1)
 
-Interactúa con las máquinas de juego, lo que genera registros de partidas, puntajes, puntos ganados, fechas y horas.
+          \item PERTENECE — Máquina $\leftrightarrow$ Sucursal — N:1
+          
+Máquina: total (1,1)
 
-Genera un historial de visitas por día; si registra al menos 10 visitas en un mes, el sistema le otorga la categoría VIP.
+Sucursal: parcial (0,N)
 
-Solicita el canje de sus puntos acumulados por premios físicos, los cuales están restringidos por su rango de edad (Infantil, Juvenil, Adulto).
+          \item CONTENER — Máquina $\leftrightarrow$ Juego — N:1
+          
+Máquina: total (1,1)
 
-         \item Cajero:
+Juego: parcial (0,N)
 
-Opera bajo turnos específicos (7 a.m. a 3 p.m. o 3 p.m. a 11 p.m.).
 
-Interactúa directamente con el cliente para concretar la venta inicial de la tarjeta.
+          \item TENER — Cliente $\leftrightarrow$ Tarjeta — 1:1
+          
+Cliente: total (1,1)
 
-Es el único responsable de procesar y reflejar las recargas de saldo en el sistema.
+Tarjeta: total (1,1)
 
-         \item Encargado de Premios:
-         
-Opera bajo los mismos turnos específicos que el cajero.
+          \item EMITIR — Cajero $\leftrightarrow$ Tarjeta — 1:N
+          
+Cajero: parcial (0,N)
 
-Interactúa con el cliente al momento del canje.
+Tarjeta: total (1,1)
 
-Su actividad principal es verificar los puntos disponibles del jugador en el sistema, descontarlos y entregar físicamente los artículos del inventario.
+          \item EFECTUAR — Sucursal $\leftrightarrow$ Recarga — 1:N
+          
+Sucursal: parcial (0,N)
 
-         \item Técnico:
-         
-Cuenta con un área de especialidad (ej. simuladores) y certificaciones técnicas.
+Recarga: total (1,1)
 
-Interactúa exclusivamente con las máquinas de la sucursal.
+          \item RECIBIR — Tarjeta $\leftrightarrow$ Recarga — 1:N
+          
+Tarjeta: parcial (0,N)
 
-Genera bitácoras de mantenimiento, registrando la fecha, el tipo de reparación y la descripción del problema.
+Recarga: total (1,1)
 
-         \item Gerente:
-         
-Requiere el registro de su cédula profesional.
+          \item PROCESAR — Cajero $\leftrightarrow$ Recarga — 1:N
+          
+Cajero: parcial (0,N)
 
-Es el actor administrativo encargado de la gestión general de la sucursal a la que está asignado.
+Recarga: total (1,1)
+
+          \item OCURRIR — Máquina $\leftrightarrow$ Partida — 1:N
+          
+Máquina: parcial (0,N)
+
+Partida: total (1,1)
+
+          \item REGISTRAR — Tarjeta $\leftrightarrow$ Partida — 1:N
+          
+Tarjeta: parcial (0,N)
+
+Partida: total (1,1)
+
+          \item SOLICITAR — Cliente $\leftrightarrow$ Canje — 1:N
+          
+Cliente: parcial (0,N)
+
+Canje: total (1,1)
+
+          \item INCLUIR — Premio $\leftrightarrow$ Canje — 1:N
+          
+Premio: parcial (0,N)
+
+Canje: total (1,1)
+
+          \item PROCESAR — EncargadoDePremios $\leftrightarrow$ Canje — 1:N
+          
+EncargadoDePremios: parcial (0,N)
+
+Canje: total (1,1)
+
+          \item OCURRIR — Sucursal $\leftrightarrow$ Canje — 1:N
+          
+Sucursal: parcial (0,N)
+
+Canje: total (1,1)
+
+          \item REALIZAR — Técnico $\leftrightarrow$ Mantenimiento — 1:N
+          
+Técnico: parcial (0,N)
+
+Mantenimiento: total (1,1)
+
+          \item RECIBIR — Máquina $\leftrightarrow$ Mantenimiento — 1:N
+          
+Máquina: parcial (0,N)
+
+Mantenimiento: total (1,1)
+
+          \item REGISTRAR — Sucursal $\leftrightarrow$ Inventario — 1:N
+          
+Sucursal: parcial (0,N)
+
+Inventario: total (1,1)
+
+          \item CONTENER — Premio $\leftrightarrow$ Inventario — 1:N
+          
+Premio: parcial (0,N)
+
+Inventario: total (1,1)
+
+            \item \textbf{Herencia}
+
+\textbf{SuperEntidad:} Empleado.
+
+Completez: total.
+
+Restricción disyuntiva: Disyunción.
+
+\textbf{SubEntidades:}
+
+Cajero.
+Gerente.
+Técnico.
+Encargado de premios.
+
 \end{itemize}
 
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.7\textwidth]{Diagramas/diagramaPractica02.drawio.png}
+    \caption{Diagrama}
+    \label{fig:etiqueta_imagen}
+\end{figure}
+
+\newpage
