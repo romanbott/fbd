@@ -38,7 +38,7 @@ Módulos de apoyo:
 - `catalogo.py` — registro de entidades; la aplicación las resuelve por la
   clave que viene en la URL.
 - `app.py` — rutas de FastAPI y manejo de excepciones.
-- `plantillas/`, `estaticos/` — formularios HTML y hoja de estilo.
+- `templates/`, `static/` — formularios HTML y hoja de estilo.
 
 ## Decisiones sobre los `.csv`
 
