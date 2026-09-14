@@ -8,12 +8,38 @@ cambios, consultas y validación lo hereda de aquí.
 
 from __future__ import annotations
 
+import os
+import shutil
 from pathlib import Path
 
 from almacen import Almacen, ErrorDeDependencia
 from campos import Campo, ErrorDeValidacion
 
-DIRECTORIO_DATOS = Path(__file__).resolve().parent / "static"
+RAIZ = Path(__file__).resolve().parent
+
+#: Directorio donde el prototipo guarda y lee los .csv en tiempo de ejecución.
+DIRECTORIO_ALMACEN = Path(os.environ.get("STORE_DIR") or RAIZ / "store")
+
+#: Directorio con los .csv de ejemplo que sirven de semilla.
+DIRECTORIO_DEFECTO = Path(
+    os.environ.get("DEFAULT_STORE_DIR") or RAIZ / "default_store"
+)
+
+
+def preparar_almacen() -> None:
+    """Deja listo el directorio de datos, sembrándolo si hace falta.
+
+    Crea el directorio del almacén y, para cada ``.csv`` del directorio de
+    defecto, copia los que todavía no existan. Nunca sobreescribe archivos: si
+    el usuario monta un directorio con sus propios datos, esos se respetan.
+    """
+    DIRECTORIO_ALMACEN.mkdir(parents=True, exist_ok=True)
+    if not DIRECTORIO_DEFECTO.is_dir():
+        return
+    for origen in DIRECTORIO_DEFECTO.glob("*.csv"):
+        destino = DIRECTORIO_ALMACEN / origen.name
+        if not destino.exists():
+            shutil.copy2(origen, destino)
 
 
 class Entidad:
@@ -35,7 +61,7 @@ class Entidad:
         """Devuelve (creándolo la primera vez) el almacén de la entidad."""
         if cls.__dict__.get("_almacen") is None:
             cls._almacen = Almacen(
-                DIRECTORIO_DATOS / cls.ARCHIVO, cls.CAMPOS, cls.LLAVE
+                DIRECTORIO_ALMACEN / cls.ARCHIVO, cls.CAMPOS, cls.LLAVE
             )
         return cls._almacen
 

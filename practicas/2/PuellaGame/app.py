@@ -19,6 +19,7 @@ POST /{entidad}/{llave}/eliminar        Eliminar registro
 
 from __future__ import annotations
 
+from contextlib import asynccontextmanager
 from pathlib import Path
 from urllib.parse import quote
 
@@ -30,14 +31,23 @@ from fastapi.templating import Jinja2Templates
 from almacen import ErrorDeAlmacen, ErrorDeDependencia, RegistroNoEncontrado
 from campos import Campo, ErrorDeValidacion
 from catalogo import ENTIDADES, EntidadDesconocida, entidad_por_clave
-from entidad import Entidad
+from entidad import Entidad, preparar_almacen
 
 DIRECTORIO = Path(__file__).resolve().parent
+
+
+@asynccontextmanager
+async def ciclo_de_vida(app: FastAPI):
+    """Prepara el directorio de datos antes de atender peticiones."""
+    preparar_almacen()
+    yield
+
 
 app = FastAPI(
     title="PuellaGame · prototipo sobre archivos CSV",
     description="Alta, consulta, edición y baja de sucursales, premios y clientes.",
     version="1.0",
+    lifespan=ciclo_de_vida,
 )
 app.mount(
     "/static", StaticFiles(directory=DIRECTORIO / "static"), name="static"

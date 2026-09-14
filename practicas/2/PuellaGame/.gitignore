@@ -85,3 +85,6 @@ dmypy.json
 
 # Visual Studio Code
 # .vscode/
+
+# Datos mutables del prototipo (se siembran desde default_store/)
+/store/
