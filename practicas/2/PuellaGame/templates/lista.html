@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block titulo %}{{ entidad.ETIQUETA_PLURAL }}{% endblock %}
+{% block contenido %}
+  <h1>{{ entidad.ETIQUETA_PLURAL }}</h1>
+  <p class="intro">{{ entidad.DESCRIPCION }}</p>
+
+  <p class="acciones">
+    <a class="boton" href="/{{ entidad.CLAVE }}/nuevo">Agregar {{ entidad.ETIQUETA.lower() }}</a>
+    <a class="boton secundario" href="/{{ entidad.CLAVE }}/consultar">Consultar por llave</a>
+  </p>
+
+  {% if registros %}
+    <div class="tabla-envoltura">
+      <table>
+        <thead>
+          <tr>
+            {% for campo in campos %}<th>{{ campo.etiqueta }}</th>{% endfor %}
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for registro in registros %}
+            <tr>
+              {% for celda in registro.celdas %}<td>{{ celda }}</td>{% endfor %}
+              <td class="acciones-fila">
+                <a href="/{{ entidad.CLAVE }}/{{ registro.llave }}">Ver</a>
+                <a href="/{{ entidad.CLAVE }}/{{ registro.llave }}/editar">Editar</a>
+                <form method="post"
+                      action="/{{ entidad.CLAVE }}/{{ registro.llave }}/eliminar"
+                      onsubmit="return confirm('¿Eliminar el registro {{ registro.llave }}?');">
+                  <button type="submit" class="enlace">Eliminar</button>
+                </form>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="vacio">
+      Todavía no hay registros en <code>{{ entidad.ARCHIVO }}</code>.
+      <a href="/{{ entidad.CLAVE }}/nuevo">Agrega el primero</a>.
+    </p>
+  {% endif %}
+{% endblock %}

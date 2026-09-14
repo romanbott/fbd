@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% block titulo %}Error {{ codigo }}{% endblock %}
+{% block contenido %}
+  <h1>No se pudo completar la operación</h1>
+  <p class="error">{{ mensaje }}</p>
+  <p class="acciones"><a class="boton" href="/">Volver al menú principal</a></p>
+{% endblock %}

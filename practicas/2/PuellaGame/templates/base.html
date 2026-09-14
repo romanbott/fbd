@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block titulo %}PuellaGame{% endblock %} · PuellaGame</title>
+  <link rel="stylesheet" href="/estaticos/estilo.css">
+</head>
+<body>
+  <header>
+    <a class="marca" href="/">PuellaGame</a>
+    <nav>
+      {% for entidad in entidades %}
+        <a href="/{{ entidad.CLAVE }}">{{ entidad.ETIQUETA_PLURAL }}</a>
+      {% endfor %}
+    </nav>
+  </header>
+
+  <main>
+    {% if aviso %}<p class="aviso">{{ aviso }}</p>{% endif %}
+    {% block contenido %}{% endblock %}
+  </main>
+
+  <footer>
+    Prototipo sobre archivos CSV · Fundamentos de Bases de Datos, 2027-I
+  </footer>
+</body>
+</html>

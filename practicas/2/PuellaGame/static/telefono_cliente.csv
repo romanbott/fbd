@@ -1,0 +1,4 @@
+idTelefono,idCliente,telefono,tipo
+1,1,5512345678,Celular
+2,2,5587654321,Celular
+3,2,5555443322,Casa

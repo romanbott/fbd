@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Consultar {{ entidad.ETIQUETA_PLURAL.lower() }}{% endblock %}
+{% block contenido %}
+  <h1>Consultar {{ entidad.ETIQUETA.lower() }}</h1>
+  <p class="intro">
+    Escribe la llave primaria (<code>{{ entidad.LLAVE }}</code>) para ver el
+    registro completo y todos los datos relacionados con él.
+  </p>
+
+  {% if error %}<p class="error">{{ error }}</p>{% endif %}
+
+  <form method="get" action="/{{ entidad.CLAVE }}/consultar" class="formulario angosto" novalidate>
+    <div class="campo">
+      <label for="llave">{{ entidad.LLAVE }}</label>
+      <input id="llave" name="llave" type="number" step="1" value="{{ llave }}" autofocus>
+    </div>
+    <div class="acciones">
+      <button type="submit" class="boton">Consultar</button>
+      <a class="boton secundario" href="/{{ entidad.CLAVE }}">Ver la lista completa</a>
+    </div>
+  </form>
+{% endblock %}

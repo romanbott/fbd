@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block titulo %}{{ titulo }}{% endblock %}
+{% block contenido %}
+  <h1>{{ titulo }}</h1>
+  <p class="intro">{{ entidad.ETIQUETA }} #{{ llave }} de <code>{{ entidad.ARCHIVO }}</code></p>
+
+  <dl class="ficha">
+    {% for etiqueta, valor in datos %}
+      <div><dt>{{ etiqueta }}</dt><dd>{{ valor }}</dd></div>
+    {% endfor %}
+  </dl>
+
+  {% for bloque in bloques %}
+    <h2>{{ bloque.titulo }}</h2>
+    {% if bloque.filas %}
+      <div class="tabla-envoltura">
+        <table>
+          <thead><tr>{% for encabezado in bloque.encabezados %}<th>{{ encabezado }}</th>{% endfor %}</tr></thead>
+          <tbody>
+            {% for fila in bloque.filas %}
+              <tr>{% for celda in fila %}<td>{{ celda }}</td>{% endfor %}</tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    {% else %}
+      <p class="vacio">Sin registros relacionados.</p>
+    {% endif %}
+  {% endfor %}
+
+  <div class="acciones">
+    <a class="boton" href="/{{ entidad.CLAVE }}/{{ llave }}/editar">Editar</a>
+    <form method="post" action="/{{ entidad.CLAVE }}/{{ llave }}/eliminar"
+          onsubmit="return confirm('¿Eliminar el registro {{ llave }}?');">
+      <button type="submit" class="boton secundario">Eliminar</button>
+    </form>
+    <a class="boton secundario" href="/{{ entidad.CLAVE }}">Volver a la lista</a>
+  </div>
+{% endblock %}
