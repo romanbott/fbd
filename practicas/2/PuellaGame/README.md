@@ -10,7 +10,7 @@ empleados).
 
 ```bash
 docker build -t puella .
-docker run -p 8000:8000 puella
+docker run -p 8000:8000 -v "$PWD/store:/store:Z" puella
 ```
 
 Y abrir <http://127.0.0.1:8000>.
