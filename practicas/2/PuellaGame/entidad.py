@@ -185,6 +185,17 @@ class Entidad:
         return registro.get(campo.nombre)
 
     @classmethod
+    def grupos_formulario(cls) -> list[dict]:
+        """Grupos de campos repetibles que se capturan junto con la entidad.
+
+        Cada grupo es un diccionario con ``etiqueta``, ``ayuda`` opcional y
+        ``campos`` (lista de :class:`campos.Campo`). La implementación
+        predeterminada no captura nada y las entidades con atributos
+        multivaluados la sobrescriben.
+        """
+        return []
+
+    @classmethod
     def opciones_llave(cls) -> list[tuple[str, str]]:
         """Pares (llave, descripción) para llenar un <select>."""
         return [

@@ -122,4 +122,19 @@ button.enlace {
   color: var(--acento); text-decoration: underline; cursor: pointer;
 }
 
+/* Grupos repetibles (atributos multivaluados) --------------------------- */
+.grupo-repetible {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 1rem;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+}
+.grupo-repetible legend { font-weight: 600; padding: 0 0.35rem; }
+.grupo-repetible .filas { display: grid; gap: 0.6rem; }
+.grupo-repetible .fila { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: end; }
+.grupo-repetible .fila .campo { flex: 1 1 12rem; }
+.grupo-repetible .quitar-fila { white-space: nowrap; }
+.grupo-repetible .agregar-fila { justify-self: start; }
+
 footer { border-top: 1px solid var(--linea); color: var(--tenue); font-size: 0.85rem; }

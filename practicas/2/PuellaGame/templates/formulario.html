@@ -1,5 +1,34 @@
 {% extends "base.html" %}
 {% block titulo %}{{ titulo }}{% endblock %}
+
+{% macro dibujar_control(campo, valor, opciones, con_error=False, con_id=True) %}
+  <div class="campo{% if con_error %} campo-error{% endif %}">
+    <label{% if con_id %} for="{{ campo.nombre }}"{% endif %}>
+      {{ campo.etiqueta }}{% if not campo.obligatorio %} <span class="opcional">(opcional)</span>{% endif %}
+    </label>
+
+    {% if campo.control_html == 'select' %}
+      <select{% if con_id %} id="{{ campo.nombre }}"{% endif %} name="{{ campo.nombre }}">
+        <option value="">Selecciona…</option>
+        {% for valor_opcion, texto in opciones %}
+          <option value="{{ valor_opcion }}"{% if valor_opcion == valor %} selected{% endif %}>{{ texto }}</option>
+        {% endfor %}
+      </select>
+    {% else %}
+      <input{% if con_id %} id="{{ campo.nombre }}"{% endif %}
+             name="{{ campo.nombre }}"
+             type="{{ campo.control_html }}"
+             value="{{ valor }}"
+             {% if campo.control_html == 'number' %}step="{{ campo.paso_html }}"{% endif %}
+             {% if campo.minimo is not none %}min="{{ campo.minimo }}"{% endif %}
+             {% if campo.maximo is not none %}max="{{ campo.maximo }}"{% endif %}
+             {% if campo.tipo == 'telefono' %}inputmode="numeric"{% endif %}>
+    {% endif %}
+
+    {% if campo.ayuda %}<p class="ayuda">{{ campo.ayuda }}</p>{% endif %}
+  </div>
+{% endmacro %}
+
 {% block contenido %}
   <h1>{{ titulo }}</h1>
 
@@ -7,32 +36,26 @@
 
   <form method="post" action="{{ accion }}" class="formulario" novalidate>
     {% for control in controles %}
-      {% set campo = control.campo %}
-      <div class="campo{% if campo.nombre == campo_con_error %} campo-error{% endif %}">
-        <label for="{{ campo.nombre }}">
-          {{ campo.etiqueta }}{% if not campo.obligatorio %} <span class="opcional">(opcional)</span>{% endif %}
-        </label>
+      {{ dibujar_control(campo=control.campo, valor=control.valor, opciones=control.opciones,
+                         con_error=(control.campo.nombre == campo_con_error)) }}
+    {% endfor %}
 
-        {% if campo.control_html == 'select' %}
-          <select id="{{ campo.nombre }}" name="{{ campo.nombre }}">
-            <option value="">Selecciona…</option>
-            {% for valor, texto in control.opciones %}
-              <option value="{{ valor }}"{% if valor == control.valor %} selected{% endif %}>{{ texto }}</option>
-            {% endfor %}
-          </select>
-        {% else %}
-          <input id="{{ campo.nombre }}"
-                 name="{{ campo.nombre }}"
-                 type="{{ campo.control_html }}"
-                 value="{{ control.valor }}"
-                 {% if campo.control_html == 'number' %}step="{{ campo.paso_html }}"{% endif %}
-                 {% if campo.minimo is not none %}min="{{ campo.minimo }}"{% endif %}
-                 {% if campo.maximo is not none %}max="{{ campo.maximo }}"{% endif %}
-                 {% if campo.tipo == 'telefono' %}inputmode="numeric"{% endif %}>
-        {% endif %}
-
-        {% if campo.ayuda %}<p class="ayuda">{{ campo.ayuda }}</p>{% endif %}
-      </div>
+    {% for grupo in grupos %}
+      <fieldset class="grupo-repetible">
+        <legend>{{ grupo.etiqueta }}{% if grupo.ayuda %} <span class="opcional">{{ grupo.ayuda }}</span>{% endif %}</legend>
+        <div class="filas">
+          {% for fila in grupo.filas %}
+            <div class="fila">
+              {% for control in fila %}
+                {{ dibujar_control(campo=control.campo, valor=control.valor, opciones=control.opciones,
+                                   con_error=(control.campo.nombre == campo_con_error), con_id=False) }}
+              {% endfor %}
+              <button type="button" class="boton secundario quitar-fila">Quitar</button>
+            </div>
+          {% endfor %}
+        </div>
+        <button type="button" class="boton secundario agregar-fila">+ Agregar</button>
+      </fieldset>
     {% endfor %}
 
     <div class="acciones">
@@ -41,3 +64,5 @@
     </div>
   </form>
 {% endblock %}
+
+{% block scripts %}<script src="/static/multivaluados.js" defer></script>{% endblock %}

@@ -75,7 +75,10 @@ Módulos de apoyo:
   datos más adelante.
 - Los atributos **multivaluados** del cliente (correos y teléfonos) no caben en
   una columna, así que viven en su propio archivo con una llave foránea
-  `idCliente`, que es como quedarán en el modelo relacional.
+  `idCliente`, que es como quedarán en el modelo relacional. El alta de un
+  cliente pide al menos un correo y un teléfono (con un botón para agregar más
+  y, en el caso del teléfono, su tipo); el formulario valida **todo** antes de
+  escribir y luego reparte cada valor en su archivo correspondiente.
 - El atributo **compuesto** `Direccion` de la sucursal se guarda desglosado en
   columnas (`calle`, `numExterior`, `numInterior`, `colonia`, `estado`).
 - `Inventario` es la relación entre sucursal y premio: la cantidad disponible

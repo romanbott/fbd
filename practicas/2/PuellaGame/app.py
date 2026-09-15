@@ -88,6 +88,56 @@ def _valores_texto(entidad: type[Entidad], registro: dict) -> dict:
     }
 
 
+def _lista(valores, nombre: str) -> list[str]:
+    """Extrae los valores repetidos de un campo del formulario.
+
+    valores puede ser un FormData (con getlist) o un diccionario normal.
+    """
+    if hasattr(valores, "getlist"):
+        return list(valores.getlist(nombre))
+    valor = valores.get(nombre, "")
+    if isinstance(valor, list):
+        return valor
+    return [valor] if valor else []
+
+
+def _grupos(entidad: type[Entidad], valores) -> list[dict]:
+    """Prepara las filas repetibles que la plantilla dibuja bajo el formulario."""
+    grupos = []
+    for grupo in entidad.grupos_formulario():
+        campos = grupo["campos"]
+        listas = {campo.nombre: _lista(valores, campo.nombre) for campo in campos}
+        numero_filas = max((len(lista) for lista in listas.values()), default=0)
+        numero_filas = max(numero_filas, 1)
+        grupos.append(
+            {
+                "etiqueta": grupo["etiqueta"],
+                "ayuda": grupo.get("ayuda", ""),
+                "campos": campos,
+                "filas": [
+                    [
+                        {
+                            "campo": campo,
+                            "valor": (
+                                listas[campo.nombre][indice]
+                                if indice < len(listas[campo.nombre])
+                                else ""
+                            ),
+                            "opciones": (
+                                [(opcion, opcion) for opcion in campo.opciones]
+                                if campo.tipo == "opcion"
+                                else []
+                            ),
+                        }
+                        for campo in campos
+                    ]
+                    for indice in range(numero_filas)
+                ],
+            }
+        )
+    return grupos
+
+
 def _pagina(request: Request, plantilla: str, **contexto) -> HTMLResponse:
     """Renderiza una plantilla agregando el contexto común a todas las páginas."""
     contexto.setdefault("entidades", ENTIDADES)
@@ -98,11 +148,12 @@ def _pagina(request: Request, plantilla: str, **contexto) -> HTMLResponse:
 def _formulario(
     request: Request,
     entidad: type[Entidad],
-    valores: dict,
+    valores,
     accion: str,
     titulo: str,
     error: str = "",
     campo_con_error: str = "",
+    con_grupos: bool = False,
     codigo: int = 200,
 ) -> HTMLResponse:
     """Dibuja el formulario de alta o de edición de una entidad."""
@@ -111,6 +162,7 @@ def _formulario(
         "formulario.html",
         entidad=entidad,
         controles=_controles(entidad, valores),
+        grupos=_grupos(entidad, valores) if con_grupos else [],
         accion=accion,
         titulo=titulo,
         error=error,
@@ -210,6 +262,7 @@ async def formulario_de_alta(request: Request, clave: str):
         {},
         accion=f"/{clave}/nuevo",
         titulo=f"Agregar {entidad.ETIQUETA.lower()}",
+        con_grupos=True,
     )
 
 
@@ -217,7 +270,7 @@ async def formulario_de_alta(request: Request, clave: str):
 async def agregar(request: Request, clave: str):
     """Da de alta un registro con los datos del formulario."""
     entidad = entidad_por_clave(clave)
-    formulario = dict(await request.form())
+    formulario = await request.form()
     try:
         registro = entidad.agregar(formulario)
     except ErrorDeValidacion as error:
@@ -229,6 +282,7 @@ async def agregar(request: Request, clave: str):
             titulo=f"Agregar {entidad.ETIQUETA.lower()}",
             error=error.mensaje,
             campo_con_error=error.campo,
+            con_grupos=True,
             codigo=422,
         )
     aviso = (
@@ -298,7 +352,7 @@ async def formulario_de_edicion(request: Request, clave: str, llave: int):
 async def editar(request: Request, clave: str, llave: int):
     """Guarda los cambios hechos sobre un registro."""
     entidad = entidad_por_clave(clave)
-    formulario = dict(await request.form())
+    formulario = await request.form()
     try:
         entidad.editar(llave, formulario)
     except ErrorDeValidacion as error:

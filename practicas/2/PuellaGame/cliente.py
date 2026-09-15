@@ -11,7 +11,7 @@ from __future__ import annotations
 
 from datetime import date
 
-from campos import Campo
+from campos import Campo, ErrorDeValidacion
 from entidad import Entidad
 
 #: Valores de sexo contemplados en el caso de uso.
@@ -30,6 +30,13 @@ class Cliente(Entidad):
 
     #: Campo de presentación: no se guarda, se calcula desde fechaNacimiento.
     EDAD = Campo("edad", "Edad", "entero")
+
+    #: Campos de los atributos multivaluados que se capturan en el alta.
+    CORREO = Campo("correo", "Correo electrónico", "correo")
+    TELEFONO = Campo("telefono", "Teléfono", "telefono")
+    TIPO_TELEFONO = Campo(
+        "tipo", "Tipo", "opcion", opciones=("Celular", "Casa", "Trabajo")
+    )
 
     CAMPOS = [
         Campo("idCliente", "Id de cliente", "entero", automatico=True),
@@ -74,6 +81,79 @@ class Cliente(Entidad):
         if campo is cls.EDAD:
             return cls.edad(registro)
         return registro.get(campo.nombre)
+
+    @classmethod
+    def grupos_formulario(cls) -> list[dict]:
+        """Correos y teléfonos que se capturan al dar de alta un cliente."""
+        return [
+            {
+                "etiqueta": "Correos electrónicos",
+                "ayuda": "Se requiere al menos uno.",
+                "campos": [cls.CORREO],
+            },
+            {
+                "etiqueta": "Teléfonos",
+                "ayuda": "Se requiere al menos uno.",
+                "campos": [cls.TELEFONO, cls.TIPO_TELEFONO],
+            },
+        ]
+
+    @classmethod
+    def _multivaluados(cls, formulario) -> tuple[list[str], list[tuple[str, str]]]:
+        """Valida los correos y teléfonos capturados en el formulario.
+
+        Devuelve los correos y los pares (teléfono, tipo) ya convertidos. No
+        escribe nada: sirve para comprobar que la operación completa sea
+        posible antes de tocar los ``.csv``.
+
+        ErrorDeValidacion: si falta un correo o un teléfono, o si alguno no
+        respeta su formato.
+        """
+        correos = [
+            cls.CORREO.convertir(texto)
+            for texto in formulario.getlist("correo")
+            if texto.strip()
+        ]
+        numeros = formulario.getlist("telefono")
+        tipos = formulario.getlist("tipo")
+        telefonos = []
+        for indice, numero in enumerate(numeros):
+            if not numero.strip():
+                continue
+            tipo = tipos[indice] if indice < len(tipos) else ""
+            telefonos.append(
+                (cls.TELEFONO.convertir(numero), cls.TIPO_TELEFONO.convertir(tipo))
+            )
+        if not correos:
+            raise ErrorDeValidacion("Debes indicar al menos un correo.", "correo")
+        if not telefonos:
+            raise ErrorDeValidacion(
+                "Debes indicar al menos un teléfono.", "telefono"
+            )
+        return correos, telefonos
+
+    @classmethod
+    def agregar(cls, formulario) -> dict:
+        """Da de alta un cliente junto con sus correos y teléfonos.
+
+        Primero valida todo, incluidos los atributos multivaluados; solo si
+        todo es válido escribe el cliente y sus registros relacionados. Así un
+        correo mal formado no deja un cliente a medias.
+        """
+        from correo_cliente import CorreoCliente
+        from telefono_cliente import TelefonoCliente
+
+        datos = cls.convertir(formulario)
+        correos, telefonos = cls._multivaluados(formulario)
+        registro = cls.almacen().agregar(datos)
+        llave = registro[cls.LLAVE]
+        for correo in correos:
+            CorreoCliente.almacen().agregar({"idCliente": llave, "correo": correo})
+        for telefono, tipo in telefonos:
+            TelefonoCliente.almacen().agregar(
+                {"idCliente": llave, "telefono": telefono, "tipo": tipo}
+            )
+        return registro
 
     @classmethod
     def describir(cls, registro: dict) -> str:
