@@ -1,0 +1,5 @@
+idInventario,idSucursal,idPremio,cantidadDisponible
+1,1,1,250
+2,1,2,12
+3,2,1,80
+4,2,3,4

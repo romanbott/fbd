@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+  <h1>Captura de información</h1>
+  <p class="intro">
+    Cada entidad se guarda en su propio archivo <code>.csv</code>. Elige una para
+    agregar, consultar, editar o eliminar registros.
+  </p>
+
+  <ul class="tarjetas">
+    {% for fila in resumen %}
+      <li>
+        <h2><a href="/{{ fila.entidad.CLAVE }}">{{ fila.entidad.ETIQUETA_PLURAL }}</a></h2>
+        <p>{{ fila.entidad.DESCRIPCION }}</p>
+        <p class="meta">
+          {{ fila.total }} registro{{ '' if fila.total == 1 else 's' }} en
+          <code>{{ fila.entidad.ARCHIVO }}</code>
+        </p>
+      </li>
+    {% endfor %}
+  </ul>
+{% endblock %}

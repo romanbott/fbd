@@ -1,0 +1,140 @@
+/* Hoja de estilo mínima: centrado, tamaños y legibilidad. */
+
+:root {
+  --texto: #1c1c1c;
+  --tenue: #5f5f5f;
+  --linea: #d8d8d8;
+  --fondo: #ffffff;
+  --acento: #3b2d8f;
+  --alerta: #a32020;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  color: var(--texto);
+  background: var(--fondo);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+header, main, footer {
+  max-width: 62rem;
+  margin: 0 auto;
+  padding: 1rem 1.25rem;
+}
+
+header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.25rem;
+  align-items: baseline;
+  border-bottom: 1px solid var(--linea);
+}
+
+.marca { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--texto); }
+header nav { display: flex; flex-wrap: wrap; gap: 1rem; }
+header nav a { color: var(--tenue); text-decoration: none; }
+header nav a:hover, .marca:hover { color: var(--acento); }
+
+main { min-height: 60vh; padding-bottom: 3rem; }
+
+h1 { font-size: 1.6rem; margin: 1.5rem 0 0.25rem; }
+h2 { font-size: 1.15rem; margin: 2rem 0 0.5rem; }
+.intro, .meta, .ayuda, .vacio { color: var(--tenue); }
+.intro { margin-top: 0; max-width: 60ch; }
+.ayuda, .meta { font-size: 0.85rem; }
+
+a { color: var(--acento); }
+code { background: #f2f2f4; padding: 0.05em 0.35em; border-radius: 3px; font-size: 0.9em; }
+
+/* Avisos ---------------------------------------------------------------- */
+.aviso, .error {
+  margin: 1rem 0 0;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--acento);
+  background: #f4f3fb;
+}
+.error { border-color: var(--alerta); background: #fdf1f1; color: var(--alerta); }
+
+/* Tarjetas del menú ----------------------------------------------------- */
+.tarjetas { list-style: none; margin: 1.5rem 0; padding: 0; display: grid; gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr)); }
+.tarjetas li { border: 1px solid var(--linea); border-radius: 6px; padding: 1rem; }
+.tarjetas h2 { margin: 0 0 0.35rem; font-size: 1.05rem; }
+.tarjetas p { margin: 0.25rem 0; }
+
+/* Tablas ---------------------------------------------------------------- */
+.tabla-envoltura { overflow-x: auto; margin: 1rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: 0.92rem; }
+th, td { text-align: left; padding: 0.5rem 0.7rem; border-bottom: 1px solid var(--linea); vertical-align: top; }
+th { font-weight: 600; white-space: nowrap; }
+
+.acciones-fila { display: flex; gap: 0.75rem; white-space: nowrap; }
+.acciones-fila form { display: inline; }
+
+/* Ficha de detalle ------------------------------------------------------ */
+.ficha { display: grid; gap: 0.5rem 2rem; grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  margin: 1.25rem 0; }
+.ficha div { border-bottom: 1px solid var(--linea); padding-bottom: 0.4rem; }
+.ficha dt { font-size: 0.8rem; color: var(--tenue); }
+.ficha dd { margin: 0.15rem 0 0; }
+
+/* Formularios ----------------------------------------------------------- */
+.formulario { display: grid; gap: 1rem; max-width: 34rem; margin: 1.25rem 0; }
+.formulario.angosto { max-width: 20rem; }
+.campo { display: grid; gap: 0.25rem; }
+label { font-size: 0.9rem; font-weight: 600; }
+.opcional { font-weight: 400; color: var(--tenue); }
+input, select {
+  width: 100%;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+  border: 1px solid #a9a9b2;
+  border-radius: 4px;
+  background: #fff;
+}
+input:focus-visible, select:focus-visible, button:focus-visible, a:focus-visible {
+  outline: 2px solid var(--acento);
+  outline-offset: 2px;
+}
+.campo-error input, .campo-error select { border-color: var(--alerta); }
+.ayuda { margin: 0; }
+
+/* Botones --------------------------------------------------------------- */
+.acciones { display: flex; flex-wrap: wrap; gap: 0.75rem; align-items: center; margin: 1.25rem 0; }
+.acciones form { margin: 0; }
+.boton {
+  display: inline-block;
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--acento);
+  border-radius: 4px;
+  background: var(--acento);
+  color: #fff;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+.boton.secundario { background: #fff; color: var(--acento); }
+.boton:hover { filter: brightness(1.1); }
+button.enlace {
+  border: 0; background: none; padding: 0; font: inherit;
+  color: var(--acento); text-decoration: underline; cursor: pointer;
+}
+
+/* Grupos repetibles (atributos multivaluados) --------------------------- */
+.grupo-repetible {
+  display: grid;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem 1rem;
+  border: 1px solid var(--linea);
+  border-radius: 6px;
+}
+.grupo-repetible legend { font-weight: 600; padding: 0 0.35rem; }
+.grupo-repetible .filas { display: grid; gap: 0.6rem; }
+.grupo-repetible .fila { display: flex; flex-wrap: wrap; gap: 0.6rem; align-items: end; }
+.grupo-repetible .fila .campo { flex: 1 1 12rem; }
+.grupo-repetible .quitar-fila { white-space: nowrap; }
+.grupo-repetible .agregar-fila { justify-self: start; }
+
+footer { border-top: 1px solid var(--linea); color: var(--tenue); font-size: 0.85rem; }
