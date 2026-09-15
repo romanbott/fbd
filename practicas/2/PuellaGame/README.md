@@ -2,18 +2,39 @@
 
 Aplicación web (Python + FastAPI) que captura y consulta la información de
 **sucursales, premios y clientes** del caso de uso, guardándola en archivos
-`.csv`. Es una implementación parcial: se omite todo lo que no cuelga de esas
+`.csv`. Es una implementación parcial: se omite todo lo que no dependa de esas
 tres entidades (tarjetas, recargas, partidas, canjes, juegos, máquinas y
 empleados).
 
 ## Cómo ejecutarlo
 
+### Con Docker
+
 ```bash
-docker build -t puella .
-docker run -p 8000:8000 puella
+docker build -t puella_doblescomillas:v0.1 .
+docker run -p 8000:8000 puella_doblescomillas:v0.1
 ```
 
-Y abrir <http://127.0.0.1:8000>.
+### En local (Python + venv)
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate        # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+python -m uvicorn app:app
+```
+
+O en Linux/macOS se puede usar el script `run.sh`
+que crea el entorno virtual si no existe, instala las dependencias y
+arranca el servidor:
+
+```bash
+./run.sh
+PORT=8080 ./run.sh          # otro puerto
+```
+
+Abre <http://127.0.0.1:8000> (o el puerto elegido). Los datos se crean en
+`store/` y se siembran desde `default_store/`.
 
 ## Dónde viven los `.csv`
 
@@ -21,8 +42,8 @@ Los datos se guardan en un directorio separado del código:
 
 - **`store/`** — datos en tiempo de ejecución. Es donde el prototipo lee y
   escribe. Al arrancar, si un `.csv` no existe aquí, se copia desde el
-  directorio de defecto; los archivos que ya existan **nunca** se sobreescriben.
-- **`default_store/`** — los `.csv` de ejemplo que sirven de semilla.
+  directorio `default_store`; los archivos que ya existan **nunca** se sobreescriben.
+- **`default_store/`** — los `.csv` de ejemplo que sirven de prueba.
 
 Las rutas se configuran con las variables de entorno `STORE_DIR` y
 `DEFAULT_STORE_DIR`. En el contenedor son `/store` y `/default_store`; sin
@@ -31,15 +52,13 @@ Docker se usan `store/` y `default_store/` dentro del repositorio.
 Esto permite persistir los datos montando `store/`:
 
 ```bash
-# Con un directorio del host (si está vacío se siembra desde default_store)
-docker run -p 8000:8000 -v "$PWD/mis_datos:/store" puella
+# Con un directorio del host
+mkdir store
+docker run -p 8000:8000 -v "$PWD/store:/store" puella_doblescomillas:v0.1
 
 # Con un volumen con nombre
-docker run -p 8000:8000 -v puella_datos:/store puella
+docker run -p 8000:8000 -v puella_datos:/store puella_doblescomillas:v0.1
 ```
-
-El contenedor corre como `root` para que los bind mounts funcionen sin ajustar
-permisos. Con Podman rootless, un usuario no-root necesitaría `--userns=keep-id`.
 
 ## Estructura
 
@@ -71,7 +90,7 @@ Módulos de apoyo:
 
 - Cada entidad tiene su propio archivo, con encabezados en la primera línea y
   una llave primaria entera (`idSucursal`, `idPremio`, …) que genera el
-  almacén. Así el contenido se puede volcar tal cual a las tablas de la base de
+  almacén. Así el contenido se puede pasar sin cambios a las tablas de la base de
   datos más adelante.
 - Los atributos **multivaluados** del cliente (correos y teléfonos) no caben en
   una columna, así que viven en su propio archivo con una llave foránea
