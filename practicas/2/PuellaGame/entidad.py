@@ -167,6 +167,24 @@ class Entidad:
         return f"{registro[cls.LLAVE]}"
 
     @classmethod
+    def campos_visor(cls) -> list[Campo]:
+        """Campos que se muestran en listas y fichas.
+
+        Por defecto son los mismos que se almacenan. Las entidades que además
+        quieran mostrar valores derivados (no guardados) pueden sobrescribirlo.
+        """
+        return list(cls.CAMPOS)
+
+    @classmethod
+    def valor_visor(cls, campo: Campo, registro: dict):
+        """Valor que se muestra para un campo de ``campos_visor``.
+
+        Por defecto es el valor guardado. Las entidades con valores derivados
+        sobrescriben esto para calcularlos a partir del registro.
+        """
+        return registro.get(campo.nombre)
+
+    @classmethod
     def opciones_llave(cls) -> list[tuple[str, str]]:
         """Pares (llave, descripción) para llenar un <select>."""
         return [

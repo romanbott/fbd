@@ -181,17 +181,18 @@ async def inicio(request: Request):
 async def listar(request: Request, clave: str):
     """Muestra todos los registros de una entidad."""
     entidad = entidad_por_clave(clave)
+    campos = entidad.campos_visor()
     return _pagina(
         request,
         "lista.html",
         entidad=entidad,
-        campos=entidad.CAMPOS,
+        campos=campos,
         registros=[
             {
                 "llave": registro[entidad.LLAVE],
                 "celdas": [
-                    campo.a_visual(registro.get(campo.nombre))
-                    for campo in entidad.CAMPOS
+                    campo.a_visual(entidad.valor_visor(campo, registro))
+                    for campo in campos
                 ],
             }
             for registro in entidad.listar()
@@ -272,8 +273,8 @@ async def ver(request: Request, clave: str, llave: int):
         llave=llave,
         titulo=entidad.describir(registro),
         datos=[
-            (campo.etiqueta, campo.a_visual(registro.get(campo.nombre)))
-            for campo in entidad.CAMPOS
+            (campo.etiqueta, campo.a_visual(entidad.valor_visor(campo, registro)))
+            for campo in entidad.campos_visor()
         ],
         bloques=entidad.relacionados(registro),
     )

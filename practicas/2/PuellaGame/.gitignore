@@ -88,3 +88,4 @@ dmypy.json
 
 # Datos mutables del prototipo (se siembran desde default_store/)
 /store/
+/mis_datos/

@@ -9,6 +9,8 @@ base de datos. Archivo asociado: ``cliente.csv``.
 
 from __future__ import annotations
 
+from datetime import date
+
 from campos import Campo
 from entidad import Entidad
 
@@ -26,13 +28,15 @@ class Cliente(Entidad):
     LLAVE = "idCliente"
     DESCRIPCION = "Datos personales de los jugadores registrados."
 
+    #: Campo de presentación: no se guarda, se calcula desde fechaNacimiento.
+    EDAD = Campo("edad", "Edad", "entero")
+
     CAMPOS = [
         Campo("idCliente", "Id de cliente", "entero", automatico=True),
         Campo("nombres", "Nombre(s)"),
         Campo("apellidoPaterno", "Apellido paterno"),
         Campo("apellidoMaterno", "Apellido materno", obligatorio=False),
         Campo("fechaNacimiento", "Fecha de nacimiento", "fecha"),
-        Campo("edad", "Edad", "entero", minimo=0, maximo=120),
         Campo("sexo", "Sexo", "opcion", opciones=SEXOS),
         Campo(
             "esVIP",
@@ -42,6 +46,34 @@ class Cliente(Entidad):
             ayuda="Se obtiene con 10 visitas en un mismo mes.",
         ),
     ]
+
+    @classmethod
+    def edad(cls, registro: dict) -> int | None:
+        """Calcula los años cumplidos a partir de fechaNacimiento."""
+        nacimiento = registro.get("fechaNacimiento")
+        if nacimiento is None:
+            return None
+        hoy = date.today()
+        return hoy.year - nacimiento.year - (
+            (hoy.month, hoy.day) < (nacimiento.month, nacimiento.day)
+        )
+
+    @classmethod
+    def campos_visor(cls) -> list[Campo]:
+        """Muestra la edad calculada justo después de la fecha de nacimiento."""
+        campos: list[Campo] = []
+        for campo in cls.CAMPOS:
+            campos.append(campo)
+            if campo.nombre == "fechaNacimiento":
+                campos.append(cls.EDAD)
+        return campos
+
+    @classmethod
+    def valor_visor(cls, campo: Campo, registro: dict):
+        """Devuelve la edad calculada para el campo Edad."""
+        if campo is cls.EDAD:
+            return cls.edad(registro)
+        return registro.get(campo.nombre)
 
     @classmethod
     def describir(cls, registro: dict) -> str:

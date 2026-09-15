@@ -15,9 +15,36 @@ docker run -p 8000:8000 puella
 
 Y abrir <http://127.0.0.1:8000>.
 
+## Dónde viven los `.csv`
+
+Los datos se guardan en un directorio separado del código:
+
+- **`store/`** — datos en tiempo de ejecución. Es donde el prototipo lee y
+  escribe. Al arrancar, si un `.csv` no existe aquí, se copia desde el
+  directorio de defecto; los archivos que ya existan **nunca** se sobreescriben.
+- **`default_store/`** — los `.csv` de ejemplo que sirven de semilla.
+
+Las rutas se configuran con las variables de entorno `STORE_DIR` y
+`DEFAULT_STORE_DIR`. En el contenedor son `/store` y `/default_store`; sin
+Docker se usan `store/` y `default_store/` dentro del repositorio.
+
+Esto permite persistir los datos montando `store/`:
+
+```bash
+# Con un directorio del host (si está vacío se siembra desde default_store)
+docker run -p 8000:8000 -v "$PWD/mis_datos:/store" puella
+
+# Con un volumen con nombre
+docker run -p 8000:8000 -v puella_datos:/store puella
+```
+
+El contenedor corre como `root` para que los bind mounts funcionen sin ajustar
+permisos. Con Podman rootless, un usuario no-root necesitaría `--userns=keep-id`.
+
 ## Estructura
 
-Un módulo por clase, cada uno con su archivo `.csv` del mismo nombre:
+Un módulo por clase, cada uno con su archivo `.csv` del mismo nombre (los de
+ejemplo están en `default_store/`, los de trabajo en `store/`):
 
 | Módulo                 | Archivo                  | Contenido                                        |
 | ---------------------- | ------------------------ | ------------------------------------------------ |
