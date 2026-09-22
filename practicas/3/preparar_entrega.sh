@@ -7,28 +7,24 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
-OUTPUT_ZIP="$PWD/Practica02_DoblesComillas.zip"
+OUTPUT_ZIP="$PWD/Practica03_DoblesComillas.zip"
 
-APP_DIR="$SCRIPT_DIR/PuellaGame"
-DOC_PDF="$SCRIPT_DIR/practica02.pdf"
+DOC_PDF="$SCRIPT_DIR/practica03.pdf"
 README_PDF="$SCRIPT_DIR/../../README_DoblesComillas.pdf"
 
 TMP="$(mktemp -d /tmp/preparar_entrega.XXXXXX)"
 trap 'rm -rf "$TMP"' EXIT
 
 echo "Preparando entregables en $TMP ..."
-mkdir -p "$TMP/SRC" "$TMP/Doc"
+mkdir -p "$TMP/SRC" "$TMP/Doc" "$TMP/Diagramas"
 
-# Codigo fuente de la aplicacion (se excluyen artefactos y datos de runtime)
-rsync -a \
-    --exclude '__pycache__' \
-    --exclude '.venv' \
-    --exclude 'store' \
-    "$APP_DIR/." "$TMP/SRC/"
+cp Diagramas/diagramaPractica02.drawio "$TMP/Diagramas/ERDoblesComillas.drawio"
+cp Diagramas/diagramaPractica02.drawio.png "$TMP/Diagramas/ERDoblesComillas.png"
+
 
 
 # Documento compilado
-cp "$DOC_PDF" "$TMP/Doc/Practica02.pdf"
+cp "$DOC_PDF" "$TMP/Doc/Practica03.pdf"
 
 # PDF del README (misma ruta relativa que usaba el script original)
 if [ -f "$README_PDF" ]; then
@@ -38,7 +34,7 @@ else
 fi
 
 # Empaquetar desde el temp para no arrastrar prefijos de ruta
-ZIP_ITEMS=(SRC Doc)
+ZIP_ITEMS=(Doc Diagramas)
 [ -f "$TMP/README_DoblesComillas.pdf" ] && ZIP_ITEMS+=(README_DoblesComillas.pdf)
 
 rm -f "$OUTPUT_ZIP"

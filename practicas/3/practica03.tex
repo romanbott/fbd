@@ -37,7 +37,7 @@
 
 \tcbuselibrary{breakable}
 
-\newcommand{\marcaOriginal}{\textnormal{\small\textcolor{black!55}{(de Explicación.pdf)}}}
+\newcommand{\marcaOriginal}{}
 \newcommand{\marcaPropuesta}{\textnormal{\small\textcolor{propcolor}{(propuesta)}}}
 
 \newtcolorbox{cajapropuesta}{
@@ -160,29 +160,63 @@ El presente documento describe y justifica el modelo entidad-relación extendido
 construido a partir de las especificaciones del caso de uso del centro de entretenimiento
 familiar ``PuellaGame''. Para el modelado se emplearon los conceptos del modelo EER
 ---entidades, atributos, relaciones, cardinalidades, participación y generalización/
-especialización--- tal como se presentan en \parencite{silberschatz2006}. Cada decisión de
-diseño se justifica con base en los requerimientos del caso, indicando explícitamente
-cuando una justificación proviene del documento previo \emph{Explicación.pdf}
-\marcaOriginal{} y cuando se trata de una mejora propuesta por el equipo
-\marcaPropuesta{}.
+especialización--- tal como se presentan en \parencite{silberschatz2006}.
 % <<< PROPUESTA (a revisar)
 
-% ==========================================
-% Diagrama
-% ==========================================
-\subsection*{Diagrama Entidad-Relación}
+\subsection*{Justificación de las entidades}
 
-\begin{figure}[htbp]
-	\makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{Diagramas/diagramaPractica02.drawio.png}}
-	\caption{Modelo entidad-relación extendido del centro de entretenimiento familiar PuellaGame.}
-	\label{fig:diagrama_er}
-\end{figure}
+Cada entidad del diagrama responde a un requerimiento explícito del caso de uso:
+
+\begin{itemize}
+	\item \emph{Sucursal}, \emph{Máquina} y \emph{Juego}: el caso pide almacenar las
+	      sucursales, las máquinas (con su estado) y el catálogo de juegos que posee el
+	      centro.
+	\item \emph{Cliente} y \emph{Tarjeta}: se requiere registrar al cliente para asociarle
+	      una tarjeta de acceso (una sola activa) con la que paga y acumula puntos.
+	\item \emph{Recarga} y \emph{Partida}: se debe llevar registro de cada recarga y de cada
+	      partida (puntaje, puntos ganados, fecha y hora).
+	\item \emph{Premio}, \emph{Inventario} y \emph{Canje}: se deben administrar los premios,
+	      su disponibilidad por sucursal y cada canje efectuado.
+	\item \emph{Mantenimiento}: se debe registrar cada mantenimiento con fecha, tipo y
+	      descripción del problema.
+	\item \emph{Empleado} (con sus subentidades): el caso exige registrar al personal y sus
+	      roles (gerente, cajero, técnico y encargado de premios).
+\end{itemize}
+
+
+
+\subsection*{Justificación de los atributos}
+
+\begin{itemize}
+	\item \textbf{Compuestos:} \emph{NombreCompleto} (nombres, apellido paterno, apellido
+	      materno) y \emph{Dirección} (calle, número interior, número exterior, colonia,
+	      estado) agrupan datos que siempre se consultan juntos.
+	\item \textbf{Multivaluados:} \emph{Correos}, \emph{Teléfonos} y
+	      \emph{Certificaciones}, ya que el caso permite varios valores por registro.
+	\item \textbf{Derivados:} \emph{Edad} se obtiene de \emph{FechaNacimiento} y
+	      \emph{esVIP} se deduce del conteo de visitas del jugador; \emph{CantidadDisponible}
+	      se deriva de los movimientos de inventario.
+	\item \textbf{Claves:} \emph{RFC} y \emph{CURP} identifican de forma natural a un
+	      empleado; el resto de las entidades usa identificadores sustitutos
+	      (\emph{idCliente}, \emph{idTarjeta}, \emph{idPartida}, \emph{idCanje},
+	      \emph{idRecarga}, \emph{idMantenimiento}) que evitan ambigüedad y facilitan las
+	      referencias.
+\end{itemize}
+
+\subsection*{Entidades débiles y asociativas}
+
+\emph{Inventario} no posee clave propia: queda identificado por la pareja
+(\emph{Sucursal}, \emph{Premio}) y su único atributo descriptivo es
+\emph{CantidadDisponible}, por lo que puede modelarse como entidad débil dependiente de
+\emph{Sucursal}. Las entidades \emph{Canje}, \emph{Partida}, \emph{Recarga} y
+\emph{Mantenimiento} cuentan con identificador sustituto propio y funcionan como entidades
+asociativas que materializan el histórico de operaciones.
 
 % ==========================================
 % Justificación de las relaciones (Explicación.pdf)
 % ==========================================
 % >>> FUENTE: Explicación.pdf
-\subsection*{Justificación de las relaciones \marcaOriginal}
+\subsection*{Justificación de las relaciones }
 
 A continuación se justifica cada relación del diagrama indicando su cardinalidad y la
 participación de cada extremo.
@@ -330,77 +364,62 @@ de generalización:
 % ==========================================
 % Mejoras propuestas
 % ==========================================
-\begin{cajapropuesta}
+% \begin{cajapropuesta}
+%
+% 	\textbf{\large Mejoras propuestas \marcaPropuesta}
+%
+% 	Los apartados siguientes son aportaciones del equipo sobre \emph{Explicación.pdf} y pueden
+% 	eliminarse de forma independiente sin afectar el resto del documento.
+%
+%
+%
+% 	\subsection*{Reglas del negocio reflejadas en el modelo \marcaPropuesta}
+%
+% 	\begin{itemize}
+% 		\item Cada jugador puede tener únicamente una tarjeta activa (relación TENER 1:1).
+% 		\item La emisión de la tarjeta cuesta \$20.00 MXN y exige una recarga inicial de
+% 		      \$10.00 MXN; las recargas y los costos de juego son múltiplos de 10.
+% 		\item Los puntos dependen del tipo de juego: 1 punto por acierto en Destreza y Disparos,
+% 		      y 20 puntos por quedar en los primeros 5 lugares en Velocidad y Ritmo.
+% 		\item La categoría VIP se otorga con 10 visitas en un mismo mes, da 10\,\% de puntos
+% 		      adicionales y se conserva repitiendo el mínimo de visitas.
+% 		\item El canje requiere un mínimo de 20 puntos y el premio debe corresponder al rango de
+% 		      edad del jugador (Infantil 3--12, Juvenil 13--17, Adulto 18+).
+% 		\item Los premios se clasifican por puntos: Bajos (20--1{,}000), Medios
+% 		      (1{,}001--3{,}999) y Grandes (4{,}000--10{,}000+).
+% 	\end{itemize}
+%
+% \end{cajapropuesta}
 
-	\textbf{\large Mejoras propuestas \marcaPropuesta}
-
-	Los apartados siguientes son aportaciones del equipo sobre \emph{Explicación.pdf} y pueden
-	eliminarse de forma independiente sin afectar el resto del documento.
-
-	\subsection*{Justificación de las entidades \marcaPropuesta}
-
-	Cada entidad del diagrama responde a un requerimiento explícito del caso de uso:
-
-	\begin{itemize}
-		\item \emph{Sucursal}, \emph{Máquina} y \emph{Juego}: el caso pide almacenar las
-		      sucursales, las máquinas (con su estado) y el catálogo de juegos que posee el
-		      centro.
-		\item \emph{Cliente} y \emph{Tarjeta}: se requiere registrar al cliente para asociarle
-		      una tarjeta de acceso (una sola activa) con la que paga y acumula puntos.
-		\item \emph{Recarga} y \emph{Partida}: se debe llevar registro de cada recarga y de cada
-		      partida (puntaje, puntos ganados, fecha y hora).
-		\item \emph{Premio}, \emph{Inventario} y \emph{Canje}: se deben administrar los premios,
-		      su disponibilidad por sucursal y cada canje efectuado.
-		\item \emph{Mantenimiento}: se debe registrar cada mantenimiento con fecha, tipo y
-		      descripción del problema.
-		\item \emph{Empleado} (con sus subentidades): el caso exige registrar al personal y sus
-		      roles (gerente, cajero, técnico y encargado de premios).
-	\end{itemize}
-
-	\subsection*{Justificación de los atributos \marcaPropuesta}
-
-	\begin{itemize}
-		\item \textbf{Compuestos:} \emph{NombreCompleto} (nombres, apellido paterno, apellido
-		      materno) y \emph{Dirección} (calle, número interior, número exterior, colonia,
-		      estado) agrupan datos que siempre se consultan juntos.
-		\item \textbf{Multivaluados:} \emph{Correos}, \emph{Teléfonos} y
-		      \emph{Certificaciones}, ya que el caso permite varios valores por registro.
-		\item \textbf{Derivados:} \emph{Edad} se obtiene de \emph{FechaNacimiento} y
-		      \emph{esVIP} se deduce del conteo de visitas del jugador; \emph{CantidadDisponible}
-		      se deriva de los movimientos de inventario.
-		\item \textbf{Claves:} \emph{RFC} y \emph{CURP} identifican de forma natural a un
-		      empleado; el resto de las entidades usa identificadores sustitutos
-		      (\emph{idCliente}, \emph{idTarjeta}, \emph{idPartida}, \emph{idCanje},
-		      \emph{idRecarga}, \emph{idMantenimiento}) que evitan ambigüedad y facilitan las
-		      referencias.
-	\end{itemize}
-
-	\subsection*{Entidades débiles y asociativas \marcaPropuesta}
-
-	\emph{Inventario} no posee clave propia: queda identificado por la pareja
-	(\emph{Sucursal}, \emph{Premio}) y su único atributo descriptivo es
-	\emph{CantidadDisponible}, por lo que puede modelarse como entidad débil dependiente de
-	\emph{Sucursal}. Las entidades \emph{Canje}, \emph{Partida}, \emph{Recarga} y
-	\emph{Mantenimiento} cuentan con identificador sustituto propio y funcionan como entidades
-	asociativas que materializan el histórico de operaciones.
-
-	\subsection*{Reglas del negocio reflejadas en el modelo \marcaPropuesta}
-
-	\begin{itemize}
-		\item Cada jugador puede tener únicamente una tarjeta activa (relación TENER 1:1).
-		\item La emisión de la tarjeta cuesta \$20.00 MXN y exige una recarga inicial de
-		      \$10.00 MXN; las recargas y los costos de juego son múltiplos de 10.
-		\item Los puntos dependen del tipo de juego: 1 punto por acierto en Destreza y Disparos,
-		      y 20 puntos por quedar en los primeros 5 lugares en Velocidad y Ritmo.
-		\item La categoría VIP se otorga con 10 visitas en un mismo mes, da 10\,\% de puntos
-		      adicionales y se conserva repitiendo el mínimo de visitas.
-		\item El canje requiere un mínimo de 20 puntos y el premio debe corresponder al rango de
-		      edad del jugador (Infantil 3--12, Juvenil 13--17, Adulto 18+).
-		\item Los premios se clasifican por puntos: Bajos (20--1{,}000), Medios
-		      (1{,}001--3{,}999) y Grandes (4{,}000--10{,}000+).
-	\end{itemize}
-
-\end{cajapropuesta}
+% ==========================================
+% Diagrama (página de mayor tamaño)
+% ==========================================
+\clearpage
+% Página de mayor tamaño: se fija el tamaño físico de la página y se centra
+% un bloque de texto ligeramente menor (1 cm de margen por lado).
+\pdfpagewidth=31cm
+\pdfpageheight=30cm
+\setlength{\textwidth}{29cm}
+\setlength{\hsize}{29cm}
+\setlength{\oddsidemargin}{\dimexpr(\pdfpagewidth-\textwidth)/2 - 1in\relax}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textheight}{28cm}
+\setlength{\vsize}{28cm}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{\dimexpr(\pdfpageheight-\textheight)/2 - 1in\relax}
+\thispagestyle{empty}
+\subsection*{Diagrama Entidad-Relación}
+\vspace*{\fill}
+\centering
+\includegraphics[width=\textwidth, height=0.75\textheight, keepaspectratio]{Diagramas/diagramaPractica02.drawio.png}
+\captionof{figure}{Modelo entidad-relación extendido del centro de entretenimiento familiar PuellaGame.}
+\label{fig:diagrama_er}
+\vspace*{\fill}
+\clearpage
+\restoregeometry
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
 
 \printbibliography
 
