@@ -28,6 +28,27 @@
 %% Paquetes caseros
 \usepackage{customcode}
 
+% ==========================================
+% MARCADO DE PROCEDENCIA DE LAS JUSTIFICACIONES
+% (permite distinguir lo tomado de Explicación.pdf
+%  de las propuestas de mejora para poder depurarlas)
+% ==========================================
+\definecolor{propcolor}{RGB}{0,90,160}
+
+\tcbuselibrary{breakable}
+
+\newcommand{\marcaOriginal}{\textnormal{\small\textcolor{black!55}{(de Explicación.pdf)}}}
+\newcommand{\marcaPropuesta}{\textnormal{\small\textcolor{propcolor}{(propuesta)}}}
+
+\newtcolorbox{cajapropuesta}{
+	colback=propcolor!4,
+	colframe=propcolor,
+	boxrule=0.5pt,
+	arc=2pt,
+	left=5pt, right=5pt, top=5pt, bottom=5pt,
+	breakable
+}
+
 
 
 % Required by biblatex-apa for context-sensitive quotes
@@ -129,16 +150,257 @@
 \vspace{1cm}
 
 % ==========================================
-% Analisis de Requerimentos: 
+% Modelo Entidad-Relación Extendido
 % ==========================================
-\section*{Análisis de Requerimientos}
+\section*{Modelo Entidad-Relación Extendido}
 
-\begin{enumerate}[label=\alph*., leftmargin=*]
-	\input{respuestas/requerimientosCandidato.tex}
-	\input{respuestas/contexSistema.tex}
-	\input{respuestas/requerimientosFuncionales.tex}
-	\input{respuestas/requerimientosNoFuncionales.tex}
-\end{enumerate}
+% >>> PROPUESTA (a revisar)
+% Introducción y justificación de alcance. No proviene de Explicación.pdf.
+El presente documento describe y justifica el modelo entidad-relación extendido (EER)
+construido a partir de las especificaciones del caso de uso del centro de entretenimiento
+familiar ``PuellaGame''. Para el modelado se emplearon los conceptos del modelo EER
+---entidades, atributos, relaciones, cardinalidades, participación y generalización/
+especialización--- tal como se presentan en \parencite{silberschatz2006}. Cada decisión de
+diseño se justifica con base en los requerimientos del caso, indicando explícitamente
+cuando una justificación proviene del documento previo \emph{Explicación.pdf}
+\marcaOriginal{} y cuando se trata de una mejora propuesta por el equipo
+\marcaPropuesta{}.
+% <<< PROPUESTA (a revisar)
+
+% ==========================================
+% Diagrama
+% ==========================================
+\subsection*{Diagrama Entidad-Relación}
+
+\begin{figure}[htbp]
+	\makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{Diagramas/diagramaPractica02.drawio.png}}
+	\caption{Modelo entidad-relación extendido del centro de entretenimiento familiar PuellaGame.}
+	\label{fig:diagrama_er}
+\end{figure}
+
+% ==========================================
+% Justificación de las relaciones (Explicación.pdf)
+% ==========================================
+% >>> FUENTE: Explicación.pdf
+\subsection*{Justificación de las relaciones \marcaOriginal}
+
+A continuación se justifica cada relación del diagrama indicando su cardinalidad y la
+participación de cada extremo.
+
+\begin{description}[leftmargin=0pt, style=nextline]
+
+	\item[ADMINISTRAR --- Gerente $\leftrightarrow$ Sucursal \textnormal{(1:1)}]
+		Un gerente administra a lo sumo una sucursal y una sucursal es administrada por un
+		único gerente. La participación del gerente es \textbf{total}: todo gerente debe
+		tener una sucursal asignada, pues no hay gerente sin sucursal. La participación de
+		la sucursal es \textbf{parcial}, ya que una sucursal puede existir antes de
+		asignarle un gerente.
+
+	\item[PERTENECE --- Máquina $\leftrightarrow$ Sucursal \textnormal{(N:1)}]
+		Por especificaciones del caso de uso, una máquina pertenece a una única sucursal,
+		pero una sucursal tiene muchas máquinas. La participación de la máquina es
+		\textbf{total}, porque toda máquina registrada en el inventario debe estar
+		localizada en una sucursal. La participación de la sucursal es \textbf{parcial},
+		pues una sucursal puede darse de alta sin tener máquinas instaladas todavía.
+
+	\item[CONTENER --- Máquina $\leftrightarrow$ Juego \textnormal{(N:1)}]
+		Un mismo juego puede instalarse en muchas máquinas distintas, pero cada máquina de
+		arcade ejecuta un único juego dedicado. La participación de la máquina es
+		\textbf{total}, pues no hay máquinas vacías: cada máquina debe tener un juego para
+		operar. La participación del juego es \textbf{parcial}, pues puede existir un juego
+		en el catálogo que actualmente no esté instalado en ninguna máquina física.
+
+	\item[TENER --- Cliente $\leftrightarrow$ Tarjeta \textnormal{(1:1)}]
+		Por especificaciones del caso de uso, a cada cliente se le asocia una sola tarjeta
+		activa. La participación del cliente es \textbf{total}: un cliente no existe si no
+		se le ha emitido su tarjeta, pues para obtenerla se debe registrar al cliente con
+		sus datos. La participación de la tarjeta también es \textbf{total}, pues toda
+		tarjeta emitida debe estar vinculada a los datos de un cliente.
+
+	\item[EMITIR --- Cajero $\leftrightarrow$ Tarjeta \textnormal{(1:N)}]
+		Un solo cajero puede emitir muchas tarjetas. La participación del cajero es
+		\textbf{parcial}, pues un cajero puede tener cero tarjetas emitidas. La
+		participación de la tarjeta es \textbf{total}, pues toda tarjeta requiere el
+		registro del cajero que la dio de alta.
+
+	\item[EFECTUAR --- Sucursal $\leftrightarrow$ Recarga \textnormal{(1:N)}]
+		En una sucursal se pueden realizar muchas recargas. La participación de la recarga
+		es \textbf{total}, pues una recarga no puede realizarse sin una sucursal. La
+		participación de la sucursal es \textbf{parcial}, pues una sucursal puede existir
+		sin un registro de recarga.
+
+	\item[RECIBIR --- Tarjeta $\leftrightarrow$ Recarga \textnormal{(1:N)}]
+		Una tarjeta puede recibir varias recargas. La participación de la recarga es
+		\textbf{total}, pues se necesita una tarjeta para poder realizar la recarga. La
+		participación de la tarjeta es \textbf{parcial}, pues podemos tener una tarjeta sin
+		haber realizado ninguna recarga.
+
+	\item[PROCESAR --- Cajero $\leftrightarrow$ Recarga \textnormal{(1:N)}]
+		Un cajero puede procesar varias recargas. La participación de la recarga es
+		\textbf{total}, pues para procesar una recarga se necesita un cajero que la
+		realice. La participación del cajero es \textbf{parcial}, pues puede existir un
+		cajero sin haber procesado una recarga.
+
+	\item[OCURRIR --- Máquina $\leftrightarrow$ Partida \textnormal{(1:N)}]
+		En una máquina ocurren muchas partidas. La participación de la partida es
+		\textbf{total}, pues para que ocurra una partida se necesita una máquina. La
+		participación de la máquina es \textbf{parcial}, pues una máquina puede existir sin
+		haber sido jugada aún.
+
+	\item[REGISTRAR --- Tarjeta $\leftrightarrow$ Partida \textnormal{(1:N)}]
+		Una tarjeta puede ser utilizada para muchas partidas. La participación de la
+		partida es \textbf{total}, pues para registrar una partida es necesario registrar
+		con qué tarjeta se pagó. La participación de la tarjeta es \textbf{parcial}, pues
+		puede existir una tarjeta sin registrar ninguna partida aún.
+
+	\item[SOLICITAR --- Cliente $\leftrightarrow$ Canje \textnormal{(1:N)}]
+		Un cliente puede solicitar varios canjes. La participación del canje es
+		\textbf{total}, pues se necesita un cliente que solicite cualquier canje. La
+		participación del cliente es \textbf{parcial}, pues un cliente puede no haber
+		solicitado canjes.
+
+	\item[INCLUIR --- Premio $\leftrightarrow$ Canje \textnormal{(1:N)}]
+		Un tipo de premio puede canjearse varias veces. La participación del canje es
+		\textbf{total}, pues en cada canje hay un registro de qué premio se canjeó. La
+		participación del premio es \textbf{parcial}, pues un premio puede aún no ser
+		canjeado.
+
+	\item[PROCESAR --- EncargadoDePremios $\leftrightarrow$ Canje \textnormal{(1:N)}]
+		El encargado de premios puede procesar varios canjes. La participación del canje es
+		\textbf{total}, pues en cada canje es necesario registrar al empleado que lo
+		procesó. La participación del empleado de premios es \textbf{parcial}, pues puede
+		existir sin haber procesado un canje.
+
+	\item[OCURRIR --- Sucursal $\leftrightarrow$ Canje \textnormal{(1:N)}]
+		En una sucursal pueden ocurrir varios canjes. La participación del canje es
+		\textbf{total}, pues en cada canje hay que tener un registro de la sucursal donde
+		ocurrió. La participación de la sucursal es \textbf{parcial}, pues puede existir
+		sin haber ocurrido un canje.
+
+	\item[REALIZAR --- Técnico $\leftrightarrow$ Mantenimiento \textnormal{(1:N)}]
+		Un técnico puede realizar muchos mantenimientos. La participación del
+		mantenimiento es \textbf{total}, pues en cada mantenimiento debe haber un registro
+		del técnico que lo realizó. La participación del técnico es \textbf{parcial}, pues
+		un técnico puede no haber hecho ningún mantenimiento aún.
+
+	\item[RECIBIR --- Máquina $\leftrightarrow$ Mantenimiento \textnormal{(1:N)}]
+		Una máquina puede recibir muchos mantenimientos. La participación del
+		mantenimiento es \textbf{total}, pues en cada mantenimiento se debe registrar qué
+		máquina lo recibió. La participación de la máquina es \textbf{parcial}, pues una
+		máquina puede existir sin ningún mantenimiento aún.
+
+	\item[REGISTRAR --- Sucursal $\leftrightarrow$ Inventario \textnormal{(1:N)}]
+		Una sucursal puede tener varias filas en la tabla de inventario. La participación
+		del inventario es \textbf{total}, pues es necesario saber la sucursal de donde
+		proviene cada producto. La participación de la sucursal es \textbf{parcial}, pues
+		una sucursal puede no tener productos disponibles.
+
+	\item[CONTENER --- Premio $\leftrightarrow$ Inventario \textnormal{(1:N)}]
+		Un mismo premio puede estar en varias filas del inventario, pues puede estar
+		disponible en distintas sucursales. La participación del inventario es
+		\textbf{total}, pues es necesario saber qué premio está disponible. La
+		participación del premio es \textbf{parcial}, pues pueden existir premios dados de
+		alta pero sin estar disponibles aún en ninguna sucursal.
+
+\end{description}
+
+% ==========================================
+% Generalización y especialización (Explicación.pdf)
+% ==========================================
+\subsection*{Generalización y especialización \marcaOriginal}
+
+El caso de uso requiere modelar distintos roles operativos para el personal. Para evitar la
+redundancia de atributos compartidos y mantener la consistencia, se utilizó una abstracción
+de generalización:
+
+\begin{itemize}
+	\item \textbf{Superentidad:} \emph{Empleado}. Concentra los atributos comunes (RFC,
+	      CURP, nombre, contacto, salario y fecha de contratación).
+	\item \textbf{Subentidades:} \emph{Cajero}, \emph{Gerente}, \emph{Técnico} y
+	      \emph{Encargado de Premios}.
+	\item \textbf{Restricción de completitud (total):} toda entidad registrada como empleado
+	      debe pertenecer forzosamente a al menos uno de los roles operativos específicos;
+	      no existen empleados genéricos sin rol.
+	\item \textbf{Restricción sobre el carácter disjunto (disjunta):} un empleado no puede
+	      pertenecer a más de una subentidad al mismo tiempo, pues cada rol está bien
+	      definido y separado.
+\end{itemize}
+% <<< FUENTE: Explicación.pdf
+
+% ==========================================
+% Mejoras propuestas
+% ==========================================
+\begin{cajapropuesta}
+
+	\textbf{\large Mejoras propuestas \marcaPropuesta}
+
+	Los apartados siguientes son aportaciones del equipo sobre \emph{Explicación.pdf} y pueden
+	eliminarse de forma independiente sin afectar el resto del documento.
+
+	\subsection*{Justificación de las entidades \marcaPropuesta}
+
+	Cada entidad del diagrama responde a un requerimiento explícito del caso de uso:
+
+	\begin{itemize}
+		\item \emph{Sucursal}, \emph{Máquina} y \emph{Juego}: el caso pide almacenar las
+		      sucursales, las máquinas (con su estado) y el catálogo de juegos que posee el
+		      centro.
+		\item \emph{Cliente} y \emph{Tarjeta}: se requiere registrar al cliente para asociarle
+		      una tarjeta de acceso (una sola activa) con la que paga y acumula puntos.
+		\item \emph{Recarga} y \emph{Partida}: se debe llevar registro de cada recarga y de cada
+		      partida (puntaje, puntos ganados, fecha y hora).
+		\item \emph{Premio}, \emph{Inventario} y \emph{Canje}: se deben administrar los premios,
+		      su disponibilidad por sucursal y cada canje efectuado.
+		\item \emph{Mantenimiento}: se debe registrar cada mantenimiento con fecha, tipo y
+		      descripción del problema.
+		\item \emph{Empleado} (con sus subentidades): el caso exige registrar al personal y sus
+		      roles (gerente, cajero, técnico y encargado de premios).
+	\end{itemize}
+
+	\subsection*{Justificación de los atributos \marcaPropuesta}
+
+	\begin{itemize}
+		\item \textbf{Compuestos:} \emph{NombreCompleto} (nombres, apellido paterno, apellido
+		      materno) y \emph{Dirección} (calle, número interior, número exterior, colonia,
+		      estado) agrupan datos que siempre se consultan juntos.
+		\item \textbf{Multivaluados:} \emph{Correos}, \emph{Teléfonos} y
+		      \emph{Certificaciones}, ya que el caso permite varios valores por registro.
+		\item \textbf{Derivados:} \emph{Edad} se obtiene de \emph{FechaNacimiento} y
+		      \emph{esVIP} se deduce del conteo de visitas del jugador; \emph{CantidadDisponible}
+		      se deriva de los movimientos de inventario.
+		\item \textbf{Claves:} \emph{RFC} y \emph{CURP} identifican de forma natural a un
+		      empleado; el resto de las entidades usa identificadores sustitutos
+		      (\emph{idCliente}, \emph{idTarjeta}, \emph{idPartida}, \emph{idCanje},
+		      \emph{idRecarga}, \emph{idMantenimiento}) que evitan ambigüedad y facilitan las
+		      referencias.
+	\end{itemize}
+
+	\subsection*{Entidades débiles y asociativas \marcaPropuesta}
+
+	\emph{Inventario} no posee clave propia: queda identificado por la pareja
+	(\emph{Sucursal}, \emph{Premio}) y su único atributo descriptivo es
+	\emph{CantidadDisponible}, por lo que puede modelarse como entidad débil dependiente de
+	\emph{Sucursal}. Las entidades \emph{Canje}, \emph{Partida}, \emph{Recarga} y
+	\emph{Mantenimiento} cuentan con identificador sustituto propio y funcionan como entidades
+	asociativas que materializan el histórico de operaciones.
+
+	\subsection*{Reglas del negocio reflejadas en el modelo \marcaPropuesta}
+
+	\begin{itemize}
+		\item Cada jugador puede tener únicamente una tarjeta activa (relación TENER 1:1).
+		\item La emisión de la tarjeta cuesta \$20.00 MXN y exige una recarga inicial de
+		      \$10.00 MXN; las recargas y los costos de juego son múltiplos de 10.
+		\item Los puntos dependen del tipo de juego: 1 punto por acierto en Destreza y Disparos,
+		      y 20 puntos por quedar en los primeros 5 lugares en Velocidad y Ritmo.
+		\item La categoría VIP se otorga con 10 visitas en un mismo mes, da 10\,\% de puntos
+		      adicionales y se conserva repitiendo el mínimo de visitas.
+		\item El canje requiere un mínimo de 20 puntos y el premio debe corresponder al rango de
+		      edad del jugador (Infantil 3--12, Juvenil 13--17, Adulto 18+).
+		\item Los premios se clasifican por puntos: Bajos (20--1{,}000), Medios
+		      (1{,}001--3{,}999) y Grandes (4{,}000--10{,}000+).
+	\end{itemize}
+
+\end{cajapropuesta}
 
 \printbibliography
 
