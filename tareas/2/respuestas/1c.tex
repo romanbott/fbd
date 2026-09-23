@@ -1,1 +1,17 @@
 \item \textbf{¿Cuál es el significado de un tipo de relación recursiva? Proporciona un par de ejemplos de este tipo de relación.}
+
+Es una relación en la que el mismo tipo de entidad participa más de una vez en la relación, pero en diferentes roles. Es decir, una entidad que se relaciona consigo misma.
+
+Un ejemplo puede ser el de un supervisor en una empresa. Un empleado puede supervisar a otros empleados.
+
+\begin{equation*}
+    \text{EMPLEADO} \xrightarrow{\text{SUPERVISA}} \text{EMPLEADO}
+\end{equation*}
+
+En este caso la entidad EMPLEADO participaría dos veces con roles distintos, supervisor y supervisado.
+
+Otro ejemplo puede ser el de ser padre de otra persona.
+
+\begin{equation*}
+    \text{PERSONA} \xrightarrow{\text{ES PADRE DE}} \text{PERSONA}
+\end{equation*}
