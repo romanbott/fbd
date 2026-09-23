@@ -1,1 +1,12 @@
 \item \textbf{Obtén un nuevo modelo E-R modificando el modelo presentado, para incorporar los cambios deseados. Identifica las restricciones de cardinalidad, participación e identidad en el nuevo modelo propuesto.}
+
+Tomamos como base el diagrama a), incorporamos el modelo modificado y queda de la siguiente forma:
+ 
+Entidades: Sitio, Chofer y Taxi, cada una con sus atributos correspondientes (p.e. Sitio con su nombre como identificador, Chofer con su número de licencia como identificador, Taxi con su placa como identificador).
+ 
+Relación ternaria \textit{Tener} entre Sitio, Chofer y Taxi, con las restricciones de cardinalidad 1 del lado de Taxi como del lado de Chofer, lo que expresa que un chofer no puede manejar más de un taxi en el mismo sitio y que un taxi no puede ser manejado por más de un chofer en el mismo sitio.
+ 
+En cuestión de participación, Sitio participa de forma parcial en \textit{Tener} (puede haber sitios sin choferes ni taxis registrados todavía), mientras que Chofer y Taxi participarían de forma total, un chofer o un taxi sólo tiene sentido en el sistema si está asociado a al menos un sitio.
+ 
+Finalmente, se conserva la relación binaria \textit{Maneja} entre Chofer y Taxi del punto anterior, para poder consultar directamente qué taxis maneja cada chofer sin tener que pasar por el sitio.
+ 
