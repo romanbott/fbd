@@ -1,0 +1,18 @@
+\textbf{Estructura del modelo:}
+
+\begin{itemize}
+    \item \textbf{ENTIDAD} (entidad fuerte): representa cada tipo de entidad del modelo original. Atributos: \texttt{nombre\_entidad} (llave), \texttt{tipo\_entidad} \{fuerte, débil\}.
+    \item \textbf{RELACIÓN} (entidad fuerte): representa cada tipo de relación del modelo original. Atributos: \texttt{nombre\_relación} (llave), \texttt{grado} (calculado, a partir de las instancias de \textit{PARTICIPA} asociadas).
+    \item \textbf{ATRIBUTO} (entidad débil): representa cada atributo del modelo original. Atributos: \texttt{nombre\_atributo} (discriminante), \texttt{tipo\_dato} \{simple, compuesto\}, \texttt{es\_multivaluado}, \texttt{es\_derivado}, \texttt{es\_identificador}.
+    \item \textbf{POSEE} (relación débil): conecta \textit{ENTIDAD} con \textit{ATRIBUTO}, con cardinalidad 1:N (flecha hacia \textit{ENTIDAD}) y participación total de \textit{ATRIBUTO}, reflejando que un atributo no puede existir sin la entidad que lo posee.
+    \item \textbf{PARTICIPA} (relación N:M): conecta \textit{ENTIDAD} con \textit{RELACIÓN}, con participación parcial de \textit{ENTIDAD} y participación total de \textit{RELACIÓN}. Atributos: \texttt{cardinalidad\_min}, \texttt{cardinalidad\_max}, \texttt{tipo\_participación} \{total, parcial\}.
+\end{itemize}
+
+\textbf{Consideraciones de diseño}
+
+\begin{itemize}
+    \item La distinción entre entidad fuerte y débil no se representa mediante herencia, sino con el atributo \texttt{tipo\_entidad} de dominio \{fuerte, débil\} dentro de \textit{ENTIDAD} por simplicidad.
+    \item El atributo \texttt{grado} de \textit{RELACIÓN} se definió como calculado, obtenible contando las instancias de \textit{PARTICIPA} asociadas a esa relación, en lugar de almacenarse directamente.
+    \item \textit{POSEE} se modeló como relación débil porque un atributo no puede existir sin la entidad.
+      \item \textit{PARTICIPA} se modeló con participación parcial de \textit{ENTIDAD} y total de \textit{RELACIÓN} porque una entidad puede existir sin participar en ninguna relación, pero una relación no tiene sentido sin al menos una entidad participante.
+\end{itemize}
