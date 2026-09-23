@@ -18,10 +18,10 @@ trap 'rm -rf "$TMP"' EXIT
 echo "Preparando entregables en $TMP ..."
 mkdir -p "$TMP/SRC" "$TMP/Docs" "$TMP/Diagramas"
 
-cp Diagramas/diagramaPractica02.drawio "$TMP/Diagramas/ERDoblesComillas.drawio"
-cp Diagramas/diagramaPractica02.drawio.png "$TMP/Diagramas/ERDoblesComillas.png"
-
-
+cp Diagramas/3b.drawio "$TMP/Diagramas/3b.drawio"
+cp Diagramas/3b.png "$TMP/Diagramas/3b.png"
+cp Diagramas/3c.drawio "$TMP/Diagramas/3c.drawio"
+cp Diagramas/3c.png "$TMP/Diagramas/3c.png"
 
 # Documento compilado
 cp "$DOC_PDF" "$TMP/Docs/Tarea02.pdf"
