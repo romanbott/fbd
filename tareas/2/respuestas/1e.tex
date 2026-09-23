@@ -1,1 +1,17 @@
 \item \textbf{Explica el concepto de categorías (herencia múltiple) en el modelo E-R y proporciona dos ejemplos de la vida real en donde se aplique este concepto.}
+
+En el modelo E-R, las categorías se utilizan para representar situaciones donde diferentes tipos de entidades desempeñan un mismo papel. Estas representan un subconjunto de la unión de varios tipos de entidad, es decir, son una colección heterogénea de entidades.
+
+Un ejemplo en la vida real, puede ser:
+
+\begin{equation*}
+    \text{PROPIETARIO} \subseteq \text{PERSONA} \cup \text{EMPRESA}
+\end{equation*}
+
+La categoría PROPIETARIO está formada por instancias de PERSONA o de EMPRESA, porque tanto una PERSONA como una EMPRESA pueden ser propietarios de un inmueble.
+
+Otro ejemplo parecido lo podemos ver con los clientes de un sistema bancario. Aquí nuevamente tenemos dos entidades PERSONA y EMPRESA, donde ambas pueden ser clientes.
+
+\begin{equation*}
+    \text{CLIENTE} \subseteq \text{PERSONA} \cup \text{EMPRESA}
+\end{equation*}
