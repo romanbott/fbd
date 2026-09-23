@@ -1,0 +1,43 @@
+\item \textbf{Sistema de Información Geográfica}
+
+La Secretaría del Medio Ambiente y Recursos Naturales (SEMARNAT) desea crear un \textbf{SIG} (Sistema de Información Geográfica) para acceso público a través de Internet. Se desea crear un \textbf{modelo E/R} atendiendo las siguientes \textbf{reglas de negocio}:
+
+\begin{itemize}
+	\item Datos referentes a \textbf{ríos}, \textbf{afluentes}, \textbf{sistemas montañosos}, \textbf{montañas} y \textbf{municipios} donde se localizan.
+	\item De los \textbf{ríos} se almacenará un \textbf{identificador} del río, \textbf{nombre}, \textbf{descripción} y \textbf{longitud total}. Para cada río, además, se almacenarán los \textbf{municipios} que atraviesa y la \textbf{longitud del tramo} del río para cada municipio bañado.
+	\item De los \textbf{municipios} se almacenará un \textbf{identificador} para el municipio, \textbf{nombre} y \textbf{número de habitantes}.
+	\item Los \textbf{ríos} pueden ser \textbf{afluentes} de otros ríos, si es el caso, se desea conocer a \textbf{cuál río alimentan} y el \textbf{municipio} en el que se unen al río del que son afluentes.
+	\item En cuanto a los \textbf{sistemas montañosos}, se almacenará un \textbf{código}, el \textbf{nombre}, la \textbf{orientación} (norte, sur, este, oeste), la \textbf{longitud}, la \textbf{altura máxima} y los \textbf{municipios} que ocupa. Los sistemas están formados por \textbf{montañas} de los que se almacena un \textbf{código}, un \textbf{nombre}, \textbf{descripción} y \textbf{altura}. Se debe considerar que una \textbf{montaña} sólo pertenecerá a un \textbf{sistema montañoso}. Se requiere también almacenar también el \textbf{municipio o municipios} en los que se encuentra, ya que hay casos en los que una \textbf{montaña} es compartida por varios municipios.
+	\item Las \textbf{montañas} además pueden tener un \textbf{origen volcánico} o de \textbf{plegamiento}. En el caso de que su origen sea \textbf{volcánico}, se desea almacenar el \textbf{tipo de volcán} y si es de \textbf{plegamiento}, se almacenará el \textbf{periodo geológico} de dicho plegamiento.
+	\item Algunos \textbf{ríos} y \textbf{montañas} son \textbf{elementos geológicos monitoreados por satélite}. De dichos elementos se desea almacenar la \textbf{fecha} en la que se comienzan a monitorear y el \textbf{satélite} que realiza el seguimiento. Un \textbf{satélite} puede monitorear varios elementos. De los \textbf{satélites} se desea almacenar su \textbf{identificador}, \textbf{nombre} y \textbf{descripción}.
+\end{itemize}
+
+\textbf{Modelo propuesto.} El diagrama se muestra a mayor tamaño en la Figura~\ref{fig:3c}, en su propia página al final de esta sección.
+
+\textbf{Estructura del modelo:}
+
+\begin{itemize}
+	\item \textbf{ELEMENTO\_GEOLÓGICO} (supertipo): \texttt{id\_elemento\_geológico} (llave).
+	\item \textbf{RÍO} (subtipo de \textit{ELEMENTO\_GEOLÓGICO}): \texttt{nombre}, \texttt{descripción}, \texttt{longitud\_total}.
+	\item \textbf{MONTAÑA} (subtipo de \textit{ELEMENTO\_GEOLÓGICO}): \texttt{nombre}, \texttt{descripción}, \texttt{altura}.
+	\item \textbf{MONTAÑA\_VOLCÁNICA} (subtipo de \textit{MONTAÑA}): \texttt{tipo\_volcán}.
+	\item \textbf{MONTAÑA\_PLEGAMIENTO} (subtipo de \textit{MONTAÑA}): \texttt{periodo\_geológico}.
+	\item \textbf{MUNICIPIO}: \texttt{id\_municipio} (llave), \texttt{nombre}, \texttt{num\_habitantes}.
+	\item \textbf{SISTEMA\_MONTAÑOSO}: \texttt{código} (llave), \texttt{nombre}, \texttt{orientación} \{norte, sur, este, oeste\}, \texttt{longitud}, \texttt{altura\_máxima}.
+	\item \textbf{SATÉLITE}: \texttt{id\_satélite} (llave), \texttt{nombre}, \texttt{descripción}.
+	\item \textbf{ATRAVIESA} (relación N:M entre \textit{RÍO} y \textit{MUNICIPIO}, atributo \texttt{longitud\_tramo}): participación total de \textit{RÍO}, parcial de \textit{MUNICIPIO}.
+	\item \textbf{ES\_AFLUENTE\_DE} (relación ternaria recursiva entre \textit{RÍO}, \textit{RÍO} y \textit{MUNICIPIO}): roles \texttt{afluente} (0,1), \texttt{recibe} (0,N) y \texttt{confluencia} (0,N).
+	\item \textbf{PERTENECE\_A} (relación N:1 entre \textit{MONTAÑA} y \textit{SISTEMA\_MONTAÑOSO}): participación total de \textit{MONTAÑA}; \textit{SISTEMA\_MONTAÑOSO} es el lado de cardinalidad 1.
+	\item \textbf{OCUPA} (relación N:M entre \textit{SISTEMA\_MONTAÑOSO} y \textit{MUNICIPIO}): participación total de \textit{SISTEMA\_MONTAÑOSO}, parcial de \textit{MUNICIPIO}.
+	\item \textbf{SE\_ENCUENTRA\_EN} (relación N:M entre \textit{MONTAÑA} y \textit{MUNICIPIO}): participación total de \textit{MONTAÑA}, parcial de \textit{MUNICIPIO}.
+	\item \textbf{MONITOREA} (relación 1:N entre \textit{SATÉLITE} y \textit{ELEMENTO\_GEOLÓGICO}, atributo \texttt{fecha\_inicio\_monitoreo}): \textit{SATÉLITE} es el lado de cardinalidad 1; participación parcial de \textit{ELEMENTO\_GEOLÓGICO}.
+\end{itemize}
+
+\textbf{Consideraciones de diseño}
+
+\begin{itemize}
+	\item Se creó el supertipo \textit{ELEMENTO\_GEOLÓGICO} con generalización total disjunta para evitar duplicar la relación \textit{MONITOREA} una vez por cada subtipo.
+	\item El identificador de \textit{RÍO} y \textit{MONTAÑA} está en el supertipo \textit{ELEMENTO\_GEOLÓGICO} para simplificar.
+	\item Se asumió que cada elemento geológico monitoreado tiene un único satélite asignado, porque no se menciona monitoreo simultáneo por varios satélites.
+	\item Se modeló \textit{ATRAVIESA} como relación M:N con atributo \texttt{longitud\_tramo}, en lugar de como atributo simple de \textit{RÍO}, porque se pide guardar ese dato por cada municipio, lo cual requiere una relación y no un atributo.
+\end{itemize}

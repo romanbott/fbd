@@ -18,12 +18,14 @@
 
 \usepackage{url}
 \usepackage{hyperref}
+\hypersetup{hidelinks}
 \usepackage{geometry}
 \usepackage{svg}
 \usepackage{fancyhdr}
 \usepackage{xcolor}
 \usepackage{multicol}
 \usepackage{enumitem}
+\usepackage{float}
 \usepackage{amsmath}
 
 %% Paquetes caseros
@@ -36,7 +38,7 @@
 
 % Load biblatex with official APA 7th edition style
 \usepackage[style=apa, backend=biber]{biblatex}
-\addbibresource{references.bib}
+\addbibresource{referencias.bib}
 
 
 \geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
@@ -58,7 +60,7 @@
 % CONFIGURACIÓN DE VARIABLES (EDITAR AQUÍ)
 % ==========================================
 \newcommand{\documentoTitulo}{Tarea 02}
-\newcommand{\documentoSubtitulo}{Modelo Entidad – Relación}
+\newcommand{\documentoSubtitulo}{Modelo Entidad -- Relación}
 
 \newcommand{\profesorNombre}{Gerardo Avilés Rosas}
 
@@ -129,56 +131,68 @@
 
 \vspace{1cm}
 
-% ===================================================
-% SECCIÓN 1: Conceptos del Modelo Entidad - Relación
-% ===================================================
-\section*{Conceptos del Modelo Entidad - Relación}
+% ==========================================
+% SECCIÓN 1: CONCEPTOS DEL MODELO ENTIDAD - RELACIÓN
+% ==========================================
+\section*{1. Conceptos del Modelo Entidad -- Relación}
 
 \begin{enumerate}[label=\alph*., leftmargin=*]
-	\input{respuestas/1a.tex}
-	\input{respuestas/1b.tex}
-	\input{respuestas/1c.tex}
-	\input{respuestas/1d.tex}
-	\input{respuestas/1e.tex}
+	\input{respuestas/01a.tex}
+	\input{respuestas/01b.tex}
+	\input{respuestas/01c.tex}
+	\input{respuestas/01d.tex}
+	\input{respuestas/01e.tex}
 \end{enumerate}
 
-% ===================================================
-% SECCIÓN 2: Entendiendo el Modelo Entidad - Relación
-% ===================================================
-\section*{Entendiendo el Modelo Entidad - Relación}
+% ==========================================
+% SECCIÓN 2: ENTENDIENDO EL MODELO ENTIDAD - RELACIÓN
+% ==========================================
+\section*{2. Entendiendo el Modelo Entidad -- Relación}
 
-\begin{itemize}[leftmargin=*]
-	\input{respuestas/2i.tex}
-	\input{respuestas/2ii.tex}
-\end{itemize}
+\begin{enumerate}[label=\roman*., leftmargin=*]
+	\input{respuestas/02i.tex}
+	\input{respuestas/02ii.tex}
+\end{enumerate}
 
-% ===================================================
-% SECCIÓN 3: Entendiendo el Modelo Entidad - Relación
-% ===================================================
-\section*{Mini - mundo, planteamiento a partir del modelo Entidad - Relación}
+% ==========================================
+% SECCIÓN 3: MINI - MUNDO
+% ==========================================
+\section*{3. Mini -- mundo, planteamiento a partir del modelo Entidad -- Relación}
 
-\subsection*{Números racionales}
+\begin{enumerate}[label=\alph*., leftmargin=*]
+	\input{respuestas/03a.tex}
+	\input{respuestas/03b.tex}
+	\input{respuestas/03c.tex}
+\end{enumerate}
 
-\input{respuestas/3a.tex}
-
-\subsection*{Modelo E/R para el Modelo E/R}
-
-\begin{figure}[h]
+% ==========================================
+% DIAGRAMA 3c EN SU PROPIA PÁGINA (MAYOR TAMAÑO)
+% ==========================================
+\clearpage
+% Página horizontal de mayor tamaño: se fija el tamaño físico de la página y
+% se centra un bloque de texto menor (1 cm de margen por lado).
+\pdfpagewidth=36cm
+\pdfpageheight=25cm
+\setlength{\textwidth}{34cm}
+\setlength{\hsize}{34cm}
+\setlength{\oddsidemargin}{\dimexpr(\pdfpagewidth-\textwidth)/2 - 1in\relax}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textheight}{23cm}
+\setlength{\vsize}{23cm}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{\dimexpr(\pdfpageheight-\textheight)/2 - 1in\relax}
+\thispagestyle{empty}
+\vspace*{\fill}
 \centering
-\includegraphics[width=0.6\textwidth]{Diagramas/3b.png}
-\end{figure}
+\includegraphics[width=\textwidth,height=0.95\textheight,keepaspectratio]{Figuras/3c.png}
+\captionof{figure}{Modelo E-R para el SIG de la SEMARNAT.}
+\label{fig:3c}
+\vspace*{\fill}
+\clearpage
+\restoregeometry
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
 
-\input{respuestas/3b.tex}
-
-\subsection*{Sistema de Información Geográfica}
-
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{Diagramas/3c.png}
-\end{figure}
-
-\input{respuestas/3c.tex}
-
-\printbibliography
 
 \end{document}

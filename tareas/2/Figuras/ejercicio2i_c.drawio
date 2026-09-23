@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="ejercicio2i-c">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="c-grupo" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;strokeColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="200" y="80" width="440" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="c-sitio" value="Sitio" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="230" y="115" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c-tener" value="Tener" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="370" y="105" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c-taxi" value="Taxi" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="510" y="115" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c-manejar" value="Manejar" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="470" y="300" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="c-chofer" value="Chofer" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="250" y="310" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="c-e1" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="c-sitio" target="c-tener">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c-e2" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="c-tener" target="c-taxi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c-e3" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="c-grupo" target="c-manejar">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="c-e4" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="c-manejar" target="c-chofer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

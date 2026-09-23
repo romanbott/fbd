@@ -1,29 +1,35 @@
 # Plantilla para tareas - UNAM FCiencias.
 
+Plantilla base para la **Tarea 02: Modelo Entidad -- Relación**.
 
-Es necesario editar las variables:
+## Estructura
 
-- `\documentoTitulo`
-- `\documentoSubtitulo`
-- `\integranteUno`
-- `\integranteDos`
-- `\integranteTres`
-- `\integranteCuatro`
-
-
-# Para compilar
-
-```bash
-xelatex tarea1.tex
-biber tarea1
-xelatex tarea1.tex
+```
+tarea02.tex        Documento principal (portada + secciones + \input de respuestas)
+respuestas/        Un archivo por ejercicio (enunciado + respuesta)
+  01a.tex .. 01e.tex   Sección 1: Conceptos del Modelo E-R
+  02i.tex, 02ii.tex    Sección 2: Entendiendo el Modelo E-R
+  03a.tex .. 03c.tex   Sección 3: Mini-mundos
+Figuras/           Diagramas (.drawio) y sus renders (.png)
+  original/          Renders previos (respaldo)
+escudos/           Escudos de la UNAM y la Facultad de Ciencias
+tools/render/      Herramienta (Puppeteer) para renderizar los .drawio a PNG
+customcode.sty     Paquete casero de formato de código
+referencias.bib    Referencias bibliográficas (BibLaTeX / APA)
 ```
 
-O también
+## Para compilar
 
 ```bash
-lualatex tarea1.tex
-biber tarea1
-lualatex tarea1.tex
+xelatex tarea02.tex
+biber tarea02
+xelatex tarea02.tex
 ```
 
+## Para renderizar los diagramas
+
+```bash
+cd tools/render
+npm install      # solo la primera vez
+npm run render   # regenera Figuras/*.png a partir de Figuras/*.drawio
+```

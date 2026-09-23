@@ -1,0 +1,58 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="2i-modelo">
+    <mxGraphModel dx="900" dy="700" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="p-sitio" value="Sitio" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="120" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p-tener" value="Tener" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="340" y="190" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p-chofer" value="Chofer" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="560" y="200" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p-taxi" value="Taxi" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="340" y="360" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p-maneja" value="Maneja" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="470" y="350" width="100" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="p-nombre" value="Nombre" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="90" y="110" width="110" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p-licencia" value="NumLicencia" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="560" y="110" width="120" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p-placa" value="Placa" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="330" y="460" width="100" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e1" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="p-sitio" target="p-tener">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e2" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="p-tener" target="p-chofer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e3" style="shape=flexArrow;endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="p-tener" target="p-taxi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e4" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="p-chofer" target="p-maneja">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e5" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="p-maneja" target="p-taxi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e6" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="p-nombre" target="p-sitio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e7" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="p-licencia" target="p-chofer">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="p-e8" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="p-placa" target="p-taxi">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,25 @@
+\item \textbf{Responde a las siguientes cuestiones, deberás indicar si son posibles o no, justificando tu respuesta. Cuando no sea posible deberás indicar alguna recomendación al respecto:}
+
+\textbf{¿Un atributo compuesto puede ser llave?}
+
+Sí. Un atributo formado por varios subatributos, como puede ser el nombre completo de una persona puede usarse como llave, pero únicamente si identifica de forma unívoca a la entidad. En general, se suele recomendar usar llaves simples.
+
+\textbf{¿Un atributo multivaluado puede ser llave?}
+
+No, un atributo multivaluado puede tener varios valores para una misma entidad, por lo que no nos proporciona una identificación única. Se recomienda convertir los atributos multivaluados en entidades débiles o relaciones independientes.
+
+\textbf{¿Un atributo derivado puede ser llave?}
+
+No, este tipo de atributos se obtiene a partir de otros atributos y no se almacena directamente. Si la información de la que se deriva cambia, también puede cambiar su valor, además de que no nos podemos asegurar de que siempre exista. En su lugar, se recomienda usar un atributo almacenado, estable y que pueda identificar de forma única a la entidad.
+
+\textbf{¿Un atributo multivaluado puede ser compuesto?}
+
+Sí, por ejemplo, una persona podría tener varias direcciones y cada una de ellas podría estar compuesta por cosas como calle, número, código postal, etc.
+
+\textbf{¿Un atributo multivaluado puede ser derivado?}
+
+Sí, un atributo derivado no necesariamente tiene que producir un único dato, es posible obtener un conjunto de valores a partir de otros datos.
+
+\textbf{¿Qué implicaría la existencia de una entidad cuyos atributos sean todos derivados?}
+
+En general, implicaría una redundancia de datos, pues toda su información provendría de otras entidades o relaciones, además de que no tendría una llave real, pues un atributo derivado no puede ser llave.

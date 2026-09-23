@@ -1,0 +1,33 @@
+\item \textbf{Modelo E/R para el Modelo E/R}
+
+Diseña un \textbf{Modelo E/R} para modelar los conceptos del \textbf{Modelo E/R}, en éste, deberás reflejar los conceptos revisados para el tema: entidades (\textbf{fuertes y débiles}), \textbf{atributos} y sus tipos, \textbf{relaciones} y sus tipos, \textbf{restricciones de cardinalidad} y \textbf{restricciones de participación} (no consideres los conceptos de Herencia o Agregación).
+
+\textbf{Nota:} se pide un modelo que refleje los \textbf{conceptos y restricciones} del Modelo E/R y \textbf{no un modelo que ponga en práctica sus elementos}.
+
+\textbf{Modelo propuesto.}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.95\textwidth]{Figuras/3b.png}
+	\caption{Modelo E-R del Modelo E-R (meta-modelo).}
+	\label{fig:3b}
+\end{figure}
+
+\textbf{Estructura del modelo:}
+
+\begin{itemize}
+	\item \textbf{ENTIDAD} (entidad fuerte): representa cada tipo de entidad del modelo original. Atributos: \texttt{nombre\_entidad} (llave), \texttt{tipo\_entidad} \{fuerte, débil\}.
+	\item \textbf{RELACIÓN} (entidad fuerte): representa cada tipo de relación del modelo original. Atributos: \texttt{nombre\_relación} (llave), \texttt{grado} (calculado, a partir de las instancias de \textit{PARTICIPA} asociadas).
+	\item \textbf{ATRIBUTO} (entidad débil): representa cada atributo del modelo original. Atributos: \texttt{nombre\_atributo} (discriminante), \texttt{tipo\_dato} \{simple, compuesto\}, \texttt{es\_multivaluado}, \texttt{es\_derivado}, \texttt{es\_identificador}.
+	\item \textbf{POSEE} (relación débil): conecta \textit{ENTIDAD} con \textit{ATRIBUTO}, con cardinalidad 1:N (flecha hacia \textit{ENTIDAD}) y participación total de \textit{ATRIBUTO}, reflejando que un atributo no puede existir sin la entidad que lo posee.
+	\item \textbf{PARTICIPA} (relación N:M): conecta \textit{ENTIDAD} con \textit{RELACIÓN}, con participación parcial de \textit{ENTIDAD} y participación total de \textit{RELACIÓN}. Atributos: \texttt{cardinalidad\_min}, \texttt{cardinalidad\_max}, \texttt{tipo\_participación} \{total, parcial\}.
+\end{itemize}
+
+\textbf{Consideraciones de diseño}
+
+\begin{itemize}
+	\item La distinción entre entidad fuerte y débil no se representa mediante herencia, sino con el atributo \texttt{tipo\_entidad} de dominio \{fuerte, débil\} dentro de \textit{ENTIDAD} por simplicidad.
+	\item El atributo \texttt{grado} de \textit{RELACIÓN} se definió como calculado, obtenible contando las instancias de \textit{PARTICIPA} asociadas a esa relación, en lugar de almacenarse directamente.
+	\item \textit{POSEE} se modeló como relación débil porque un atributo no puede existir sin la entidad.
+	\item \textit{PARTICIPA} se modeló con participación parcial de \textit{ENTIDAD} y total de \textit{RELACIÓN} porque una entidad puede existir sin participar en ninguna relación, pero una relación no tiene sentido sin al menos una entidad participante.
+\end{itemize}
