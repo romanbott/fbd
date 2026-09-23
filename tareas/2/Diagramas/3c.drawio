@@ -1,0 +1,253 @@
+<mxfile host="app.diagrams.net" agent="Claude">
+  <diagram name="SIG SEMARNAT" id="sigSemarnat">
+    <mxGraphModel dx="983" dy="643" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1900" pageHeight="1300" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eg" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="ELEMENTO_GEOLÓGICO" vertex="1">
+          <mxGeometry height="60" width="200" x="600" y="80" as="geometry" />
+        </mxCell>
+        <mxCell id="a_eg_id" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;u&gt;id_elemento_geológico&lt;/u&gt;" vertex="1">
+          <mxGeometry height="60" width="170" x="880" y="70" as="geometry" />
+        </mxCell>
+        <mxCell id="e_eg_id" edge="1" parent="1" source="a_eg_id" style="endArrow=none;html=1;" target="eg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="isa1" parent="1" style="triangle;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;direction=south;fontStyle=1;" value="d" vertex="1">
+          <mxGeometry height="50" width="80" x="725" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e_eg_isa1" edge="1" parent="1" source="eg" style="shape=link;html=1;startArrow=none;endArrow=none;" target="isa1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rio" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="RÍO" vertex="1">
+          <mxGeometry height="60" width="160" x="470" y="370" as="geometry" />
+        </mxCell>
+        <mxCell id="e_isa1_rio" edge="1" parent="1" source="isa1" style="endArrow=none;html=1;" target="rio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_rio_nombre" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="nombre" vertex="1">
+          <mxGeometry height="50" width="140" x="330" y="300" as="geometry" />
+        </mxCell>
+        <mxCell id="a_rio_desc" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="descripción" vertex="1">
+          <mxGeometry height="50" width="150" x="705" y="360" as="geometry" />
+        </mxCell>
+        <mxCell id="a_rio_long" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="longitud_total" vertex="1">
+          <mxGeometry height="50" width="160" x="470" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rio_a1" edge="1" parent="1" source="a_rio_nombre" style="endArrow=none;html=1;" target="rio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rio_a2" edge="1" parent="1" source="a_rio_desc" style="endArrow=none;html=1;" target="rio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rio_a3" edge="1" parent="1" source="a_rio_long" style="endArrow=none;html=1;" target="rio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="montana" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="MONTAÑA" vertex="1">
+          <mxGeometry height="60" width="160" x="970" y="220" as="geometry" />
+        </mxCell>
+        <mxCell id="e_isa1_montana" edge="1" parent="1" source="isa1" style="endArrow=none;html=1;" target="montana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_mont_nombre" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="nombre" vertex="1">
+          <mxGeometry height="50" width="140" x="1100" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="a_mont_desc" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="descripción" vertex="1">
+          <mxGeometry height="50" width="150" x="1260" y="150" as="geometry" />
+        </mxCell>
+        <mxCell id="a_mont_altura" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="altura" vertex="1">
+          <mxGeometry height="50" width="140" x="1410" y="250" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mont_a1" edge="1" parent="1" source="a_mont_nombre" style="endArrow=none;html=1;" target="montana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mont_a2" edge="1" parent="1" source="a_mont_desc" style="endArrow=none;html=1;" target="montana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mont_a3" edge="1" parent="1" source="a_mont_altura" style="endArrow=none;html=1;" target="montana">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="isa2" parent="1" style="triangle;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;direction=south;fontStyle=1;" value="d" vertex="1">
+          <mxGeometry height="50" width="80" x="1050" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e_montana_isa2" edge="1" parent="1" source="montana" style="endArrow=none;html=1;" target="isa2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="mvolc" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="MONTAÑA_VOLCÁNICA" vertex="1">
+          <mxGeometry height="60" width="180" x="960" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="mpleg" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="MONTAÑA_PLEGAMIENTO" vertex="1">
+          <mxGeometry height="60" width="200" x="1180" y="550" as="geometry" />
+        </mxCell>
+        <mxCell id="e_isa2_volc" edge="1" parent="1" source="isa2" style="endArrow=none;html=1;" target="mvolc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_isa2_pleg" edge="1" parent="1" source="isa2" style="endArrow=none;html=1;" target="mpleg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_tipo_volcan" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="tipo_volcán" vertex="1">
+          <mxGeometry height="50" width="160" x="980" y="675" as="geometry" />
+        </mxCell>
+        <mxCell id="e_volc_a" edge="1" parent="1" source="a_tipo_volcan" style="endArrow=none;html=1;" target="mvolc">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_periodo_geo" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="periodo_geológico" vertex="1">
+          <mxGeometry height="50" width="170" x="1210" y="450" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pleg_a" edge="1" parent="1" source="a_periodo_geo" style="endArrow=none;html=1;" target="mpleg">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="satelite" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="SATÉLITE" vertex="1">
+          <mxGeometry height="60" width="170" x="150" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sat_id" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;u&gt;id_satélite&lt;/u&gt;" vertex="1">
+          <mxGeometry height="50" width="140" x="20" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sat_nombre" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="nombre" vertex="1">
+          <mxGeometry height="50" width="140" x="230" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sat_desc" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="descripción" vertex="1">
+          <mxGeometry height="50" width="150" x="300" y="595" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sat_a1" edge="1" parent="1" source="a_sat_id" style="endArrow=none;html=1;" target="satelite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sat_a2" edge="1" parent="1" source="a_sat_nombre" style="endArrow=none;html=1;" target="satelite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sat_a3" edge="1" parent="1" source="a_sat_desc" style="endArrow=none;html=1;" target="satelite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_monitorea" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="MONITOREA" vertex="1">
+          <mxGeometry height="60" width="150" x="90" y="180" as="geometry" />
+        </mxCell>
+        <mxCell id="a_fecha_inicio" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="fecha_inicio_monitoreo" vertex="1">
+          <mxGeometry height="50" width="170" x="280" y="420" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mon_a" edge="1" parent="1" source="a_fecha_inicio" style="endArrow=none;html=1;" target="rel_monitorea">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_eg_mon" edge="1" parent="1" source="eg" style="endArrow=none;html=1;fontSize=10;" target="rel_monitorea" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mon_sat" edge="1" parent="1" source="rel_monitorea" style="html=1;startArrow=none;endArrow=block;endFill=1;" target="satelite">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="municipio" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="MUNICIPIO" vertex="1">
+          <mxGeometry height="60" width="170" x="750" y="960" as="geometry" />
+        </mxCell>
+        <mxCell id="a_mun_id" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;u&gt;id_municipio&lt;/u&gt;" vertex="1">
+          <mxGeometry height="50" width="150" x="600" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="a_mun_nombre" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="nombre" vertex="1">
+          <mxGeometry height="50" width="140" x="770" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="a_mun_hab" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="num_habitantes" vertex="1">
+          <mxGeometry height="50" width="170" x="930" y="1060" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mun_a1" edge="1" parent="1" source="a_mun_id" style="endArrow=none;html=1;" target="municipio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mun_a2" edge="1" parent="1" source="a_mun_nombre" style="endArrow=none;html=1;" target="municipio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mun_a3" edge="1" parent="1" source="a_mun_hab" style="endArrow=none;html=1;" target="municipio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_atraviesa" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="ATRAVIESA" vertex="1">
+          <mxGeometry height="60" width="140" x="450" y="790" as="geometry" />
+        </mxCell>
+        <mxCell id="a_long_tramo" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="longitud_tramo" vertex="1">
+          <mxGeometry height="50" width="170" x="130" y="930" as="geometry" />
+        </mxCell>
+        <mxCell id="e_atrav_a" edge="1" parent="1" source="a_long_tramo" style="endArrow=none;html=1;" target="rel_atraviesa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_rio_atrav" edge="1" parent="1" source="rio" style="shape=link;html=1;startArrow=none;endArrow=none;" target="rel_atraviesa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_atrav_mun" edge="1" parent="1" source="rel_atraviesa" style="endArrow=none;html=1;" target="municipio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_afluente" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="ES_AFLUENTE_DE" vertex="1">
+          <mxGeometry height="70" width="160" x="640" y="720" as="geometry" />
+        </mxCell>
+        <mxCell id="e_afl_1" edge="1" parent="1" source="rio" style="endArrow=none;html=1;fontSize=10;exitX=0.538;exitY=0.983;exitDx=0;exitDy=0;exitPerimeter=0;" target="rel_afluente" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_afl_2" edge="1" parent="1" source="rio" style="endArrow=none;html=1;fontSize=10;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" target="rel_afluente" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_afl_mun" edge="1" parent="1" source="rel_afluente" style="endArrow=none;html=1;fontSize=10;" target="municipio" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_pertenece" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="PERTENECE_A" vertex="1">
+          <mxGeometry height="60" width="130" x="1370" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mont_pert" edge="1" parent="1" source="montana" style="shape=link;html=1;startArrow=none;endArrow=none;" target="rel_pertenece">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="sistema" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;" value="SISTEMA_MONTAÑOSO" vertex="1">
+          <mxGeometry height="60" width="190" x="1450" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="e_pert_sis" edge="1" parent="1" source="rel_pertenece" style="html=1;startArrow=none;endArrow=block;endFill=1;" target="sistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sis_codigo" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" value="&lt;u&gt;código&lt;/u&gt;" vertex="1">
+          <mxGeometry height="50" width="160" x="1670" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sis_nombre" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="nombre" vertex="1">
+          <mxGeometry height="50" width="160" x="1670" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sis_orient" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="orientación" vertex="1">
+          <mxGeometry height="50" width="180" x="1670" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sis_long" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="longitud" vertex="1">
+          <mxGeometry height="50" width="160" x="1670" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="a_sis_altura" parent="1" style="ellipse;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;" value="altura_máxima" vertex="1">
+          <mxGeometry height="50" width="180" x="1670" y="740" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sis_a1" edge="1" parent="1" source="a_sis_codigo" style="endArrow=none;html=1;" target="sistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sis_a2" edge="1" parent="1" source="a_sis_nombre" style="endArrow=none;html=1;" target="sistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sis_a3" edge="1" parent="1" source="a_sis_orient" style="endArrow=none;html=1;" target="sistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sis_a4" edge="1" parent="1" source="a_sis_long" style="endArrow=none;html=1;" target="sistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sis_a5" edge="1" parent="1" source="a_sis_altura" style="endArrow=none;html=1;" target="sistema">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_ocupa" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="OCUPA" vertex="1">
+          <mxGeometry height="60" width="130" x="1160" y="820" as="geometry" />
+        </mxCell>
+        <mxCell id="e_sis_ocupa" edge="1" parent="1" source="sistema" style="shape=link;html=1;startArrow=none;endArrow=none;" target="rel_ocupa">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_ocupa_mun" edge="1" parent="1" source="rel_ocupa" style="endArrow=none;html=1;" target="municipio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="rel_seencuentra" parent="1" style="rhombus;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;" value="SE_ENCUENTRA_EN" vertex="1">
+          <mxGeometry height="60" width="150" x="780" y="560" as="geometry" />
+        </mxCell>
+        <mxCell id="e_mont_se" edge="1" parent="1" source="montana" style="shape=link;html=1;startArrow=none;endArrow=none;" target="rel_seencuentra">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e_se_mun" edge="1" parent="1" source="rel_seencuentra" style="endArrow=none;html=1;" target="municipio">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="DLD9xouPHEvxLMFs0Q_h-7" edge="1" parent="1" style="endArrow=none;html=1;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1060" y="280" as="sourcePoint" />
+            <mxPoint x="1089" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
