@@ -1,0 +1,27 @@
+\textbf{Estructura del modelo:}
+
+\begin{itemize}
+    \item \textbf{ELEMENTO\_GEOLÓGICO} (supertipo): \texttt{id\_elemento\_geológico} (llave).
+    \item \textbf{RÍO} (subtipo de \textit{ELEMENTO\_GEOLÓGICO}): \texttt{nombre}, \texttt{descripción}, \texttt{longitud\_total}.
+    \item \textbf{MONTAÑA} (subtipo de \textit{ELEMENTO\_GEOLÓGICO}): \texttt{nombre}, \texttt{descripción}, \texttt{altura}.
+    \item \textbf{MONTAÑA\_VOLCÁNICA} (subtipo de \textit{MONTAÑA}): \texttt{tipo\_volcán}.
+    \item \textbf{MONTAÑA\_PLEGAMIENTO} (subtipo de \textit{MONTAÑA}): \texttt{periodo\_geológico}.
+    \item \textbf{MUNICIPIO}: \texttt{id\_municipio} (llave), \texttt{nombre}, \texttt{num\_habitantes}.
+    \item \textbf{SISTEMA\_MONTAÑOSO}: \texttt{código} (llave), \texttt{nombre}, \texttt{orientación} \{norte, sur, este, oeste\}, \texttt{longitud}, \texttt{altura\_máxima}.
+    \item \textbf{SATÉLITE}: \texttt{id\_satélite} (llave), \texttt{nombre}, \texttt{descripción}.
+    \item \textbf{ATRAVIESA} (relación N:M entre \textit{RÍO} y \textit{MUNICIPIO}, atributo \texttt{longitud\_tramo}): participación total de \textit{RÍO}, parcial de \textit{MUNICIPIO}.
+    \item \textbf{ES\_AFLUENTE\_DE} (relación ternaria recursiva entre \textit{RÍO}, \textit{RÍO} y \textit{MUNICIPIO}): roles \texttt{afluente} (0,1), \texttt{recibe} (0,N) y \texttt{confluencia} (0,N).
+    \item \textbf{PERTENECE\_A} (relación N:1 entre \textit{MONTAÑA} y \textit{SISTEMA\_MONTAÑOSO}): participación total de \textit{MONTAÑA}; \textit{SISTEMA\_MONTAÑOSO} es el lado de cardinalidad 1.
+    \item \textbf{OCUPA} (relación N:M entre \textit{SISTEMA\_MONTAÑOSO} y \textit{MUNICIPIO}): participación total de \textit{SISTEMA\_MONTAÑOSO}, parcial de \textit{MUNICIPIO}.
+    \item \textbf{SE\_ENCUENTRA\_EN} (relación N:M entre \textit{MONTAÑA} y \textit{MUNICIPIO}): participación total de \textit{MONTAÑA}, parcial de \textit{MUNICIPIO}.
+    \item \textbf{MONITOREA} (relación 1:N entre \textit{SATÉLITE} y \textit{ELEMENTO\_GEOLÓGICO}, atributo\\ \texttt{fecha\_inicio\_monitoreo}): \textit{SATÉLITE} es el lado de cardinalidad 1; participación parcial de \textit{ELEMENTO\_GEOLÓGICO}.
+\end{itemize}
+
+\textbf{Consideraciones de diseño}
+
+\begin{itemize}
+    \item Se creó el supertipo \textit{ELEMENTO\_GEOLÓGICO} con generalización total disjunta para evitar duplicar la relación \textit{MONITOREA} una vez por cada subtipo.
+    \item El identificador de \textit{RÍO} y \textit{MONTAÑA} está en el supertipo \textit{ELEMENTO\_GEOLÓGICO} para simplificar.
+    \item Se asumió que cada elemento geológico monitoreado tiene un único satélite asignado, porque no se menciona monitoreo simultáneo por varios satélites.
+    \item Se modeló \textit{ATRAVIESA} como relación M:N con atributo \texttt{longitud\_tramo}, en lugar de como atributo simple de \textit{RÍO}, porque se pide guardar ese dato por cada municipio, lo cual requiere una relación y no un atributo.
+\end{itemize}
