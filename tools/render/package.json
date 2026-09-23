@@ -1,0 +1,23 @@
+{
+  "name": "drawio-render",
+  "version": "1.0.0",
+  "description": "Render .drawio files to PNG/SVG via Puppeteer and the draw.io embed API.",
+  "license": "MIT",
+  "main": "drawio-render.js",
+  "bin": {
+    "drawio-render": "drawio-render.js"
+  },
+  "files": [
+    "drawio-render.js",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "render": "node drawio-render.js ../../Figuras"
+  },
+  "dependencies": {
+    "puppeteer": "^25.11.0"
+  }
+}
