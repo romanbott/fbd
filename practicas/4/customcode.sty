@@ -1,0 +1,33 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{customcode}[Pure LaTeX Code Formatting]
+
+\RequirePackage{tcolorbox}
+\tcbuselibrary{listings}
+
+% The 'v' parameter makes this a verbatim command. 
+% Underscores and special characters work safely without escaping.
+\DeclareTotalTCBox{\code}{ v }{
+  verbatim,
+  colback=gray!10,
+  colframe=gray!20,
+  boxrule=0.5pt,
+  arc=3pt,
+  boxsep=0pt,
+  left=3pt, right=3pt, top=2pt, bottom=2pt,
+  fontupper=\ttfamily
+}{#1}
+
+% Code blocks are inherently verbatim environments
+\newtcblisting{codeblock}{
+  listing only,
+  colback=gray!10,
+  colframe=gray!20,
+  boxrule=0.5pt,
+  arc=3pt,
+  left=2mm, right=2mm, top=1mm, bottom=1mm,
+  listing options={
+    basicstyle=\ttfamily\small,
+    breaklines=true,
+    columns=fullflexible
+  }
+}
