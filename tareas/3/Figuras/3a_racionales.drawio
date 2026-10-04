@@ -1,0 +1,40 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="3a-racionales">
+    <mxGraphModel dx="800" dy="600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="900" pageHeight="700" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="u-racional" value="Racional" style="whiteSpace=wrap;html=1;align=center;fillColor=#e1d5e7;strokeColor=#9673a6;" vertex="1" parent="1">
+          <mxGeometry x="300" y="320" width="160" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="r-se-reduce" value="Se reduce" style="shape=rhombus;perimeter=rhombusPerimeter;whiteSpace=wrap;html=1;align=center;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" vertex="1" parent="1">
+          <mxGeometry x="305" y="150" width="150" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="at-numerador" value="Numerador" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="245" y="420" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="at-denominador" value="Denominador" style="ellipse;whiteSpace=wrap;html=1;align=center;fontStyle=4;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="385" y="420" width="130" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="at-factor" value="FactorReducción" style="ellipse;whiteSpace=wrap;html=1;align=center;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="110" y="150" width="150" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="e-num" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="at-numerador" target="u-racional">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-den" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="at-denominador" target="u-racional">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-factor" style="endArrow=none;html=1;rounded=0;" edge="1" parent="1" source="at-factor" target="r-se-reduce">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-fraccion" style="shape=link;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.25;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="r-se-reduce" target="u-racional">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e-reducido" style="endArrow=classic;html=1;rounded=0;startArrow=none;startFill=0;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.75;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="r-se-reduce" target="u-racional">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

@@ -1,0 +1,33 @@
+\begin{enumerate}
+    \item \textbf{Identidad de \textit{Racional}.} Un número racional queda determinado por dos enteros, y dos racionales son distintos si difieren en el numerador o en el denominador. Por ello la entidad \textit{Racional} tiene por atributos \textit{Numerador} y \textit{Denominador} y su identificador es la \textbf{clave compuesta (Numerador, Denominador)}.
+
+    \item \textbf{Relación recursiva.} El racional reducido de una fracción es, a su vez, un número racional; por eso la asociación se modela como una \textbf{relación recursiva} \textit{Se reduce} sobre \textit{Racional}, con dos roles: \textit{fracción} (el número que se simplifica) y \textit{reducido} (su forma totalmente simplificada).
+
+    \item \textbf{Cardinalidad y participación.} Cada fracción tiene \textbf{un único} racional reducido y un reducido es la reducción de \textbf{varias} fracciones, de donde la cardinalidad es \textbf{N:1} (fracción N, reducido 1). La participación del lado \textit{fracción} es \textbf{total} (todo racional tiene su reducido) y la del lado \textit{reducido} es \textbf{parcial}.
+
+    \item \textbf{\textit{FactorReducción} como atributo de la relación.} El factor depende del \textbf{par} (fracción, reducido) y no de una sola de las entidades; por eso se modela como \textbf{atributo de \textit{Se reduce}}.
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Figuras/3a_racionales.png}
+	\caption{Modelo E-R para números racionales.}
+	\label{fig:3a}
+\end{figure}
+
+\subsection*{Concideraciones para Modelo Relacional}
+
+\begin{enumerate}
+
+    \item \textbf{Racional}: Su llave primaria es compuesta, integrada por los atributos \textit{numerador} y \textit{denominador}, ambos pertenecientes al dominio de los enteros (\textit{int}) y con restricción estricta de integridad de entidad (\textbf{NOT NULL}). El \textit{denominador} debe incluir una restricción de dominio (\textbf{denominador != 0}). 
+    La relación ``Se reduce'' es una relación recursiva con cardinalidad 1:N, donde una fracción totalmente simplificada (lado 1) es el equivalente de múltiples fracciones sin simplificar (lado N). La entidad en el lado ``muchos'' absorbe la llave primaria de la entidad en el lado ``uno''. Al tratarse de una recursividad, la tabla \textbf{Racional} absorbe su propia llave primaria, generando dos nuevas columnas que fungen como llave foránea (\textbf{FK}): \textit{num\_reducido} y \textit{den\_reducido} (ambas \textit{int}). Ambas llaves foráneas con restricción \textbf{NOT NULL}. 
+    Finalmente, el atributo \textit{factor\_reduccion}, de la relación ``Se reduce'', es arrastrado hacia la tabla que absorbe las llaves (el lado N). Se integra como atributo en esta tabla bajo el dominio \textit{int} y con restricción \textbf{NOT NULL}.
+
+\end{enumerate}
+
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=0.8\textwidth]{Diagramas/2_b.drawio.png}
+	\caption{Modelo Racional para números racionales.}
+	\label{fig:3a}
+\end{figure}
