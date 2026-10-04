@@ -1,0 +1,234 @@
+\documentclass[11pt,letterpaper,spanish]{article}
+
+\usepackage{caption}
+
+\usepackage{iftex}
+\ifPDFTeX
+  % --- Setup for pdfLaTeX ---
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+\else
+  % --- Setup for XeLaTeX & LuaLaTeX ---
+  \usepackage{fontspec}
+  \setmainfont{Latin Modern Roman}
+\fi
+
+
+\usepackage[spanish]{babel}
+
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{svg}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Paquetes caseros
+\usepackage{customcode}
+
+% ==========================================
+% MARCADO DE PROCEDENCIA DE LAS JUSTIFICACIONES
+% (permite distinguir lo tomado de Explicación.pdf
+%  de las propuestas de mejora para poder depurarlas)
+% ==========================================
+\definecolor{propcolor}{RGB}{0,90,160}
+
+\tcbuselibrary{breakable}
+
+\newcommand{\marcaOriginal}{}
+\newcommand{\marcaPropuesta}{\textnormal{\small\textcolor{propcolor}{(propuesta)}}}
+
+\newtcolorbox{cajapropuesta}{
+	colback=propcolor!4,
+	colframe=propcolor,
+	boxrule=0.5pt,
+	arc=2pt,
+	left=5pt, right=5pt, top=5pt, bottom=5pt,
+	breakable
+}
+
+
+
+% Required by biblatex-apa for context-sensitive quotes
+\usepackage{csquotes}
+
+% Load biblatex with official APA 7th edition style
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{referencias.bib}
+
+
+\geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
+
+\definecolor{headergray}{gray}{0.3}
+\definecolor{rulecolor}{gray}{0.6}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{\small\textcolor{headergray}{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}}
+\fancyhead[R]{\small\textcolor{headergray}{\documentoTitulo}}
+\fancyfoot[L]{\small\textcolor{headergray}{FACULTAD DE CIENCIAS, 2027-I}}
+\fancyfoot[C]{\small\textcolor{headergray}{\thepage}}
+\fancyfoot[R]{\small\textcolor{headergray}{FUNDAMENTOS DE BASES DE DATOS}}
+
+% ==========================================
+% CONFIGURACIÓN DE VARIABLES (EDITAR AQUÍ)
+% ==========================================
+\newcommand{\documentoTitulo}{Practica 04}
+\newcommand{\documentoSubtitulo}{Modelo Relacional}
+
+\newcommand{\profesorNombre}{Gerardo Avilés Rosas}
+
+\newcommand{\ayudanteTeoriaUno}{Oscar Daniel Flores Linares}
+\newcommand{\ayudanteTeoriaDos}{Claudia Itzel Gutiérrez Sánchez}
+
+\newcommand{\ayudanteLabUno}{Ricardo Badillo Macías}
+\newcommand{\ayudanteLabDos}{Rocío Aylin Huerta González}
+
+\newcommand{\equipoNombre}{Dobles Comillas}
+
+\newcommand{\integranteUno}{Contreras Morales Román Ismael}
+\newcommand{\integranteDos}{Cornejo de la mora Iñaki}
+\newcommand{\integranteTres}{Hipólito Felipe Christopher Guillermo}
+\newcommand{\integranteCuatro}{Ledesma Cuevas Eduardo}
+
+% ==========================================
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+	\vspace*{1cm}
+
+	\begin{tabular}{cc}
+		\includegraphics[width=3cm]{escudos/unam_seal.pdf} & \includegraphics[width=3cm]{escudos/fc_seal.pdf}
+	\end{tabular}
+
+	\vspace{0.8cm}
+	{\LARGE\bfseries UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}\\[0.3cm]
+	{\large FACULTAD DE CIENCIAS, 2027-I}\\[0.3cm]
+	{\large\bfseries FUNDAMENTOS DE BASES DE DATOS}
+
+	\vspace{1.2cm}
+	{\huge\bfseries \documentoTitulo:}\\[0.3cm]
+	{\Large \documentoSubtitulo}
+
+	\vspace{1.5cm}
+\end{center}
+
+\begin{multicols}{2}
+	\raggedcolumns
+
+	\textbf{PROFESOR:}\\
+	\profesorNombre\\[1.2cm]
+
+	\textbf{AYUDANTES DE TEORÍA:}\\
+	\ayudanteTeoriaUno\\
+	\ayudanteTeoriaDos\\[1.2cm]
+
+	\textbf{AYUDANTES DE LABORATORIO:}\\
+	\ayudanteLabUno\\
+	\ayudanteLabDos\\[1.2cm]
+
+	\columnbreak
+
+	\textbf{EQUIPO:}\\
+	\equipoNombre\\[1.2cm]
+
+	\textbf{INTEGRANTES DEL EQUIPO:}\\
+	\integranteUno\\
+	\integranteDos\\
+	\integranteTres\\
+	\integranteCuatro
+
+\end{multicols}
+
+\vspace{1cm}
+
+\section{Dominio de Atributos y Restricciones de Cada Relación}
+
+\subsection{Cliente}
+Su llave primaria es \textbf{\textit{idCliente}}, con dominio \textbf{\textit{serial}} y restricción de integridad de entidad. Los atributos \textbf{\textit{nombre}}, \textbf{\textit{apellido\_paterno}} y \textbf{\textit{apellido\_materno}} se derivan de desglosar el atributo compuesto original para garantizar que cada dominio sea una unidad indivisible; tienen un dominio \textbf{\textit{varchar}} con restricción \textbf{\textit{NOT NULL}} (excepto el apellido materno). El atributo \textbf{\textit{fecha\_nacimiento}} pertenece al dominio \textbf{\textit{date}} (\textbf{\textit{NOT NULL}}), y el \textbf{\textit{sexo}} es \textbf{\textit{varchar}}.
+
+\subsection{Telefono\_cliente}
+Como viene de un atributo multivaluado, tiene una llave primaria compuesta formada por \textbf{\textit{idCliente}} y \textbf{\textit{telefono}}. El atributo \textbf{\textit{idCliente}} actúa además como llave foránea (\textbf{\textit{FK}}), referenciando a la relación Cliente, y está sujeto a restricción de integridad referencial. El atributo \textbf{\textit{telefono}} tiene un dominio \textbf{\textit{varchar}} y restricción \textbf{\textit{NOT NULL}} de dominio.
+
+\subsection{Correo\_Cliente}
+Como viene de un atributo multivaluado, su llave primaria es compuesta, integrando el identificador del cliente y el \textbf{\textit{correo}}. La columna \textbf{\textit{idCliente}} es una llave foránea hacia Cliente con restricción de integridad referencial. El atributo \textbf{\textit{correo}} (\textbf{\textit{varchar}}) tiene restricción de dominio (\textbf{\textit{NOT NULL}}).
+
+\subsection{Tarjeta}
+La relación Tarjeta resulta de la conversión de una entidad débil, por lo que su llave primaria es compuesta, formada por el atributo de la entidad fuerte (\textbf{\textit{idCliente}}) y su propio discriminante (\textbf{\textit{numTarjeta}}). El atributo \textbf{\textit{idCliente}} (\textbf{\textit{int}}) funge también como llave foránea (\textbf{\textit{FK}}) hacia la relación Cliente. El atributo \textbf{\textit{numTarjeta}} pertenece al dominio \textbf{\textit{varchar}} con restricción \textbf{\textit{NOT NULL}}. El \textbf{\textit{saldo}} se define como un valor numérico exacto (\textbf{\textit{numeric}}) con restricción \textbf{\textit{NOT NULL}}. Finalmente, al tener una relación 1:N (EMITIR) con el cajero, la tabla absorbe como llave foránea el atributo \textbf{\textit{rfc\_cajero}} (\textbf{\textit{varchar}}), garantizando mediante integridad referencial que toda tarjeta esté asociada al empleado que la procesó.
+
+\subsection{Recarga}
+Su llave primaria es \textbf{\textit{idRecarga}}, perteneciente al dominio de los enteros (\textbf{\textit{int}}) con restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). Sus atributos \textbf{\textit{montoAbonar}} (\textbf{\textit{decimal}}), \textbf{\textit{fecha}} (\textbf{\textit{date}}), \textbf{\textit{hora}} (\textbf{\textit{time}}) y \textbf{\textit{metodoPago}} (\textbf{\textit{varchar}}) operan bajo restricciones de integridad de dominio (\textbf{\textit{NOT NULL}}). Estructuralmente, al ser una operación que vincula el lugar, el medio de pago y el empleado que la cobra, la tabla absorbe múltiples llaves foráneas (\textbf{\textit{FK}}): \textbf{\textit{idSucursal}} (\textbf{\textit{int}}) con integridad referencial hacia Sucursal; la llave compuesta de la tarjeta recargada, conformada por \textbf{\textit{idCliente}} (\textbf{\textit{int}}) y \textbf{\textit{numTarjeta}} (\textbf{\textit{varchar}}); y finalmente \textbf{\textit{rfc\_cajero}} (\textbf{\textit{varchar}}) con integridad referencial hacia la relación Cajero.
+
+\subsection{Sucursal}
+Su llave primaria es \textbf{\textit{idSucursal}}, la cual pertenece al dominio de los enteros (\textbf{\textit{int}}) y aplica una restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). El atributo compuesto original de la dirección fue descompuesto en las columnas indivisibles \textbf{\textit{calle}}, \textbf{\textit{numero}}, \textbf{\textit{colonia}} y \textbf{\textit{estado}}. Todas estas columnas de ubicación, sumadas a los atributos descriptivos \textbf{\textit{nombre}}, \textbf{\textit{telefono}} y \textbf{\textit{horario}}, comparten el dominio \textbf{\textit{varchar}} y cuentan con restricción de integridad de dominio (\textbf{\textit{NOT NULL}}).
+
+\subsection{Máquina}
+Su llave primaria es \textbf{\textit{idMaquina}}, perteneciente al dominio de los enteros (\textbf{\textit{int}}) con restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). Como atributo solo conserva \textbf{\textit{estado}}, con dominio \textbf{\textit{varchar}} y restricción \textbf{\textit{NOT NULL}} de dominio. Por su participación en el lado "N" de dos relaciones distintas (PERTENECE con Sucursal y CONTENER con Juego) y por regla de cardinalidad, la tabla absorbe las llaves de ambas entidades. Por lo tanto, contiene \textbf{\textit{idSucursal}} (\textbf{\textit{int}}) e \textbf{\textit{idJuego}} (\textbf{\textit{int}}) como llaves foráneas (\textbf{\textit{FK}}). Ambas cuentan con restricciones estrictas de integridad referencial (\textbf{\textit{NOT NULL}}).
+
+\subsection{Juego}
+Su llave primaria es \textbf{\textit{idJuego}}, la cual pertenece al dominio de los enteros (\textbf{\textit{int}}) con restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). Sus atributos \textbf{\textit{nombre}} y \textbf{\textit{tipo}} pertenecen al dominio \textbf{\textit{varchar}}, mientras que el atributo \textbf{\textit{costo}} pertenece al dominio \textbf{\textit{decimal}}; todos ellos cuentan con restricción de integridad de dominio (\textbf{\textit{NOT NULL}}).
+
+\subsection{Partida}
+Su llave primaria es \textbf{\textit{idPartida}}, perteneciente al dominio de los enteros (\textbf{\textit{int}}) con restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). Sus atributos \textbf{\textit{puntaje}} y \textbf{\textit{puntosGanados}} (ambos en el dominio \textbf{\textit{int}}), así como \textbf{\textit{fecha}} (\textbf{\textit{date}}) y \textbf{\textit{hora}} (\textbf{\textit{time}}), todos protegidos con restricciones de integridad de dominio (\textbf{\textit{NOT NULL}}). Al participar en el lado "N" de dos relaciones distintas (OCURRIR con Máquina y REGISTRAR con Tarjeta), absorbe las llaves primarias de dichas entidades. Por lo tanto, contiene como llaves foráneas (\textbf{\textit{FK}}) a \textbf{\textit{idMaquina}} (\textbf{\textit{int}}) y a la llave compuesta de la tarjeta, conformada por \textbf{\textit{idCliente}} (\textbf{\textit{int}}) y \textbf{\textit{numTarjeta}} (\textbf{\textit{varchar}}). Estas foráneas mantienen una restricción de integridad referencial.
+
+\subsection{Canje}
+Su llave primaria es \textbf{\textit{idCanje}}, del dominio de los enteros (\textbf{\textit{int}}), sujeta a la restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). Sus atributos \textbf{\textit{fecha}} (\textbf{\textit{date}}), \textbf{\textit{hora}} (\textbf{\textit{time}}), \textbf{\textit{puntosUtilizados}} (\textbf{\textit{int}}) y \textbf{\textit{cantidadPremiosObtenidos}} (\textbf{\textit{int}}) operan bajo restricciones de integridad de dominio estrictas (\textbf{\textit{NOT NULL}}). Participa como el lado "N" (muchos) en: OCURRIR con Sucursal, SOLICITAR con Cliente, INCLUIR con Premio y PROCESAR con EncargadoDePremios. Aplicando la regla de cardinalidad, la tabla absorbe cuatro llaves foráneas (\textbf{\textit{FK}}): \textbf{\textit{idSucursal}} (\textbf{\textit{int}}), \textbf{\textit{idCliente}} (\textbf{\textit{int}}), \textbf{\textit{idPremio}} (\textbf{\textit{int}}) y \textbf{\textit{rfc\_encargadoDePremios}} (\textbf{\textit{varchar}}). Todas estas foráneas aplican reglas de integridad referencial para asegurar que un canje no pueda existir sin estar vinculado a la sucursal donde ocurrió, el cliente que lo solicitó, el premio entregado y el empleado que lo autorizó.
+
+\subsection{Premio}
+Su llave primaria es \textbf{\textit{idPremio}}, perteneciente al dominio de los enteros (\textbf{\textit{int}}), con restricción de integridad de entidad (\textbf{\textit{NOT NULL}}, \textbf{\textit{UNIQUE}}). Sus atributos \textbf{\textit{nombre}}, \textbf{\textit{rangoEdad}} y \textbf{\textit{categoria}} utilizan el dominio de cadena de caracteres \textbf{\textit{varchar}}; \textbf{\textit{puntosNecesarios}} opera en el dominio de los enteros (\textbf{\textit{int}}); y \textbf{\textit{valorAporx}} pertenece al dominio numérico exacto (\textbf{\textit{decimal}}). Todos estos atributos cuentan con restricciones de integridad de dominio (\textbf{\textit{NOT NULL}}).
+
+\subsection{Inventario}
+La relación Inventario resulta de la conversión de una entidad débil, por lo que su llave primaria es compuesta, estructurada por la llave de su entidad fuerte dominante (\textbf{\textit{idSucursal}}) y su atributo discriminante propio (\textbf{\textit{idArticulo}}). El atributo \textbf{\textit{idSucursal}} pertenece al dominio de los enteros (\textbf{\textit{int}}) y actúa simultáneamente como llave foránea (\textbf{\textit{FK}}) hacia la relación Sucursal con integridad referencial. El discriminante \textbf{\textit{idArticulo}} (\textbf{\textit{int}}) aplica restricción de integridad de entidad para diferenciar grupos de artículos dentro de la misma sucursal. Adicionalmente, debido a su relación de cardinalidad 1:N con el catálogo principal, la tabla absorbe a \textbf{\textit{idPremio}} (\textbf{\textit{int}}) como una segunda llave foránea (\textbf{\textit{FK}}). Finalmente, el atributo descriptivo \textbf{\textit{cantidadDisponible}} pertenece al dominio numérico entero (\textbf{\textit{int}}) y opera bajo restricción de integridad de dominio (\textbf{\textit{NOT NULL}}).
+
+\subsection{Mantenimiento}
+Como es una entidad débil, su llave primaria es compuesta, estructurada por la llave de su entidad fuerte dominante (\textbf{\textit{idMaquina}}) y su atributo discriminante propio (\textbf{\textit{folioReporte}}). El atributo \textbf{\textit{idMaquina}} pertenece al dominio de los enteros (\textbf{\textit{int}}) y actúa simultáneamente como llave foránea (\textbf{\textit{FK}}) hacia la relación Máquina, aplicando una restricción de integridad referencial. El discriminante \textbf{\textit{folioReporte}} (\textbf{\textit{int}}) aplica restricción de integridad de entidad para diferenciar los distintos servicios aplicados a un mismo equipo. Sus atributos \textbf{\textit{fecha}} (\textbf{\textit{date}}), \textbf{\textit{tipo}} (\textbf{\textit{varchar}}) y \textbf{\textit{descripcionProblema}} (\textbf{\textit{varchar}}) operan bajo restricciones de integridad de dominio (\textbf{\textit{NOT NULL}}). Finalmente, al relacionarse en cardinalidad 1:N con Técnico, la tabla absorbe a \textbf{\textit{rfc\_tecnico}} (\textbf{\textit{varchar}}) como una segunda llave foránea (\textbf{\textit{FK}}).
+
+\subsection{Empleado}
+La jerarquía de la entidad Empleado presenta una especialización total y disyuntiva; sin embargo, la existencia de múltiples atributos multivaluados (teléfonos y correos en la superclase, y certificaciones en la subclase Técnico) hace inviable la eliminación de la tabla Empleado, pues si la eliminamos, tendremos 2 tablas más (las de atributos multivaluados) por cada subentidad. 
+
+Se genera la relación Empleado que concentra los atributos atómicos comunes, estableciendo \textbf{\textit{rfc}} (\textbf{\textit{varchar}}) como su llave primaria (\textbf{\textit{PK}}). Los atributos multivaluados de la superclase se extraen en las relaciones débiles \textbf{\textit{Empleado\_Telefono}} y \textbf{\textit{Empleado\_Correo}}, estructuradas con llaves primarias compuestas que incluyen una llave foránea (\textbf{\textit{FK}}). 
+
+Las subentidades (Gerente, Cajero, EncargadoDePremios y Técnico) se mapean como relaciones independientes que absorben el \textbf{\textit{rfc}} simultáneamente como llave primaria (\textbf{\textit{PK}}) y llave foránea (\textbf{\textit{FK}}) hacia la superclase, añadiendo únicamente sus atributos atómicos específicos (\textbf{\textit{cedulaProfesional}}, \textbf{\textit{horarioTrabajo}}, \textbf{\textit{areaEspecializacion}}). El atributo multivaluado del técnico se aísla en la tabla \textbf{\textit{Certificacion\_Tecnico}} aplicando la misma regla de llave compuesta. Finalmente, respetando las cardinalidades del modelo conceptual, la relación Gerente absorbe a \textbf{\textit{idSucursal}} (\textbf{\textit{int}}) como llave foránea (\textbf{\textit{FK}}) bajo restricción \textbf{\textit{UNIQUE}}, por su participación total en la relación 1:1 Administrar con Sucursal.
+
+
+
+% ==========================================
+% Diagrama (página de mayor tamaño)
+% ==========================================
+\clearpage
+% Página de mayor tamaño: se fija el tamaño físico de la página y se centra
+% un bloque de texto ligeramente menor (1 cm de margen por lado).
+\pdfpagewidth=31cm
+\pdfpageheight=30cm
+\setlength{\textwidth}{29cm}
+\setlength{\hsize}{29cm}
+\setlength{\oddsidemargin}{\dimexpr(\pdfpagewidth-\textwidth)/2 - 1in\relax}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textheight}{28cm}
+\setlength{\vsize}{28cm}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{\dimexpr(\pdfpageheight-\textheight)/2 - 1in\relax}
+\thispagestyle{empty}
+\subsection*{Diagrama Modelo Relacional}
+\vspace*{\fill}
+\centering
+\includegraphics[width=\textwidth, height=0.90\textheight, keepaspectratio]{Diagramas/RelacionalDoblesComillas.drawio.png}
+\captionof{figure}{Modelo Relacional del centro de entretenimiento familiar PuellaGame.}
+\label{fig:diagrama_er}
+\vspace*{\fill}
+\clearpage
+\restoregeometry
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
+
+\printbibliography
+
+\end{document}
