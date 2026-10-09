@@ -1,1 +1,40 @@
-Respuesta ...
+\begin{enumerate}[a.]
+\item \begin{center} \begin{tabular}{|c|c|}
+  \hline \\
+  Modelo E-R & Modelo Relacional \\
+  \hline \\
+  M : N & A(a1, a2, a3) B(b, b1) ab(a1, a2, b, ab1) \\
+             & A: PK(a1, a2) \\
+             & B: PK(b) \\
+             & ab: PK(a1, a2, b) FK1(a1, a2) → A(a1, a2) FK3(b) → B(b)  \\
+  \hline \\
+  1 : N & A(a1, a2, a3) B(b, b1, ab1, a1, a2) \\
+             & A: PK(a1, a2) \\
+             & B: PK(b) FK1(a1, a2) → A(a1, a2) \\
+  \hline \\
+  N : 1 & A(a1, a2, a3, ab1, b) B(b, b1) \\
+             & A: PK(a1, a2) FK1(b) → B(b) \\
+             & B: PK(b) \\
+  \hline \\
+  1 : 1 & A(a1, a2, a3) B(b, b1) ab(a1, a2, b, ab1) \\
+             & A: PK(a1, a2) \\
+             & B: PK(b) \\
+             & ab: PK(a1, a2, b) FK1(a1, a2) → A(a1, a2) FK3(b) → B(b)  \\
+  \hline
+\end{tabular}
+\end{center}
+
+\item \begin{itemize}
+  \item A: (2, 'ww', 'a'); (4, 'xx', 'b'); (6, 'yy', 'c'); (8, 'zz', 'd')
+  \item B: (17, _); (27, _); (37, _); (47, _); (57, _)
+  \end{itemize}
+  \begin{enumerate}[i.]
+  \item Este conjunto de tuplas no se puede insertar debido a que la última tupla repite la PK de la tercera así que viola la restricción de llave primaria. Nos basta con insertar una tupla que relacione dos elementos antes no relacionados (en lugar de la última tupla original) para quedarnos con el conjunto: (8, 'zz', 17, 5); (6, 'yy', 57, 10); (4, 'xx', 27, 15); (2, 'ww', 37, 20); (4, 'xx', 37, 15)
+
+  \item Con este formato podemos ver que para todo tupla porque su atributo a1 no existe en A (además que violan la restricción de tipo de ab1). Tomando las cadenas de letras como la tupla correspondiente de A podemos construir fácilmente el conjunto: (8, 'zz', 17, 77); (6, 'yy', 27, 78); (4, 'xx', 37, 79); (2, 'ww', 47, 80); (8, 'zz', 57, 81)
+
+  \item De nuevo un conjunto casi válido, el único problema es que en vez de usar a1 y a2 (parte de la llave primaria compuesta original de A) está usando a1 y a3 que no es lo suficientemente fuerte para fungir de llave foránea en la relación ab. Podemos tomar el conjunto exacto y sólo reemplazar a3 por a2 para obtener: (2, 'ww', 17, 23); (4, 'xx', 27, 24); (6, 'yy', 37, 25); (8, 'zz', 47, 26); (2, 'ww', 57, 27)
+
+  \item Finalmente tenemos ¡un conjunto válido! Todas las (a1, a2) existen en A al igual que todas las b en B. Finalmente, todas las PKs son distintas.
+  \end{enumerate}
+\end{enumerate}
