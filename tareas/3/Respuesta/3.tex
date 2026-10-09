@@ -26,15 +26,35 @@
 
 \item \begin{itemize}
   \item A: (2, 'ww', 'a'); (4, 'xx', 'b'); (6, 'yy', 'c'); (8, 'zz', 'd')
-  \item B: (17, _); (27, _); (37, _); (47, _); (57, _)
+  \item B: (17,  ); (27,  ); (37,  ); (47,  ); (57,  )
   \end{itemize}
   \begin{enumerate}[i.]
   \item Este conjunto de tuplas no se puede insertar debido a que la última tupla repite la PK de la tercera así que viola la restricción de llave primaria. Nos basta con insertar una tupla que relacione dos elementos antes no relacionados (en lugar de la última tupla original) para quedarnos con el conjunto: (8, 'zz', 17, 5); (6, 'yy', 57, 10); (4, 'xx', 27, 15); (2, 'ww', 37, 20); (4, 'xx', 37, 15)
 
-  \item Con este formato podemos ver que para todo tupla porque su atributo a1 no existe en A (además que violan la restricción de tipo de ab1). Tomando las cadenas de letras como la tupla correspondiente de A podemos construir fácilmente el conjunto: (8, 'zz', 17, 77); (6, 'yy', 27, 78); (4, 'xx', 37, 79); (2, 'ww', 47, 80); (8, 'zz', 57, 81)
+  \item Con este formato ninguna tupla es válida: a1 no existe en A, b no existe en B y ab1 viola la restricción de dominio (cadena en vez de entero). Tomando las cadenas de letras como la tupla correspondiente de A podemos construir fácilmente el conjunto: (8, 'zz', 17, 77); (6, 'yy', 27, 78); (4, 'xx', 37, 79); (2, 'ww', 47, 80); (8, 'zz', 57, 81)
 
-  \item De nuevo un conjunto casi válido, el único problema es que en vez de usar a1 y a2 (parte de la llave primaria compuesta original de A) está usando a1 y a3 que no es lo suficientemente fuerte para fungir de llave foránea en la relación ab. Podemos tomar el conjunto exacto y sólo reemplazar a3 por a2 para obtener: (2, 'ww', 17, 23); (4, 'xx', 27, 24); (6, 'yy', 37, 25); (8, 'zz', 47, 26); (2, 'ww', 57, 27)
+  \item Podemos ver que los pares (2, 'a'), (4, 'b'), (6, 'c') y (8, 'd') no corresponden a ningun (a1, a2) en A por lo que las tuplas no son válidas. Podemos tomar el mismo conjunto de tuplas y sólo reemplazar a3 por a2 para obtener: (2, 'ww', 17, 23); (4, 'xx', 27, 24); (6, 'yy', 37, 25); (8, 'zz', 47, 26); (2, 'ww', 57, 27)
 
   \item Finalmente tenemos ¡un conjunto válido! Todas las (a1, a2) existen en A al igual que todas las b en B. Finalmente, todas las PKs son distintas.
   \end{enumerate}
+
+\item A falta de detalles sobre el ejercicio, asumimos que A contiene las tuplas del inciso anterior, que B está vacía, que aplican las restricciones de tipo del inciso anterior ($b, ab1, a1$ enteros; $b1, a2$ cadenas) y que tomamos como referencia para las tuplas de B el orden estricto de (b, b1, ab1, a1, a2), es decir, (entero, cadena, entero, entero, cadena).
+
+  \begin{enumerate}[i.]
+  \item Este conjunto no se puede insertar. Desde la primera tupla se viola la restricción de dominio, ya que a1 y a2 toman los valores 'zz' y 10, lo mismo ocurre en las demás tuplas. Aun si reordenamos las columnas, los pares (a1, a2) como (57,'zz') o (47,'yy') no existen en A y la última tupla repite la PK b=2. Un conjunto que sí se puede insertar es: (17, 'f', 10, 2, 'ww'); (27, 'g', 20, 4, 'xx'); (37, 'h', 30, 6, 'yy'); (47, 'i', 40, 8, 'zz'); (57, 'j', 50, 2, 'ww')
+
+  \item Este conjunto no se puede insertar. Desde la primera tupla, b1=8 y ab1='zz' violan la restricción de dominio  y a1='f' tampoco es un entero. Con el orden estricto, ninguna tupla es válida. Si se reordenaran las columnas como (b, a1, a2, b1, ab1) el conjunto sí sería válido pero eso contradice el orden asumido. Un conjunto que sí se puede insertar es: (57, 'f', 2, 8, 'zz'); (47, 'g', 4, 6, 'yy'); (37, 'h', 6, 4, 'xx'); (27, 'i', 8, 2, 'ww'); (17, 'j', 6, 6, 'yy')
+
+  \item Este conjunto no se puede insertar. Con el orden estricto, la primera tupla viola el dominio con a1='zz'. Aunque se reordenaran las columnas como (b, b1, a1, a2, ab1), las FK (a1, a2) sí existirían en A pero se repiten las PK b=27 (tuplas 2 y 4) y b=17 (tuplas 1 y 5), lo cual viola la restricción de llave primaria. Un conjunto que sí se puede insertar es: (17, 'f', 1, 8, 'zz'); (27, 'g', 2, 6, 'yy'); (37, 'h', 3, 4, 'xx'); (47, 'i', 4, 2, 'ww'); (57, 'j', 5, 6, 'yy')
+
+  \item Este conjunto sí se puede insertar. Todas las tuplas respetan los dominios (entero, cadena, entero, entero, cadena), todos los pares (a1, a2) existen en A y todas las b son distintas. Que (4,'xx') aparezca en dos tuplas no viola nada, porque la en una relación 1:N varias tuplas de B pueden referenciar la misma tupla de A.
+  \end{enumerate}
+
+\item La relación 1:1 con participación parcial de ambos lados es prácticamente idéntica a la relación M:N sólo con la restricción adicional que no se pueden repetir llaves foráneas (una vez que aparece una llave foránea en una fila ya no puede aparecer en ninguna otra). Entonces tomamos como base ab(a1, a2, b, ab1) con FK(a1, a2) → A(a1, a2) y FK(b) → B(b), siguiendo la misma regla que en N:M por la participación parcial de ambos lados. Para hacer explícita la restricción de las llaves foráneas elegimos PK(a1, a2) y declaramos b como UNIQUE (no es la única forma de hacerlo) para que ningún par (a1, a2) y ningún b pueden aparecer en más de una tupla. Como A solo tiene cuatro tuplas, a lo más se pueden insertar cuatro tuplas en ab por lo que asumimos que A tiene una quinta tupla (10, 'vv', 'e').
+
+  \begin{itemize}
+  \item Conjunto que sí se puede insertar: (2, 'ww', 17, 5); (4, 'xx', 27, 10); (6, 'yy', 37, 15); (8, 'zz', 47, 20); (10, 'vv', 57, 25). Todos los pares (a1, a2) existen en A, todas las b existen en B, los tipos son correctos y ningún (a1, a2) ni ninguna b se repite.
+
+  \item Conjunto que no se puede insertar: (2, 'ww', 17, 5); (2, 'ww', 27, 10); (4, 'xx', 37, 15); (6, 'yy', 37, 20); (8, 'zz', 47, 25). La segunda tupla repite el par (2, 'ww') y la cuarta repite b=37, lo que viola la unicidad del 1:1. Este mismo conjunto sí sería válido en N:M, y ahí está la diferencia entre ambas cardinalidades.
+  \end{itemize}
 \end{enumerate}
