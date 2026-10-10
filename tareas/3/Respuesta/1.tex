@@ -1,1 +1,75 @@
-Respuesta 1...
+\begin{enumerate}[i.]
+	\item ¿Qué es una relación y qué características tiene?
+
+	      En el modelo relacional, una relación es una tabla que representa un conjunto de entidades o de asociaciones entre ellas.
+
+	      Matemáticamente, una relación es un subconjunto del producto cartesiano de $n$ dominios \[A_1 \times A_2 \times \dots \times A_n\]
+	      donde cada posición corresponde a un atributo cuyo dominio es $A_i$.
+
+	      De esta forma, un elemento de la relación (llamado tupla) se identifica con una entidad (o asociación entre entidades) que tiene asociados ciertos valores para cada atributo.
+
+
+	      De manera más simple, podemos pensar a una relación simplemente como una tabla bidimensional, donde cada columna representa un atributo y cada renglón representa un elemento de dicha relación.
+
+	      Las características principales son:
+	      \begin{itemize}
+		      \item Cada fila representa una instancia individual, por lo que no pueden haber filas idénticas repetidas.
+
+		      \item Cada columna representa un atributo.
+		      \item Cada celda de la tabla (equivalentemente, cada elemento de algún $A_i$) es indivisible, es decir, no pueden ser listas ni arreglos.
+		      \item No existe un orden específico entre las filas de la tabla. Es decir, la relación efectivamente es un conjunto (sin orden).
+		      \item El orden de las columnas tampoco es significativo.
+
+	      \end{itemize}
+
+
+	\item ¿Qué es un esquema de relación?
+	      Es la estructura o el diseño de la relación: el nombre de la relación y el conjunto de sus atributos, junto con el dominio de cada uno. Describe qué se almacena, no los datos concretos.
+
+
+
+	\item ¿Qué es una llave primaria?, ¿qué es una llave candidata?, ¿qué es una llave mínima?, ¿qué es una super llave?
+	      Conviene explicar en el orden inverso.
+	      Una superllave es cualquier conjunto de atributos de una relación que permiten identificar de forma única a cada tupla de la relación. Es decir, no pueden existir dos tuplas con exactamente los mismos valores en dichos atributos.
+	      A menudo las superllaves contienen información redundante, es decir, no se requieren todos los atributos de la superllave para identificar unívocamente a las tuplas de la relación.
+
+	      Si nos enfocamos en superllaves que no contienen información redundante, llegamos al concepto de llave mínima:
+	      es un conjunto de atributos que permiten identificar unívocamente a los elementos de la relación, y tal que quitar cualquier atributo de la llave rompe esta propiedad.
+
+	      Una llave candidata es una llave mínima; se le llama candidata porque cualquiera de ellas puede elegirse como llave primaria.
+
+	      Finalmente, una llave primaria es una llave candidata elegida por el diseñador para identificar a los elementos de la relación. Su valor es el que las llaves foráneas de otras relaciones referencian para vincular tuplas.
+
+
+	\item ¿Qué restricciones impone una llave primaria y una llave foránea al modelo de datos relacional?
+
+	      Como ya mencionamos, una llave primaria debe ser capaz de identificar de manera única a los elementos de la relación. Además de esto, no se permiten valores nulos en los atributos de una llave primaria.
+
+	      Por otro lado, una llave foránea es un conjunto de atributos de una relación cuyos valores deben coincidir con los de una llave primaria (o candidata) de otra relación (o incluso de la misma), o bien ser nulos.
+	      La restricción más importante que impone el uso de una llave foránea es la integridad referencial: salvo los nulos, cada valor de la llave foránea debe existir como llave de alguna tupla de la relación referenciada.
+
+
+	\item Investiga cuáles son las Reglas de Codd y explica con tus propias palabras cada una de ellas. Indica por qué consideras que son importantes.
+
+
+	      \begin{enumerate}[start=0, label=\textbf{Regla \arabic*.}]
+		      \item \textbf{(Fundacional):} Un sistema manejador de bases de datos relacional debe administrar todos sus datos usando únicamente sus capacidades relacionales, sin depender de mecanismos de bajo nivel.
+		      \item \textbf{(Información):} Toda la información debe representarse de una sola manera: como valores dentro de tablas.
+		      \item \textbf{(Acceso garantizado):} Todo valor debe poder recuperarse combinando el nombre de la tabla, el valor de la llave primaria de la fila y el nombre de la columna.
+		      \item \textbf{(Valores nulos):} Debe poder representarse la información faltante o inaplicable con un valor nulo, distinto de cero o de la cadena vacía y válido para cualquier dominio.
+		      \item \textbf{(Catálogo dinámico en línea):} La descripción de la base de datos (sus metadatos) debe almacenarse en tablas y poder consultarse o modificarse con el mismo lenguaje que los datos ordinarios.
+		      \item \textbf{(Sublenguaje de datos completo):} Debe existir un lenguaje textual que permita, de forma interactiva y desde programas, definir datos y vistas, manipular datos, expresar restricciones de integridad, gestionar autorizaciones y delimitar transacciones.
+		      \item \textbf{(Actualización de vistas):} Toda vista cuya actualización sea teóricamente posible debe poder actualizarla el sistema.
+		      \item \textbf{(Operaciones de alto nivel):} El sistema debe operar sobre conjuntos completos de filas a la vez, no obligar a procesarlas una por una.
+		      \item \textbf{(Independencia física):} Los programas y consultas no deben verse afectados por cambios en la forma en que los datos se almacenan físicamente.
+		      \item \textbf{(Independencia lógica):} Debe poder modificarse la estructura lógica de las tablas sin alterar la manera en que los usuarios acceden a los datos, apoyándose en las vistas.
+		      \item \textbf{(Independencia de la integridad):} Las restricciones de integridad deben poder declararse en el propio lenguaje relacional y almacenarse en el catálogo, no programarse en cada aplicación.
+		      \item \textbf{(Independencia de la distribución):} El usuario y las aplicaciones no deben poder distinguir si los datos residen en un solo sitio o están fragmentados y distribuidos geográficamente.
+		      \item \textbf{(No subversión):} Si el sistema ofrece acceso de bajo nivel, ese acceso no debe permitir violar las restricciones de integridad ni las reglas de seguridad relacionales.
+	      \end{enumerate}
+
+	      Estas reglas definen con precisión qué significa que un sistema manejador de bases de datos sea verdaderamente relacional y, por lo tanto, constituyen un estándar y una meta a la que aspirar. Un sistema que las cumple garantiza que el acceso a los datos no dependa de los detalles de implementación física, que la integridad y la consistencia se preserven mediante restricciones declaradas dentro de la propia base de datos, y que exista una interfaz uniforme para consultarla y modificarla. En la práctica, ningún sistema manejador de bases de datos comercial las satisface por completo, por lo que sirven como referencia para evaluarlos.
+
+
+
+\end{enumerate}
