@@ -18,12 +18,34 @@
   
 \end{enumerate}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Figuras/3c.png}
-	\caption{Modelo E-R para Sistema de Informacion Geografica.}
-	\label{fig:3a}
-\end{figure}
+% ==========================================
+% Modelo E-R (página en horizontal, tamaño carta)
+% ==========================================
+\clearpage
+% Página tamaño carta en horizontal: se fija el tamaño físico de la página y se
+% centra el diagrama, dejando 1 cm de margen por lado.
+\pdfpagewidth=11in
+\pdfpageheight=8.5in
+\setlength{\textwidth}{\dimexpr\pdfpagewidth-2cm\relax}
+\setlength{\hsize}{\dimexpr\pdfpagewidth-2cm\relax}
+\setlength{\oddsidemargin}{\dimexpr(\pdfpagewidth-\textwidth)/2 - 1in\relax}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textheight}{\dimexpr\pdfpageheight-2cm\relax}
+\setlength{\vsize}{\dimexpr\pdfpageheight-2cm\relax}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{\dimexpr(\pdfpageheight-\textheight)/2 - 1in\relax}
+\thispagestyle{empty}
+\vspace*{\fill}
+\centering
+\includegraphics[width=\textwidth, height=0.85\textheight, keepaspectratio]{Figuras/3c.pdf}
+\captionof{figure}{Modelo E-R para Sistema de Informacion Geografica.}
+\label{fig:er_3c}
+\vspace*{\fill}
+\clearpage
+\restoregeometry
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
 
 \subsection*{Consideraciones para Modelo Relacional}
 
@@ -60,9 +82,29 @@ Al tener una cardinalidad 1:N en su asociación MONITOREA con \textbf{Satélite}
 
 \end{enumerate}
 
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=0.8\textwidth]{Diagramas/RelacionalT2E3c.drawio.png}
-	\caption{Modelo Racional para Sistema de Informacion Geografica.}
-	\label{fig:3a}
-\end{figure}
+% ==========================================
+% Modelo Relacional (página en horizontal, tamaño carta)
+% ==========================================
+\clearpage
+\pdfpagewidth=11in
+\pdfpageheight=8.5in
+\setlength{\textwidth}{\dimexpr\pdfpagewidth-2cm\relax}
+\setlength{\hsize}{\dimexpr\pdfpagewidth-2cm\relax}
+\setlength{\oddsidemargin}{\dimexpr(\pdfpagewidth-\textwidth)/2 - 1in\relax}
+\setlength{\evensidemargin}{\oddsidemargin}
+\setlength{\textheight}{\dimexpr\pdfpageheight-2cm\relax}
+\setlength{\vsize}{\dimexpr\pdfpageheight-2cm\relax}
+\setlength{\headheight}{0pt}
+\setlength{\headsep}{0pt}
+\setlength{\topmargin}{\dimexpr(\pdfpageheight-\textheight)/2 - 1in\relax}
+\thispagestyle{empty}
+\vspace*{\fill}
+\centering
+\includegraphics[width=\textwidth, height=0.85\textheight, keepaspectratio]{Figuras/RelacionalT2E3c.pdf}
+\captionof{figure}{Modelo Racional para Sistema de Informacion Geografica.}
+\label{fig:rel_3c}
+\vspace*{\fill}
+\clearpage
+\restoregeometry
+\pdfpagewidth=\paperwidth
+\pdfpageheight=\paperheight
