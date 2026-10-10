@@ -1,1 +1,42 @@
-Respuesta 4...
+\begin{enumerate}[a.]
+    \item Dos departamentos con el nombre 'Sistemas'  podrían existir al mismo tiempo.
+    
+    Se cumple. La única llave de \texttt{Departamento} es \texttt{NúmDepto}, \texttt{NombreDepto} no es clave ni único, por lo que puede repetirse. Pueden existir dos tuplas con el mismo \texttt{NombreDepto} pero diferente \texttt{NúmDepto}.
+
+    \item Dos o más empleados pueden administrar el mismo \texttt{Departamento} al mismo tiempo.
+    
+    Se cumple. La llave primaria de \texttt{Administrar} está compuesta por \texttt{NúmEmpleado}, \texttt{NúmDepto} y \texttt{Desde}, por lo que dos empleados pueden administrar el mismo \texttt{Departamento} al mismo tiempo, pues sus \texttt{NúmEmpleado} serán diferentes y por lo tanto, las claves serán distintas.
+
+    \item Un empleado puede trabajar en un \texttt{Departamento} y administrar otro al mismo tiempo.
+    
+    Se cumple. Las tablas \texttt{Trabajar} y \texttt{Administrar} son independientes y no existe ninguna restricción entre ellas, por lo que no se requiere que el departamento administrado sea el mismo en el que se trabaja.
+
+    \item Para administrar un Departamento un empleado debe trabajar en dicho departamento.
+    
+    No se cumple. Aunque ambas tablas \texttt{Trabajar} y \texttt{Administrar} contienen llaves \texttt{NúmEmpleado} y \texttt{NúmDepto}, estas solo identifican al empleado y departamento, pero no requieren que cada tupla de \texttt{Administrar} tenga una correspondiente en \texttt{Trabajar}, por lo que el esquema permite administrar un departamento en el que no se trabaja.
+
+    \item Un empleado podría trabajar en dos Departamentos a partir de la misma fecha.
+    
+    Se cumple. La llave primaria de \texttt{Trabajar} está compuesta por \texttt{(NúmEmpleado, NúmDepto, Desde)}, por lo que si un empleado trabaja en dos departamentos distintos, las tuplas tendrán diferentes \texttt{NúmDepto} y ambas serán válidas.
+
+    \item Para las tuplas de la relación Administrar, hasta no puede ser anterior a desde.
+    
+    No se cumple. Aunque se define el periodo [desde,hasta), esto no impone una restricción que impida que \texttt{Hasta} sea anterior a \texttt{Desde}, además, se indica no considerar restricciones adicionales a las de cardinalidad y participación.
+
+    \item Dado un empleado, podemos identificar exactamente el Departamento donde trabaja.
+    
+    No se cumple. La relación \texttt{Trabajar} tiene una llave primaria compuesta \texttt{(NúmEmpleado, NúmDepto, Desde)}, permitiendo que un mismo empleado tenga varias tuplas en \texttt{Trabajar}, además, por la participación parcial, podría incluso no tener ninguna, por lo que no podríamos identificar exactamente el \texttt{Departamento} donde trabaja.
+
+    \item Ningún empleado puede cobrar más de un Salario al mismo tiempo.
+    
+    No se cumple. La tabla \texttt{Salario} tiene como llave primaria \texttt{(NúmEmpleado, Desde)}, lo que impide que un mismo empleado tenga dos tuplas con el mismo valor de \texttt{Desde}, sin embargo, no existe una restricción que impida salarios que se traslapen, por lo que sí podría cobrar más de un salario al mismo tiempo.
+
+    \item Algunas tuplas en Salario podrían no tener valor para el atributo desde y ningún empleado asociado a ellas.
+    
+    No se cumple. La llave primaria de \texttt{Salario} es \texttt{(NúmEmpleado, Desde)}, por lo que ninguno de los dos valores puede ser nulo, además de esto, la participación del lado de \texttt{Salario} con \texttt{Empleado} es total.
+
+    \item Un Departamento siempre tiene algún empleado que lo administre.
+    
+    No se cumple. El esquema permite que haya un \texttt{Departamento} sin algún empleado que lo administre, porque en la línea \texttt{Departamento} - \texttt{Administrar}, el lado de \texttt{Departamento} tiene participación parcial.
+
+\end{enumerate}
