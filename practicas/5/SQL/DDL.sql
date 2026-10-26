@@ -125,6 +125,11 @@ CREATE TABLE Empleado (
     Salario decimal(8,2)
 );
 
+CREATE TABLE Telefono_Empleado (
+    rfc varchar(100),
+    telefono varchar(15)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -219,6 +224,10 @@ ALTER TABLE Empleado ALTER COLUMN FechaNacimiento SET NOT NULL;
 ALTER TABLE Empleado ALTER COLUMN FechaContratacion SET NOT NULL;
 ALTER TABLE Empleado ALTER COLUMN Salario SET NOT NULL;
 
+-- Para Telefono_Empleado
+ALTER TABLE Telefono_Empleado ADD CONSTRAINT pk_telefono_empleado PRIMARY KEY (rfc, telefono);
+ALTER TABLE Telefono_Empleado ALTER COLUMN telefono SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -259,3 +268,6 @@ ALTER TABLE Inventario ADD CONSTRAINT fk_inventario_premio FOREIGN KEY (idPremio
 -- Para Mantenimiento
 ALTER TABLE Mantenimiento ADD CONSTRAINT fk_mantenimiento_maquina FOREIGN KEY (idMaquina) REFERENCES Maquina(idMaquina);
 ALTER TABLE Mantenimiento ADD CONSTRAINT fk_mantenimiento_tecnico FOREIGN KEY (rfc_Tecnico) REFERENCES Tecnico(rfc);
+
+-- Para Telefono_Empleado
+ALTER TABLE Telefono_Empleado ADD CONSTRAINT fk_telefono_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
