@@ -156,6 +156,11 @@ CREATE TABLE Tecnico (
     AreaEspecialidad varchar(100)
 );
 
+CREATE TABLE Certificacion_Tecnico (
+    rfcTecnico varchar(100),
+    certificacion varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -276,6 +281,10 @@ ALTER TABLE EncargadoDePremio ALTER COLUMN HorarioTrabajo SET NOT NULL;
 ALTER TABLE Tecnico ADD CONSTRAINT pk_tecnico PRIMARY KEY (rfc);
 ALTER TABLE Tecnico ALTER COLUMN AreaEspecialidad SET NOT NULL;
 
+-- Para Certificacion_Tecnico
+ALTER TABLE Certificacion_Tecnico ADD CONSTRAINT pk_certificacion_tecnico PRIMARY KEY (rfcTecnico, certificacion);
+ALTER TABLE Certificacion_Tecnico ALTER COLUMN certificacion SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -335,3 +344,6 @@ ALTER TABLE EncargadoDePremio ADD CONSTRAINT fk_encargadodepremio_empleado FOREI
 
 -- Para Tecnico
 ALTER TABLE Tecnico ADD CONSTRAINT fk_tecnico_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
+
+-- Para Certificacion_Tecnico
+ALTER TABLE Certificacion_Tecnico ADD CONSTRAINT fk_certificacion_tecnico FOREIGN KEY (rfcTecnico) REFERENCES Tecnico(rfc);
