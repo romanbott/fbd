@@ -114,6 +114,17 @@ CREATE TABLE Mantenimiento (
        rfc_Tecnico varchar(100)
 );
 
+CREATE TABLE Empleado (
+    rfc varchar(100),
+    CURP varchar(100),
+    Nombre varchar(100),
+    Paterno varchar(100),
+    Materno varchar(100),
+    FechaNacimiento date,
+    FechaContratacion date,
+    Salario decimal(8,2)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -198,6 +209,15 @@ ALTER TABLE Mantenimiento ADD CONSTRAINT pk_mantenimiento PRIMARY KEY (idMaquina
 ALTER TABLE Mantenimiento ALTER COLUMN fecha SET NOT NULL;
 ALTER TABLE Mantenimiento ALTER COLUMN Tipo SET NOT NULL;
 ALTER TABLE Mantenimiento ALTER COLUMN DescripcionProblema SET NOT NULL;
+
+-- Para Empleado
+ALTER TABLE Empleado ADD CONSTRAINT pk_empleado PRIMARY KEY (rfc);
+ALTER TABLE Empleado ALTER COLUMN CURP SET NOT NULL;
+ALTER TABLE Empleado ALTER COLUMN Nombre SET NOT NULL;
+ALTER TABLE Empleado ALTER COLUMN Paterno SET NOT NULL;
+ALTER TABLE Empleado ALTER COLUMN FechaNacimiento SET NOT NULL;
+ALTER TABLE Empleado ALTER COLUMN FechaContratacion SET NOT NULL;
+ALTER TABLE Empleado ALTER COLUMN Salario SET NOT NULL;
 
 -- ====================================
 -- Restricciones Referenciales
