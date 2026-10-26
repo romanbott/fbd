@@ -102,7 +102,7 @@ CREATE TABLE Premio (
 -- Reestricciones de Entidad y Dominio
 --=====================================
 
--- PAra cliente
+-- Para cliente
 ALTER TABLE Cliente ADD CONSTRAINT pk_cliente PRIMARY KEY (idCliente);
 ALTER TABLE Cliente ALTER COLUMN Nombre SET NOT NULL;
 ALTER TABLE Cliente ALTER COLUMN Paterno SET NOT NULL;
@@ -177,17 +177,17 @@ ALTER TABLE Premio ALTER COLUMN ValorAprox SET NOT NULL;
 -- Reestricciones Referenciales
 -- ====================================
 
--- PAra Telefono_Cliente
+-- Para Telefono_Cliente
 ALTER TABLE Telefono_Cliente ADD CONSTRAINT fk_telefeno_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 
 -- Para Correo_Cliente
 ALTER TABLE Correo_Cliente ADD CONSTRAINT fk_correo_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 
--- PAra tarjeta
+-- Para tarjeta
 ALTER TABLE Tarjeta ADD CONSTRAINT fk_tarjeta_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 ALTER TABLE Tarjeta ADD CONSTRAINT fk_tarjeta_cajero  FOREIGN KEY (rfc_cajero) REFERENCES Cajero(rfc);
 
--- PAra Recarga 
+-- Para Recarga
 ALTER TABLE Recarga ADD CONSTRAINT fk_recarga_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
 ALTER TABLE Recarga ADD CONSTRAINT fk_recarga_tarjeta FOREIGN KEY (idCliente, idTarjeta) REFERENCES Tarjeta(idCliente, idTarjeta);
 ALTER TABLE Recarga ADD CONSTRAINT fk_recarga_cajero FOREIGN KEY (rfc_cajero) REFERENCES Cajero(rfc);
