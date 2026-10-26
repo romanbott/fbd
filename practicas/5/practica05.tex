@@ -1,0 +1,243 @@
+\documentclass[11pt,letterpaper,spanish]{article}
+
+\usepackage{caption}
+
+\usepackage{iftex}
+\ifPDFTeX
+  % --- Setup for pdfLaTeX ---
+  \usepackage[utf8]{inputenc}
+  \usepackage[T1]{fontenc}
+\else
+  % --- Setup for XeLaTeX & LuaLaTeX ---
+  \usepackage{fontspec}
+  \setmainfont{Latin Modern Roman}
+\fi
+
+
+\usepackage[spanish]{babel}
+
+\usepackage{url}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{svg}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{multicol}
+\usepackage{enumitem}
+
+%% Paquetes caseros
+\usepackage{customcode}
+
+% ==========================================
+% MARCADO DE PROCEDENCIA DE LAS JUSTIFICACIONES
+% (permite distinguir lo tomado de Explicación.pdf
+%  de las propuestas de mejora para poder depurarlas)
+% ==========================================
+\definecolor{propcolor}{RGB}{0,90,160}
+
+\tcbuselibrary{breakable}
+
+\newcommand{\marcaOriginal}{}
+\newcommand{\marcaPropuesta}{\textnormal{\small\textcolor{propcolor}{(propuesta)}}}
+
+\newtcolorbox{cajapropuesta}{
+	colback=propcolor!4,
+	colframe=propcolor,
+	boxrule=0.5pt,
+	arc=2pt,
+	left=5pt, right=5pt, top=5pt, bottom=5pt,
+	breakable
+}
+
+
+
+% Required by biblatex-apa for context-sensitive quotes
+\usepackage{csquotes}
+
+% Load biblatex with official APA 7th edition style
+\usepackage[style=apa, backend=biber]{biblatex}
+\addbibresource{referencias.bib}
+
+
+\geometry{margin=2cm, top=2.5cm, bottom=2.5cm}
+
+\definecolor{headergray}{gray}{0.3}
+\definecolor{rulecolor}{gray}{0.6}
+
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0.5pt}
+\renewcommand{\footrulewidth}{0.5pt}
+\fancyhead[L]{\small\textcolor{headergray}{UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}}
+\fancyhead[R]{\small\textcolor{headergray}{\documentoTitulo}}
+\fancyfoot[L]{\small\textcolor{headergray}{FACULTAD DE CIENCIAS, 2027-I}}
+\fancyfoot[C]{\small\textcolor{headergray}{\thepage}}
+\fancyfoot[R]{\small\textcolor{headergray}{FUNDAMENTOS DE BASES DE DATOS}}
+
+% ==========================================
+% CONFIGURACIÓN DE VARIABLES (EDITAR AQUÍ)
+% ==========================================
+\newcommand{\documentoTitulo}{Práctica 05}
+\newcommand{\documentoSubtitulo}{Lenguaje para Definición de Datos DDL}
+
+\newcommand{\profesorNombre}{Gerardo Avilés Rosas}
+
+\newcommand{\ayudanteTeoriaUno}{Oscar Daniel Flores Linares}
+\newcommand{\ayudanteTeoriaDos}{Claudia Itzel Gutiérrez Sánchez}
+
+\newcommand{\ayudanteLabUno}{Ricardo Badillo Macías}
+\newcommand{\ayudanteLabDos}{Rocío Aylin Huerta González}
+
+\newcommand{\equipoNombre}{Dobles Comillas}
+
+\newcommand{\integranteUno}{Contreras Morales Román Ismael}
+\newcommand{\integranteDos}{Cornejo de la mora Iñaki}
+\newcommand{\integranteTres}{Hipólito Felipe Christopher Guillermo}
+\newcommand{\integranteCuatro}{Ledesma Cuevas Eduardo}
+
+% ==========================================
+
+\begin{document}
+
+\thispagestyle{empty}
+
+\begin{center}
+	\vspace*{1cm}
+
+	\begin{tabular}{cc}
+		\includegraphics[width=3cm]{escudos/unam_seal.pdf} & \includegraphics[width=3cm]{escudos/fc_seal.pdf}
+	\end{tabular}
+
+	\vspace{0.8cm}
+	{\LARGE\bfseries UNIVERSIDAD NACIONAL AUTÓNOMA DE MÉXICO}\\[0.3cm]
+	{\large FACULTAD DE CIENCIAS, 2027-I}\\[0.3cm]
+	{\large\bfseries FUNDAMENTOS DE BASES DE DATOS}
+
+	\vspace{1.2cm}
+	{\huge\bfseries \documentoTitulo:}\\[0.3cm]
+	{\Large \documentoSubtitulo}
+
+	\vspace{1.5cm}
+\end{center}
+
+\begin{multicols}{2}
+	\raggedcolumns
+
+	\textbf{PROFESOR:}\\
+	\profesorNombre\\[1.2cm]
+
+	\textbf{AYUDANTES DE TEORÍA:}\\
+	\ayudanteTeoriaUno\\
+	\ayudanteTeoriaDos\\[1.2cm]
+
+	\textbf{AYUDANTES DE LABORATORIO:}\\
+	\ayudanteLabUno\\
+	\ayudanteLabDos\\[1.2cm]
+
+	\columnbreak
+
+	\textbf{EQUIPO:}\\
+	\equipoNombre\\[1.2cm]
+
+	\textbf{INTEGRANTES DEL EQUIPO:}\\
+	\integranteUno\\
+	\integranteDos\\
+	\integranteTres\\
+	\integranteCuatro
+
+\end{multicols}
+
+\vspace{1cm}
+
+\section*{Restricciones de Dominio}
+
+\subsection*{Cliente}
+\begin{itemize}
+    \item \textbf{Columnas: Nombre, Paterno.} Pertenecen al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuentan con una restricción explícita de no nulidad mediante \texttt{NOT NULL}, lo cual asegura que el sistema rechace cualquier inserción que intente dejar el nombre o apellido paterno en blanco.
+    \item \textbf{Columna: Materno.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Estructuralmente carece de la restricción \texttt{NOT NULL} (acepta valores nulos) pues no todos los clientes poseen legalmente un segundo apellido.
+    \item \textbf{Columna: FechaNacimiento.} Pertenece al dominio temporal \texttt{date}. Posee la restricción \texttt{NOT NULL}, forzando al sistema a capturar esta información obligatoriamente.
+    \item \textbf{Columna: Sexo.} Pertenece al dominio de cadena de caracteres \texttt{varchar(50)}. No posee restricciones adicionales de nulidad por preferencia del cliente.
+\end{itemize}
+
+\subsection*{Telefono\_Cliente}
+\begin{itemize}
+    \item \textbf{Columna: idCliente.} Pertenece al dominio de los enteros (\texttt{int}). Al provenir de la entidad fuerte, actúa como llave foránea (FK) referenciando a la relación Cliente, estando sujeta a una estricta restricción de integridad referencial. En conjunto con el número telefónico, conforma la llave primaria de la tabla.
+    \item \textbf{Columna: telefono.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(15)}. Cuenta con restricción de integridad de dominio explícita (\texttt{NOT NULL}), lo cual impide que el sistema registre cadenas vacías para los medios de contacto.
+\end{itemize}
+
+\subsection*{Correo\_Cliente}
+\begin{itemize}
+    \item \textbf{Columna: idCliente.} Pertenece al dominio de los enteros (\texttt{int}). Actúa como llave foránea (FK) referenciando a la relación Cliente con integridad referencial estricta. En combinación con el correo electrónico, conforma la llave primaria de esta relación.
+    \item \textbf{Columna: correo.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Posee una restricción explícita de integridad de dominio (\texttt{NOT NULL}), garantizando que no se puedan registrar cadenas en blanco.
+\end{itemize}
+
+\subsection*{Tarjeta}
+\begin{itemize}
+    \item \textbf{Columna: idCliente.} Pertenece al dominio de los enteros (\texttt{int}). Actúa como llave foránea (FK) hacia la tabla Cliente. Además, compone la primera mitad de la llave primaria de esta tabla.
+    \item \textbf{Columna: idTarjeta.} Pertenece al dominio de los enteros (\texttt{int}). Cuenta con restricción de no nulidad (\texttt{NOT NULL}) y funciona como el discriminante que completa la llave primaria compuesta.
+    \item \textbf{Columna: Saldo.} Se define como un valor numérico exacto bajo el dominio \texttt{decimal(8,2)}. Posee una restricción de integridad de dominio (\texttt{NOT NULL}), garantizando que ninguna tarjeta se registre sin un balance inicial, incluso si es cero.
+    \item \textbf{Columna: rfc\_cajero.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Funciona como llave foránea (FK) hacia la tabla Cajero, garantizando mediante integridad referencial que toda tarjeta esté asociada al empleado válido que la emitió.
+\end{itemize}
+
+\subsection*{Recarga}
+\begin{itemize}
+    \item \textbf{Columna: idRecarga.} Pertenece al dominio de los enteros (\texttt{int}). Opera con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}) al funcionar como la llave primaria de la tabla.
+    \item \textbf{Columnas: MontoAbonar, fecha, hora, MetodoPago.} Operan bajo los dominios numérico exacto (\texttt{decimal(8,2)}), temporal de fecha (\texttt{date}), temporal de hora (\texttt{time}) y cadena de caracteres (\texttt{varchar(50)}) respectivamente. Todas cuentan con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que no existan transacciones financieras sin los datos obligatorios.
+    \item \textbf{Columna: idSucursal.} Pertenece al dominio \texttt{int}. Funciona como llave foránea (FK) aplicando integridad referencial hacia la relación Sucursal.
+    \item \textbf{Columnas: idCliente, idTarjeta.} Pertenecen al dominio \texttt{int}. Conforman una llave foránea (FK) compuesta que mantiene la integridad referencial hacia la llave primaria compuesta de la relación Tarjeta.
+    \item \textbf{Columna: rfc\_cajero.} Pertenece al dominio \texttt{varchar(100)}. Actúa como llave foránea (FK) con integridad referencial hacia la relación Cajero.
+\end{itemize}
+
+\subsection*{Sucursal}
+\begin{itemize}
+    \item \textbf{Columna: idSucursal.} Pertenece al dominio de los enteros (\texttt{int}). Aplica una restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}), estableciéndose como la llave primaria de la relación.
+    \item \textbf{Columnas: Nombre, Calle, Colonia, Estado, Horario.} Pertenecen al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. El conjunto cuenta con restricción explícita de integridad de dominio (\texttt{NOT NULL}), forzando el registro detallado de la ubicación e identidad de la sucursal.
+    \item \textbf{Columnas: NumExterior, NumInterior.} Pertenecen al dominio de cadena de caracteres \texttt{varchar(50)} y cuentan con restricción explícita de integridad de dominio (\texttt{NOT NULL}).
+    \item \textbf{Columna: Telefono.} Pertenece al dominio de cadena de caracteres \texttt{varchar(15)} y cuenta con restricción explícita de integridad de dominio (\texttt{NOT NULL}).
+\end{itemize}
+
+\subsection*{Maquina}
+\begin{itemize}
+    \item \textbf{Columna: idMaquina.} Pertenece al dominio de los enteros (\texttt{int}). Cuenta con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}) al ser la llave primaria de la tabla.
+    \item \textbf{Columna: Estado.} Pertenece al dominio de cadena de caracteres \texttt{varchar(50)}. Aplica una restricción de integridad de dominio explícita (\texttt{NOT NULL}) pues una maquina tiene que estar en un estado.
+    \item \textbf{Columna: idSucursal.} Pertenece al dominio de los enteros (\texttt{int}). Ejerce como llave foránea (FK) con integridad referencial hacia la relación Sucursal. Cuenta con restricción estricta de no nulidad (\texttt{NOT NULL}) pues una maquina debe estar en una sucursal.
+    \item \textbf{Columna: idJuego.} Pertenece al dominio de los enteros (\texttt{int}). Funciona como llave foránea (FK) manteniendo integridad referencial hacia la relación Juego, bajo una restricción estricta de no nulidad (\texttt{NOT NULL}) pues una maquina esta asociada a un juego.
+\end{itemize}
+
+\subsection*{Juego}
+\begin{itemize}
+    \item \textbf{Columna: idJuego.} Pertenece al dominio de los enteros (\texttt{int}). Mantiene una restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}), consolidándose como la llave primaria de la tabla.
+    \item \textbf{Columnas: Nombre, Tipo.} Pertenecen al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)} y \texttt{varchar(50)} respectivamente. Ambas cuentan con una restricción explícita de integridad de dominio (\texttt{NOT NULL}).
+    \item \textbf{Columna: Costo.} Pertenece al dominio numérico exacto \texttt{decimal(8,2)}. Cuenta con restricción de integridad de dominio (\texttt{NOT NULL}), asegurando que no existan juegos sin un costo financiero asignado.
+\end{itemize}
+
+\subsection*{Partida}
+\begin{itemize}
+    \item \textbf{Columna: idPartida.} Pertenece al dominio de los enteros (\texttt{int}). Actúa como la llave primaria de la relación, por lo que aplica una restricción de integridad de entidad estricta (\texttt{NOT NULL}, \texttt{UNIQUE}).
+    \item \textbf{Columnas: Puntaje, PuntosGanados.} Pertenecen al dominio de los enteros (\texttt{int}). Cuentan con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando el registro cuantitativo de la interacción del cliente.
+    \item \textbf{Columnas: fecha, hora.} Operan bajo los dominios temporales de fecha (\texttt{date}) y hora (\texttt{time}) respectivamente. Ambas están protegidas con restricciones de integridad de dominio (\texttt{NOT NULL}).
+    \item \textbf{Columna: idMaquina.} Pertenece al dominio de los enteros (\texttt{int}). Absorbe la llave de la relación Máquina, fungiendo como llave foránea (FK) con integridad referencial.
+    \item \textbf{Columnas: idCliente, idTarjeta.} Pertenecen al dominio de los enteros (\texttt{int}). Conforman una llave foránea (FK) compuesta que mantiene la integridad referencial apuntando exactamente a la llave primaria compuesta de la relación Tarjeta.
+\end{itemize}
+
+\subsection*{Canje}
+\begin{itemize}
+    \item \textbf{Columna: idCanje.} Pertenece al dominio de los enteros (\texttt{int}). Está sujeta a la restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}) por ser la llave primaria de la tabla.
+    \item \textbf{Columnas: fecha, hora, PuntosUtilizados, CantidadPremiosObtenidos.} Operan bajo los dominios temporales \texttt{date} y \texttt{time}, y el dominio numérico entero \texttt{int} respectivamente. Todas operan bajo restricciones explícitas de integridad de dominio (\texttt{NOT NULL}), forzando al sistema a registrar los detalles precisos de cada transacción.
+    \item \textbf{Columnas: idSucursal, idCliente, idPremio.} Pertenecen al dominio de los enteros (\texttt{int}). Actúan como llaves foráneas (FK) individuales que aplican reglas de integridad referencial hacia las tablas Sucursal, Cliente y Premio.
+    \item \textbf{Columna: rfc\_EncargadoDePremios.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Funge como llave foránea (FK) con integridad referencial hacia la subentidad EncargadoDePremio, vinculando al empleado responsable de la autorización.
+\end{itemize}
+
+\subsection*{Premio}
+\begin{itemize}
+    \item \textbf{Columna: idPremio.} Pertenece al dominio de los enteros (\texttt{int}). Ostenta la restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}) al ser la llave primaria del catálogo.
+    \item \textbf{Columnas: Nombre, RangoEdad, Categoria.} Pertenecen al dominio de cadena de caracteres \texttt{varchar(100)}, \texttt{varchar(50)} y \texttt{varchar(50)} respectivamente. Cuentan con restricciones explícitas de integridad de dominio (\texttt{NOT NULL}), asegurando que todo premio esté correctamente clasificado.
+    \item \textbf{Columna: PuntosNecesarios.} Pertenece al dominio de los enteros (\texttt{int}). Protegida con restricción de no nulidad (\texttt{NOT NULL}) para evitar que un premio se registre sin su costo en puntos.
+    \item \textbf{Columna: ValorAprox.} Pertenece al dominio numérico exacto \texttt{decimal(8,2)}. Cuenta con restricción de integridad de dominio (\texttt{NOT NULL}).
+\end{itemize}
+
+
+\printbibliography
+
+\end{document}
+
