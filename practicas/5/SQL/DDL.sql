@@ -146,6 +146,11 @@ CREATE TABLE Gerente (
     CedulaProfesional varchar(100)
 );
 
+CREATE TABLE EncargadoDePremio (
+    rfc varchar(100),
+    HorarioTrabajo varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -258,6 +263,10 @@ ALTER TABLE Gerente ADD CONSTRAINT uq_gerente_sucursal UNIQUE (idSucursal);
 ALTER TABLE Gerente ALTER COLUMN idSucursal SET NOT NULL;
 ALTER TABLE Gerente ALTER COLUMN CedulaProfesional SET NOT NULL;
 
+-- Para EncargadoDePremio
+ALTER TABLE EncargadoDePremio ADD CONSTRAINT pk_encargadodepremio PRIMARY KEY (rfc);
+ALTER TABLE EncargadoDePremio ALTER COLUMN HorarioTrabajo SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -311,3 +320,6 @@ ALTER TABLE Cajero ADD CONSTRAINT fk_cajero_empleado FOREIGN KEY (rfc) REFERENCE
 -- Para Gerente
 ALTER TABLE Gerente ADD CONSTRAINT fk_gerente_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
 ALTER TABLE Gerente ADD CONSTRAINT fk_gerente_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
+
+-- Para EncargadoDePremio
+ALTER TABLE EncargadoDePremio ADD CONSTRAINT fk_encargadodepremio_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
