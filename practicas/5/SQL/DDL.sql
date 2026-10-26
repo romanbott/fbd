@@ -200,11 +200,11 @@ ALTER TABLE Mantenimiento ALTER COLUMN Tipo SET NOT NULL;
 ALTER TABLE Mantenimiento ALTER COLUMN DescripcionProblema SET NOT NULL;
 
 -- ====================================
--- Reestricciones Referenciales
+-- Restricciones Referenciales
 -- ====================================
 
 -- Para Telefono_Cliente
-ALTER TABLE Telefono_Cliente ADD CONSTRAINT fk_telefeno_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
+ALTER TABLE Telefono_Cliente ADD CONSTRAINT fk_telefono_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 
 -- Para Correo_Cliente
 ALTER TABLE Correo_Cliente ADD CONSTRAINT fk_correo_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
