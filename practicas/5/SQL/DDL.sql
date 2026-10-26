@@ -130,6 +130,11 @@ CREATE TABLE Telefono_Empleado (
     telefono varchar(15)
 );
 
+CREATE TABLE Correo_Empleado (
+    rfc varchar(100),
+    correo varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -228,6 +233,10 @@ ALTER TABLE Empleado ALTER COLUMN Salario SET NOT NULL;
 ALTER TABLE Telefono_Empleado ADD CONSTRAINT pk_telefono_empleado PRIMARY KEY (rfc, telefono);
 ALTER TABLE Telefono_Empleado ALTER COLUMN telefono SET NOT NULL;
 
+-- Para Correo_Empleado
+ALTER TABLE Correo_Empleado ADD CONSTRAINT pk_correo_empleado PRIMARY KEY (rfc, correo);
+ALTER TABLE Correo_Empleado ALTER COLUMN correo SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -271,3 +280,6 @@ ALTER TABLE Mantenimiento ADD CONSTRAINT fk_mantenimiento_tecnico FOREIGN KEY (r
 
 -- Para Telefono_Empleado
 ALTER TABLE Telefono_Empleado ADD CONSTRAINT fk_telefono_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
+
+-- Para Correo_Empleado
+ALTER TABLE Correo_Empleado ADD CONSTRAINT fk_correo_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
