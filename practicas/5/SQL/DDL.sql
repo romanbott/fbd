@@ -151,6 +151,11 @@ CREATE TABLE EncargadoDePremio (
     HorarioTrabajo varchar(100)
 );
 
+CREATE TABLE Tecnico (
+    rfc varchar(100),
+    AreaEspecialidad varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -267,6 +272,10 @@ ALTER TABLE Gerente ALTER COLUMN CedulaProfesional SET NOT NULL;
 ALTER TABLE EncargadoDePremio ADD CONSTRAINT pk_encargadodepremio PRIMARY KEY (rfc);
 ALTER TABLE EncargadoDePremio ALTER COLUMN HorarioTrabajo SET NOT NULL;
 
+-- Para Tecnico
+ALTER TABLE Tecnico ADD CONSTRAINT pk_tecnico PRIMARY KEY (rfc);
+ALTER TABLE Tecnico ALTER COLUMN AreaEspecialidad SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -323,3 +332,6 @@ ALTER TABLE Gerente ADD CONSTRAINT fk_gerente_sucursal FOREIGN KEY (idSucursal) 
 
 -- Para EncargadoDePremio
 ALTER TABLE EncargadoDePremio ADD CONSTRAINT fk_encargadodepremio_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
+
+-- Para Tecnico
+ALTER TABLE Tecnico ADD CONSTRAINT fk_tecnico_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
