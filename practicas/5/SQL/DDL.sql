@@ -162,7 +162,7 @@ CREATE TABLE Certificacion_Tecnico (
 );
 
 -- ====================================
--- Reestricciones de Entidad y Dominio
+-- Restricciones de Entidad y Dominio
 --=====================================
 
 -- Para cliente
