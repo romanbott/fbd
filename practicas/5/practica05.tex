@@ -237,6 +237,75 @@
 \end{itemize}
 
 
+\subsection*{Inventario}
+\begin{itemize}
+    \item \textbf{Columna: idSucursal.} Pertenece al dominio de los enteros (\texttt{int}). Al provenir de la entidad fuerte dominante, actúa como llave foránea (FK) hacia la relación Sucursal con integridad referencial estricta. Además, compone la primera mitad de la llave primaria compuesta de la tabla.
+    \item \textbf{Columna: idArticulo.} Pertenece al dominio de los enteros (\texttt{int}). Funciona como el discriminante de la entidad débil y completa la llave primaria compuesta, por lo que está sujeta a la restricción de integridad de entidad (\texttt{NOT NULL}), diferenciando los artículos dentro de una misma sucursal.
+    \item \textbf{Columna: idPremio.} Pertenece al dominio de los enteros (\texttt{int}). Funciona como llave foránea (FK) con integridad referencial hacia la relación Premio, vinculando cada artículo del inventario con el catálogo de premios.
+    \item \textbf{Columna: CantidadDisponible.} Pertenece al dominio de los enteros (\texttt{int}). Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que toda existencia en el inventario tenga una cantidad registrada, incluso si es cero.
+\end{itemize}
+
+\subsection*{Mantenimiento}
+\begin{itemize}
+    \item \textbf{Columna: idMaquina.} Pertenece al dominio de los enteros (\texttt{int}). Actúa como llave foránea (FK) hacia la relación Maquina con integridad referencial estricta y compone la primera mitad de la llave primaria compuesta de la tabla.
+    \item \textbf{Columna: idMantenimiento.} Pertenece al dominio de los enteros (\texttt{int}). Funciona como el discriminante de la entidad débil y completa la llave primaria compuesta, con restricción de integridad de entidad (\texttt{NOT NULL}), diferenciando los distintos servicios aplicados a una misma máquina.
+    \item \textbf{Columnas: fecha, Tipo, DescripcionProblema.} Operan bajo los dominios temporal de fecha (\texttt{date}) y de cadena de caracteres de longitud variable \texttt{varchar(50)} y \texttt{varchar(200)} respectivamente. Todas cuentan con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que cada servicio quede documentado con su fecha, su clasificación y el problema atendido.
+    \item \textbf{Columna: rfc\_Tecnico.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Actúa como llave foránea (FK) con integridad referencial hacia la subentidad Tecnico, vinculando el servicio con el empleado que lo realizó.
+\end{itemize}
+
+\subsection*{Empleado}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Opera con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}) al funcionar como la llave primaria de la superclase.
+    \item \textbf{Columnas: CURP, Nombre, Paterno.} Pertenecen al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuentan con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), lo cual asegura que ningún empleado se registre sin su identificación y su nombre.
+    \item \textbf{Columna: Materno.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Estructuralmente carece de la restricción \texttt{NOT NULL} (acepta valores nulos) pues no todos los empleados poseen legalmente un segundo apellido.
+    \item \textbf{Columnas: FechaNacimiento, FechaContratacion.} Pertenecen al dominio temporal \texttt{date}. Ambas poseen la restricción \texttt{NOT NULL}, forzando al sistema a capturar esta información obligatoriamente.
+    \item \textbf{Columna: Salario.} Se define como un valor numérico exacto bajo el dominio \texttt{decimal(8,2)}. Posee una restricción de integridad de dominio (\texttt{NOT NULL}), garantizando que todo empleado tenga una remuneración registrada.
+\end{itemize}
+
+\subsection*{Telefono\_Empleado}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Al provenir de la superclase, actúa como llave foránea (FK) referenciando a la relación Empleado, estando sujeta a una estricta restricción de integridad referencial. En conjunto con el número telefónico, conforma la llave primaria de la tabla.
+    \item \textbf{Columna: telefono.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(15)}. Cuenta con restricción de integridad de dominio explícita (\texttt{NOT NULL}), lo cual impide que el sistema registre cadenas vacías para los medios de contacto.
+\end{itemize}
+
+\subsection*{Correo\_Empleado}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Actúa como llave foránea (FK) referenciando a la relación Empleado con integridad referencial estricta. En combinación con el correo electrónico, conforma la llave primaria de esta relación.
+    \item \textbf{Columna: correo.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Posee una restricción explícita de integridad de dominio (\texttt{NOT NULL}), garantizando que no se puedan registrar cadenas en blanco.
+\end{itemize}
+
+\subsection*{Cajero}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Actúa simultáneamente como llave primaria de la tabla, con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}), y como llave foránea (FK) hacia la superclase Empleado con integridad referencial estricta.
+    \item \textbf{Columna: HorarioTrabajo.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que todo cajero tenga un horario asignado.
+\end{itemize}
+
+\subsection*{Gerente}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Actúa simultáneamente como llave primaria de la tabla, con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}), y como llave foránea (FK) hacia la superclase Empleado con integridad referencial estricta.
+    \item \textbf{Columna: idSucursal.} Pertenece al dominio de los enteros (\texttt{int}). Funciona como llave foránea (FK) con integridad referencial hacia la relación Sucursal. Cuenta con las restricciones \texttt{UNIQUE} y \texttt{NOT NULL}, pues por la participación total en la relación 1:1 ADMINISTRAR, todo gerente administra exactamente una sucursal y cada sucursal tiene a lo más un gerente.
+    \item \textbf{Columna: CedulaProfesional.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que todo gerente tenga registrada su cédula.
+\end{itemize}
+
+\subsection*{EncargadoDePremio}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Actúa simultáneamente como llave primaria de la tabla, con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}), y como llave foránea (FK) hacia la superclase Empleado con integridad referencial estricta.
+    \item \textbf{Columna: HorarioTrabajo.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que todo encargado de premios tenga un horario asignado.
+\end{itemize}
+
+\subsection*{Tecnico}
+\begin{itemize}
+    \item \textbf{Columna: rfc.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Actúa simultáneamente como llave primaria de la tabla, con restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}), y como llave foránea (FK) hacia la superclase Empleado con integridad referencial estricta.
+    \item \textbf{Columna: AreaEspecialidad.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), asegurando que todo técnico tenga definida su área de especialidad.
+\end{itemize}
+
+\subsection*{Certificacion\_Tecnico}
+\begin{itemize}
+    \item \textbf{Columna: rfcTecnico.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Al provenir de la subentidad Tecnico, actúa como llave foránea (FK) referenciando a dicha relación con integridad referencial estricta. En conjunto con la certificación, conforma la llave primaria de la tabla.
+    \item \textbf{Columna: certificacion.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), lo cual impide que el sistema registre certificaciones en blanco.
+\end{itemize}
+
+
 \printbibliography
 
 \end{document}
