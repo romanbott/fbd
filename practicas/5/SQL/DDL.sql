@@ -140,6 +140,12 @@ CREATE TABLE Cajero (
     HorarioTrabajo varchar(100)
 );
 
+CREATE TABLE Gerente (
+    rfc varchar(100),
+    idSucursal int,
+    CedulaProfesional varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -246,6 +252,12 @@ ALTER TABLE Correo_Empleado ALTER COLUMN correo SET NOT NULL;
 ALTER TABLE Cajero ADD CONSTRAINT pk_cajero PRIMARY KEY (rfc);
 ALTER TABLE Cajero ALTER COLUMN HorarioTrabajo SET NOT NULL;
 
+-- Para Gerente
+ALTER TABLE Gerente ADD CONSTRAINT pk_gerente PRIMARY KEY (rfc);
+ALTER TABLE Gerente ADD CONSTRAINT uq_gerente_sucursal UNIQUE (idSucursal);
+ALTER TABLE Gerente ALTER COLUMN idSucursal SET NOT NULL;
+ALTER TABLE Gerente ALTER COLUMN CedulaProfesional SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -295,3 +307,7 @@ ALTER TABLE Correo_Empleado ADD CONSTRAINT fk_correo_empleado FOREIGN KEY (rfc) 
 
 -- Para Cajero
 ALTER TABLE Cajero ADD CONSTRAINT fk_cajero_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
+
+-- Para Gerente
+ALTER TABLE Gerente ADD CONSTRAINT fk_gerente_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
+ALTER TABLE Gerente ADD CONSTRAINT fk_gerente_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
