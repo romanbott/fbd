@@ -135,6 +135,11 @@ CREATE TABLE Correo_Empleado (
     correo varchar(100)
 );
 
+CREATE TABLE Cajero (
+    rfc varchar(100),
+    HorarioTrabajo varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -237,6 +242,10 @@ ALTER TABLE Telefono_Empleado ALTER COLUMN telefono SET NOT NULL;
 ALTER TABLE Correo_Empleado ADD CONSTRAINT pk_correo_empleado PRIMARY KEY (rfc, correo);
 ALTER TABLE Correo_Empleado ALTER COLUMN correo SET NOT NULL;
 
+-- Para Cajero
+ALTER TABLE Cajero ADD CONSTRAINT pk_cajero PRIMARY KEY (rfc);
+ALTER TABLE Cajero ALTER COLUMN HorarioTrabajo SET NOT NULL;
+
 -- ====================================
 -- Restricciones Referenciales
 -- ====================================
@@ -283,3 +292,6 @@ ALTER TABLE Telefono_Empleado ADD CONSTRAINT fk_telefono_empleado FOREIGN KEY (r
 
 -- Para Correo_Empleado
 ALTER TABLE Correo_Empleado ADD CONSTRAINT fk_correo_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
+
+-- Para Cajero
+ALTER TABLE Cajero ADD CONSTRAINT fk_cajero_empleado FOREIGN KEY (rfc) REFERENCES Empleado(rfc);
