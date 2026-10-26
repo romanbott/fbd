@@ -98,6 +98,13 @@ CREATE TABLE Premio (
     Nombre varchar(100)
 );
 
+CREATE TABLE Inventario (
+       idSucursal int,
+       idArticulo int,
+       idPremio int,
+       CantidadDisponible int
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -173,6 +180,10 @@ ALTER TABLE Premio ALTER COLUMN Categoria SET NOT NULL;
 ALTER TABLE Premio ALTER COLUMN PuntosNecesarios SET NOT NULL;
 ALTER TABLE Premio ALTER COLUMN ValorAprox SET NOT NULL;
 
+-- Para Inventario
+ALTER TABLE Inventario ADD CONSTRAINT pk_inventario PRIMARY KEY (idSucursal, idArticulo);
+ALTER TABLE Inventario ALTER COLUMN CantidadDisponible SET NOT NULL;
+
 -- ====================================
 -- Reestricciones Referenciales
 -- ====================================
@@ -205,3 +216,7 @@ ALTER TABLE Canje ADD CONSTRAINT fk_canje_sucursal FOREIGN KEY (idSucursal) REFE
 ALTER TABLE Canje ADD CONSTRAINT fk_canje_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 ALTER TABLE Canje ADD CONSTRAINT fk_canje_premio FOREIGN KEY (idPremio) REFERENCES Premio(idPremio);
 ALTER TABLE Canje ADD CONSTRAINT fk_canje_encargado FOREIGN KEY (rfc_EncargadoDePremios) REFERENCES EncargadoDePremio(rfc);
+
+-- Para Inventario
+ALTER TABLE Inventario ADD CONSTRAINT fk_inventario_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
+ALTER TABLE Inventario ADD CONSTRAINT fk_inventario_premio FOREIGN KEY (idPremio) REFERENCES Premio(idPremio);
