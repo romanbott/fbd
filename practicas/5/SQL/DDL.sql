@@ -105,6 +105,15 @@ CREATE TABLE Inventario (
        CantidadDisponible int
 );
 
+CREATE TABLE Mantenimiento (
+       idMaquina int,
+       idMantenimiento int,
+       fecha date,
+       Tipo varchar(50),
+       DescripcionProblema varchar(200),
+       rfc_Tecnico varchar(100)
+);
+
 -- ====================================
 -- Reestricciones de Entidad y Dominio
 --=====================================
@@ -184,6 +193,12 @@ ALTER TABLE Premio ALTER COLUMN ValorAprox SET NOT NULL;
 ALTER TABLE Inventario ADD CONSTRAINT pk_inventario PRIMARY KEY (idSucursal, idArticulo);
 ALTER TABLE Inventario ALTER COLUMN CantidadDisponible SET NOT NULL;
 
+-- Para Mantenimiento
+ALTER TABLE Mantenimiento ADD CONSTRAINT pk_mantenimiento PRIMARY KEY (idMaquina, idMantenimiento);
+ALTER TABLE Mantenimiento ALTER COLUMN fecha SET NOT NULL;
+ALTER TABLE Mantenimiento ALTER COLUMN Tipo SET NOT NULL;
+ALTER TABLE Mantenimiento ALTER COLUMN DescripcionProblema SET NOT NULL;
+
 -- ====================================
 -- Reestricciones Referenciales
 -- ====================================
@@ -220,3 +235,7 @@ ALTER TABLE Canje ADD CONSTRAINT fk_canje_encargado FOREIGN KEY (rfc_EncargadoDe
 -- Para Inventario
 ALTER TABLE Inventario ADD CONSTRAINT fk_inventario_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
 ALTER TABLE Inventario ADD CONSTRAINT fk_inventario_premio FOREIGN KEY (idPremio) REFERENCES Premio(idPremio);
+
+-- Para Mantenimiento
+ALTER TABLE Mantenimiento ADD CONSTRAINT fk_mantenimiento_maquina FOREIGN KEY (idMaquina) REFERENCES Maquina(idMaquina);
+ALTER TABLE Mantenimiento ADD CONSTRAINT fk_mantenimiento_tecnico FOREIGN KEY (rfc_Tecnico) REFERENCES Tecnico(rfc);
