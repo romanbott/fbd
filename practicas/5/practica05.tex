@@ -24,6 +24,7 @@
 \usepackage{xcolor}
 \usepackage{multicol}
 \usepackage{enumitem}
+\usepackage{listings}
 
 %% Paquetes caseros
 \usepackage{customcode}
@@ -305,6 +306,29 @@
     \item \textbf{Columna: certificacion.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), lo cual impide que el sistema registre certificaciones en blanco.
 \end{itemize}
 
+\newpage
+\section*{Restauración Backup}
+
+Creamos una base de datos \texttt{ejemplo} y ejecutamos el comando para restaurar el backup:
+
+\begin{lstlisting}
+# docker exec -i <id> pg_restore --verbose --clean --no-acl 
+--no-owner -U postgres -d ejemplo < ejemplo.backup
+\end{lstlisting}
+
+Se muestra la siguiente salida:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/backup1.png}
+\end{figure}
+
+Verificamos que el backup se restauró con éxito:
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/backup2.png}
+\end{figure}
 
 \printbibliography
 
