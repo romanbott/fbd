@@ -9,6 +9,7 @@
 //       drawio-render --help
 
 const fs = require('fs');
+const http = require('http');
 const path = require('path');
 const puppeteer = require('puppeteer');
 
@@ -70,6 +71,24 @@ function hostHtml(url) {
   );
 }
 
+// El modo embed rechaza (403) las peticiones hechas desde un origen nulo
+// (page.setContent). Servimos la página anfitriona desde un servidor local para
+// que el iframe tenga un origen http real.
+function startHostServer(url) {
+  return new Promise((resolve, reject) => {
+    const html = hostHtml(url);
+    const server = http.createServer((req, res) => {
+      res.writeHead(200, { 'Content-Type': 'text/html; charset=utf-8' });
+      res.end(html);
+    });
+    server.on('error', reject);
+    server.listen(0, '127.0.0.1', () => {
+      const { port } = server.address();
+      resolve({ server, url: `http://127.0.0.1:${port}/` });
+    });
+  });
+}
+
 function decodeExport(dataUrl) {
   const comma = dataUrl.indexOf(',');
   const header = dataUrl.slice(0, comma);
@@ -96,7 +115,13 @@ async function renderDrawio(browser, xml, outPath, opts) {
   const page = await browser.newPage();
   try {
     await page.setViewport({ width: 1200, height: 1200 });
-    await page.setContent(hostHtml(embedUrl(opts.embedUrl)), { waitUntil: 'domcontentloaded' });
+    const ua = (await browser.userAgent()).replace('HeadlessChrome', 'Chrome');
+    await page.setUserAgent(ua);
+    if (opts.hostUrl) {
+      await page.goto(opts.hostUrl, { waitUntil: 'domcontentloaded' });
+    } else {
+      await page.setContent(hostHtml(embedUrl(opts.embedUrl)), { waitUntil: 'domcontentloaded' });
+    }
 
     await page.evaluate(() => { window.__msgs = []; });
     await waitForMsg(page, (m) => m.event === 'init', opts.timeout);
@@ -210,10 +235,12 @@ async function renderDirectory(opts) {
     if (moved) console.log('Respaldados ' + moved + ' archivo(s) en ' + path.relative(process.cwd(), backupDir) + '\n');
   }
 
+  const host = await startHostServer(embedUrl(opts.embedUrl));
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-gpu', '--disable-dev-shm-usage'],
   });
+  opts.hostUrl = host.url;
 
   let failed = 0;
   const results = [];
@@ -232,6 +259,7 @@ async function renderDirectory(opts) {
     }
   } finally {
     await browser.close();
+    host.server.close();
   }
 
   console.log('\nResumen:');
