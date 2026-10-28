@@ -4,6 +4,9 @@
 **/*.bbl
 **/*.bcf
 **/*.blg
+**/*.fdb_latexmk
+**/*.fls
+**/*.xdv
 **/*.run.xml
 **/*.zip
 **/*nogit*
