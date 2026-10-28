@@ -354,6 +354,21 @@ La jerarquía de Empleado es una especialización total y disjunta: todo emplead
     \item \textbf{Columna: certificacion.} Pertenece al dominio de cadena de caracteres de longitud variable \texttt{varchar(50)}. Cuenta con una restricción explícita de integridad de dominio (\texttt{NOT NULL}), lo cual impide que el sistema registre certificaciones en blanco.
 \end{itemize}
 
+\section*{Cambios al modelo relacional}
+
+\subsection*{Observaciones del ayudante: jerarquía de Empleado}
+La versión anterior conservaba una tabla \texttt{Empleado} para la superclase y una tabla por subentidad. Como la especialización es total y disjunta, se adoptó la traducción indicada por el ayudante: cada subentidad (\texttt{Cajero}, \texttt{Gerente}, \texttt{EncargadoDePremio} y \texttt{Tecnico}) absorbe los atributos comunes de \texttt{Empleado}. Por ello se eliminaron \texttt{Empleado}, \texttt{Telefono\_Empleado} y \texttt{Correo\_Empleado}, y los atributos multivaluados se representan con una tabla por subentidad: \texttt{CajeroTelefono}, \texttt{CajeroCorreo}, \texttt{GerenteTelefono}, \texttt{GerenteCorreo}, \texttt{EncargadoDePremioTelefono}, \texttt{EncargadoDePremioCorreo}, \texttt{TecnicoTelefono} y \texttt{TecnicoCorreo}. También se normalizó \texttt{rfc\_EncargadoDePremios} a \texttt{rfc\_EncargadoDePremio}.
+
+\subsection*{Ajuste de tipos de datos}
+Se revisaron los dominios para que cada columna use una longitud acorde con el dato que almacena:
+\begin{itemize}
+    \item \texttt{RFC}: \texttt{varchar(13)} (13 caracteres de una persona física).
+    \item \texttt{CURP}: \texttt{varchar(18)} (longitud fija).
+    \item Campos enumerados: \texttt{Sexo} \texttt{varchar(10)}, \texttt{MetodoPago} \texttt{varchar(30)}, \texttt{Maquina.Estado} \texttt{varchar(20)}, \texttt{Juego.Tipo} \texttt{varchar(15)}, \texttt{RangoEdad} y \texttt{Categoria} \texttt{varchar(10)}.
+    \item Datos cortos: \texttt{NumExterior}/\texttt{NumInterior} \texttt{varchar(10)}, \texttt{CedulaProfesional} \texttt{varchar(20)}, \texttt{Horario}, \texttt{HorarioTrabajo}, \texttt{AreaEspecialidad} y \texttt{certificacion} \texttt{varchar(50)}, y \texttt{Sucursal.Estado} \texttt{varchar(50)}.
+    \item Contacto: \texttt{telefono} \texttt{varchar(20)} y \texttt{correo} \texttt{varchar(150)}; nombres y apellidos \texttt{varchar(80)}.
+\end{itemize}
+
 \clearpage
 \section*{Diagramas}
 A continuación se incluyen el modelo Entidad-Relación y el modelo Relacional de la práctica anterior.
