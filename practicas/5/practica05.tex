@@ -152,6 +152,8 @@
 
 \section*{Restricciones de Dominio}
 
+Los tipos de datos y las restricciones descritas a continuación siguen la documentación oficial de PostgreSQL \parencite{postgresqlCreateTable,postgresqlDataTypes,postgresqlAlterTable}; el marco del modelo relacional se toma de \textcite{silberschatz2006}.
+
 \subsection*{Cliente}
 \begin{itemize}
     \item \textbf{Columnas: Nombre, Paterno.} Pertenecen al dominio de cadena de caracteres de longitud variable \texttt{varchar(100)}. Cuentan con una restricción explícita de no nulidad mediante \texttt{NOT NULL}, lo cual asegura que el sistema rechace cualquier inserción que intente dejar el nombre o apellido paterno en blanco.
