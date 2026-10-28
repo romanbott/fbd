@@ -78,6 +78,18 @@ function decodeExport(dataUrl) {
   return Buffer.from(decodeURIComponent(payload), 'utf8');
 }
 
+// draw.io appends a trailing <switch> element that renders as the visible text
+// "Text is not SVG - cannot display". librsvg (rsvg-convert) paints it, so drop
+// it from SVG exports before they are converted to PDF.
+function stripSvgTextWarning(buf) {
+  const s = buf.toString('utf8');
+  const cleaned = s.replace(
+    /<switch>(?:(?!<\/switch>).)*?svg-export-text-problems.*?<\/switch>/s,
+    ''
+  );
+  return Buffer.from(cleaned, 'utf8');
+}
+
 // Renderiza un único diagrama. `opts` acepta: format, scale, border,
 // background, embedUrl y timeout. Devuelve el tamaño (bytes) del archivo.
 async function renderDrawio(browser, xml, outPath, opts) {
@@ -109,9 +121,10 @@ async function renderDrawio(browser, xml, outPath, opts) {
     );
 
     const buf = decodeExport(exp.data);
+    const outBuf = opts.format === 'svg' ? stripSvgTextWarning(buf) : buf;
     fs.mkdirSync(path.dirname(outPath), { recursive: true });
-    fs.writeFileSync(outPath, buf);
-    return buf.length;
+    fs.writeFileSync(outPath, outBuf);
+    return outBuf.length;
   } finally {
     await page.close();
   }
@@ -343,4 +356,4 @@ async function main() {
 
 if (require.main === module) main();
 
-module.exports = { renderDrawio, renderDirectory, findDrawios, parseArgs };
+module.exports = { renderDrawio, renderDirectory, findDrawios, parseArgs, stripSvgTextWarning };
