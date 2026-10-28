@@ -4,28 +4,28 @@
 
 CREATE TABLE Cliente (
     idCliente int,
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
-    Sexo varchar(50)
+    Sexo varchar(10)
 );
 
 CREATE TABLE Telefono_Cliente (
     idCliente int,
-    telefono varchar(15)
+    telefono varchar(20)
 );
 
 CREATE TABLE Correo_Cliente (
     idCliente int,
-    correo varchar(100)
+    correo varchar(150)
 );
 
 CREATE TABLE Tarjeta (
     idCliente int,
     idTarjeta int,
     Saldo decimal(8,2),
-    rfc_cajero varchar(100)
+    rfc_cajero varchar(13)
 );
 
 CREATE TABLE Recarga (
@@ -33,36 +33,36 @@ CREATE TABLE Recarga (
     idSucursal int,
     idCliente int,
     idTarjeta int,
-    rfc_cajero varchar(100),
+    rfc_cajero varchar(13),
     fecha date,
     hora time,
     MontoAbonar decimal(8,2),
-    MetodoPago varchar(50)
+    MetodoPago varchar(30)
 );
 
 CREATE TABLE Sucursal (
     idSucursal int,
     Nombre varchar(100),
-    Horario varchar(100),
-    Telefono varchar(15),
+    Horario varchar(50),
+    Telefono varchar(20),
     Calle varchar(100),
-    NumExterior varchar(50),
-    NumInterior varchar(50),
+    NumExterior varchar(10),
+    NumInterior varchar(10),
     Colonia varchar(100),
-    Estado varchar(100)
+    Estado varchar(50)
 );
 
 CREATE TABLE Maquina (
     idMaquina int,
     idSucursal int,
     idJuego int,
-    Estado varchar(50)
+    Estado varchar(20)
 );
 
 CREATE TABLE Juego (
     idJuego int,
     Nombre varchar(100),
-    Tipo varchar(50),
+    Tipo varchar(15),
     Costo decimal(8,2)
 );
 
@@ -82,7 +82,7 @@ CREATE TABLE Canje (
     idSucursal int,
     idCliente int,
     idPremio int,
-    rfc_EncargadoDePremio varchar(100),
+    rfc_EncargadoDePremio varchar(13),
     fecha date,
     hora time,
     PuntosUtilizados int,
@@ -93,8 +93,8 @@ CREATE TABLE Premio (
     idPremio int,
     PuntosNecesarios int,
     ValorAprox decimal(8,2),
-    RangoEdad varchar(50),
-    Categoria varchar(50),
+    RangoEdad varchar(10),
+    Categoria varchar(10),
     Nombre varchar(100)
 );
 
@@ -111,7 +111,7 @@ CREATE TABLE Mantenimiento (
        fecha date,
        Tipo varchar(50),
        DescripcionProblema varchar(200),
-       rfc_Tecnico varchar(100)
+       rfc_Tecnico varchar(13)
 );
 
 -- ---------------------------------------------------------------
@@ -120,99 +120,99 @@ CREATE TABLE Mantenimiento (
 -- ---------------------------------------------------------------
 
 CREATE TABLE Cajero (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
-    HorarioTrabajo varchar(100)
+    HorarioTrabajo varchar(50)
 );
 
 CREATE TABLE Gerente (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
     idSucursal int,
-    CedulaProfesional varchar(100)
+    CedulaProfesional varchar(20)
 );
 
 CREATE TABLE EncargadoDePremio (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
-    HorarioTrabajo varchar(100)
+    HorarioTrabajo varchar(50)
 );
 
 CREATE TABLE Tecnico (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
-    AreaEspecialidad varchar(100)
+    AreaEspecialidad varchar(50)
 );
 
 -- Telefonos y correos: una tabla por subentidad (atributos multivaluados).
 
 CREATE TABLE CajeroTelefono (
-    rfc varchar(100),
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE CajeroCorreo (
-    rfc varchar(100),
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
 CREATE TABLE GerenteTelefono (
-    rfc varchar(100),
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE GerenteCorreo (
-    rfc varchar(100),
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
 CREATE TABLE EncargadoDePremioTelefono (
-    rfc varchar(100),
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE EncargadoDePremioCorreo (
-    rfc varchar(100),
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
 CREATE TABLE TecnicoTelefono (
-    rfc varchar(100),
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE TecnicoCorreo (
-    rfc varchar(100),
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
 CREATE TABLE Certificacion_Tecnico (
-    rfcTecnico varchar(100),
-    certificacion varchar(100)
+    rfcTecnico varchar(13),
+    certificacion varchar(50)
 );
 
 -- ====================================
