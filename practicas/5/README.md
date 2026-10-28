@@ -14,16 +14,16 @@ Es necesario editar las variables:
 # Para compilar
 
 ```bash
-xelatex practica3.tex
-biber practica3
-xelatex practica3.tex
+xelatex practica05.tex
+biber practica05
+xelatex practica05.tex
 ```
 
 O también
 
 ```bash
-lualatex practica3.tex
-biber practica3
-lualatex practica3.tex
+lualatex practica05.tex
+biber practica05
+lualatex practica05.tex
 ```
 
