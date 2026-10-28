@@ -4,28 +4,28 @@
 
 CREATE TABLE Cliente (
     idCliente int,
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
-    Sexo varchar(50)
+    Sexo varchar(10)
 );
 
 CREATE TABLE Telefono_Cliente (
     idCliente int,
-    telefono varchar(15)
+    telefono varchar(20)
 );
 
 CREATE TABLE Correo_Cliente (
     idCliente int,
-    correo varchar(100)
+    correo varchar(150)
 );
 
 CREATE TABLE Tarjeta (
     idCliente int,
     idTarjeta int,
     Saldo decimal(8,2),
-    rfc_cajero varchar(100)
+    rfc_cajero varchar(13)
 );
 
 CREATE TABLE Recarga (
@@ -33,36 +33,36 @@ CREATE TABLE Recarga (
     idSucursal int,
     idCliente int,
     idTarjeta int,
-    rfc_cajero varchar(100),
+    rfc_cajero varchar(13),
     fecha date,
     hora time,
     MontoAbonar decimal(8,2),
-    MetodoPago varchar(50)
+    MetodoPago varchar(30)
 );
 
 CREATE TABLE Sucursal (
     idSucursal int,
     Nombre varchar(100),
-    Horario varchar(100),
-    Telefono varchar(15),
+    Horario varchar(50),
+    Telefono varchar(20),
     Calle varchar(100),
-    NumExterior varchar(50),
-    NumInterior varchar(50),
+    NumExterior varchar(10),
+    NumInterior varchar(10),
     Colonia varchar(100),
-    Estado varchar(100)
+    Estado varchar(50)
 );
 
 CREATE TABLE Maquina (
     idMaquina int,
     idSucursal int,
     idJuego int,
-    Estado varchar(50)
+    Estado varchar(20)
 );
 
 CREATE TABLE Juego (
     idJuego int,
     Nombre varchar(100),
-    Tipo varchar(50),
+    Tipo varchar(15),
     Costo decimal(8,2)
 );
 
@@ -82,7 +82,7 @@ CREATE TABLE Canje (
     idSucursal int,
     idCliente int,
     idPremio int,
-    rfc_EncargadoDePremios varchar(100),
+    rfc_EncargadoDePremio varchar(13),
     fecha date,
     hora time,
     PuntosUtilizados int,
@@ -93,8 +93,8 @@ CREATE TABLE Premio (
     idPremio int,
     PuntosNecesarios int,
     ValorAprox decimal(8,2),
-    RangoEdad varchar(50),
-    Categoria varchar(50),
+    RangoEdad varchar(10),
+    Categoria varchar(10),
     Nombre varchar(100)
 );
 
@@ -111,107 +111,109 @@ CREATE TABLE Mantenimiento (
        fecha date,
        Tipo varchar(50),
        DescripcionProblema varchar(200),
-       rfc_Tecnico varchar(100)
+       rfc_Tecnico varchar(13)
 );
 
+-- ---------------------------------------------------------------
+-- Especializacion total disjunta de Empleado: cada subentidad
+-- absorbe los atributos comunes de la superentidad.
+-- ---------------------------------------------------------------
+
 CREATE TABLE Cajero (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
-    HorarioTrabajo varchar(100)
+    HorarioTrabajo varchar(50)
 );
 
 CREATE TABLE Gerente (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
     idSucursal int,
-    CedulaProfesional varchar(100)
+    CedulaProfesional varchar(20)
 );
 
 CREATE TABLE EncargadoDePremio (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
-    HorarioTrabajo varchar(100)
+    HorarioTrabajo varchar(50)
 );
 
 CREATE TABLE Tecnico (
-    rfc varchar(100),
-    CURP varchar(100),
-    Nombre varchar(100),
-    Paterno varchar(100),
-    Materno varchar(100),
+    rfc varchar(13),
+    CURP varchar(18),
+    Nombre varchar(80),
+    Paterno varchar(80),
+    Materno varchar(80),
     FechaNacimiento date,
     FechaContratacion date,
     Salario decimal(8,2),
-    AreaEspecialidad varchar(100)
+    AreaEspecialidad varchar(50)
 );
 
--- Multivaluados para Cajero
+-- Telefonos y correos: una tabla por subentidad (atributos multivaluados).
+
 CREATE TABLE CajeroTelefono (
-    rfc varchar(100), 
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE CajeroCorreo (
-    rfc varchar(100), 
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
--- Multivakuados para Gerente
 CREATE TABLE GerenteTelefono (
-    rfc varchar(100), 
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE GerenteCorreo (
-    rfc varchar(100), 
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
--- Para multivaluados EncrgadoDePremio
 CREATE TABLE EncargadoDePremioTelefono (
-    rfc varchar(100), 
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE EncargadoDePremioCorreo (
-    rfc varchar(100), 
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
--- Para multivaluados Tecnico
 CREATE TABLE TecnicoTelefono (
-    rfc varchar(100), 
-    telefono varchar(15)
+    rfc varchar(13),
+    telefono varchar(20)
 );
 
 CREATE TABLE TecnicoCorreo (
-    rfc varchar(100), 
-    correo varchar(100)
+    rfc varchar(13),
+    correo varchar(150)
 );
 
 CREATE TABLE Certificacion_Tecnico (
-    rfcTecnico varchar(100), 
-    certificacion varchar(100)
+    rfcTecnico varchar(13),
+    certificacion varchar(50)
 );
-
 
 -- ====================================
 -- Restricciones de Entidad y Dominio
@@ -290,7 +292,7 @@ ALTER TABLE Canje ALTER COLUMN CantidadPremiosObtenidos SET NOT NULL;
 ALTER TABLE Canje ALTER COLUMN idSucursal SET NOT NULL;
 ALTER TABLE Canje ALTER COLUMN idCliente SET NOT NULL;
 ALTER TABLE Canje ALTER COLUMN idPremio SET NOT NULL;
-ALTER TABLE Canje ALTER COLUMN rfc_EncargadoDePremios SET NOT NULL;
+ALTER TABLE Canje ALTER COLUMN rfc_EncargadoDePremio SET NOT NULL;
 
 -- Para Premio
 ALTER TABLE Premio ADD CONSTRAINT pk_premio PRIMARY KEY (idPremio);
@@ -354,32 +356,30 @@ ALTER TABLE Tecnico ALTER COLUMN FechaContratacion SET NOT NULL;
 ALTER TABLE Tecnico ALTER COLUMN Salario SET NOT NULL;
 ALTER TABLE Tecnico ALTER COLUMN AreaEspecialidad SET NOT NULL;
 
--- Multivaluados Cajero
-ALTER TABLE CajeroTelefono ADD CONSTRAINT pk_telefono_cajero PRIMARY KEY (rfc, telefono);
+-- Para las tablas de telefonos y correos por subentidad
+ALTER TABLE CajeroTelefono ADD CONSTRAINT pk_cajerotelefono PRIMARY KEY (rfc, telefono);
 ALTER TABLE CajeroTelefono ALTER COLUMN telefono SET NOT NULL;
-ALTER TABLE CajeroCorreo ADD CONSTRAINT pk_correo_cajero PRIMARY KEY (rfc, correo);
+ALTER TABLE CajeroCorreo ADD CONSTRAINT pk_cajerocorreo PRIMARY KEY (rfc, correo);
 ALTER TABLE CajeroCorreo ALTER COLUMN correo SET NOT NULL;
 
--- Multivaluados Gerente
-ALTER TABLE GerenteTelefono ADD CONSTRAINT pk_telefono_gerente PRIMARY KEY (rfc, telefono);
+ALTER TABLE GerenteTelefono ADD CONSTRAINT pk_gerentetelefono PRIMARY KEY (rfc, telefono);
 ALTER TABLE GerenteTelefono ALTER COLUMN telefono SET NOT NULL;
-ALTER TABLE GerenteCorreo ADD CONSTRAINT pk_correo_gerente PRIMARY KEY (rfc, correo);
+ALTER TABLE GerenteCorreo ADD CONSTRAINT pk_gerentecorreo PRIMARY KEY (rfc, correo);
 ALTER TABLE GerenteCorreo ALTER COLUMN correo SET NOT NULL;
 
--- Multivaluados Encargado
-ALTER TABLE EncargadoDePremioTelefono ADD CONSTRAINT pk_telefono_encargado PRIMARY KEY (rfc, telefono);
+ALTER TABLE EncargadoDePremioTelefono ADD CONSTRAINT pk_encargadodepremiotelefono PRIMARY KEY (rfc, telefono);
 ALTER TABLE EncargadoDePremioTelefono ALTER COLUMN telefono SET NOT NULL;
-ALTER TABLE EncargadoDePremioCorreo ADD CONSTRAINT pk_correo_encargado PRIMARY KEY (rfc, correo);
+ALTER TABLE EncargadoDePremioCorreo ADD CONSTRAINT pk_encargadodepremiocorreo PRIMARY KEY (rfc, correo);
 ALTER TABLE EncargadoDePremioCorreo ALTER COLUMN correo SET NOT NULL;
 
--- Multivaluados Tecnico
-ALTER TABLE TecnicoTelefono ADD CONSTRAINT pk_telefono_tecnico PRIMARY KEY (rfc, telefono);
+ALTER TABLE TecnicoTelefono ADD CONSTRAINT pk_tecnicotelefono PRIMARY KEY (rfc, telefono);
 ALTER TABLE TecnicoTelefono ALTER COLUMN telefono SET NOT NULL;
-ALTER TABLE TecnicoCorreo ADD CONSTRAINT pk_correo_tecnico PRIMARY KEY (rfc, correo);
+ALTER TABLE TecnicoCorreo ADD CONSTRAINT pk_tecnicocorreo PRIMARY KEY (rfc, correo);
 ALTER TABLE TecnicoCorreo ALTER COLUMN correo SET NOT NULL;
+
+-- Para Certificacion_Tecnico
 ALTER TABLE Certificacion_Tecnico ADD CONSTRAINT pk_certificacion_tecnico PRIMARY KEY (rfcTecnico, certificacion);
 ALTER TABLE Certificacion_Tecnico ALTER COLUMN certificacion SET NOT NULL;
-
 
 -- ====================================
 -- Restricciones Referenciales
@@ -412,7 +412,7 @@ ALTER TABLE Partida ADD CONSTRAINT fk_partida_tarjeta FOREIGN KEY (idCliente, id
 ALTER TABLE Canje ADD CONSTRAINT fk_canje_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
 ALTER TABLE Canje ADD CONSTRAINT fk_canje_cliente FOREIGN KEY (idCliente) REFERENCES Cliente(idCliente);
 ALTER TABLE Canje ADD CONSTRAINT fk_canje_premio FOREIGN KEY (idPremio) REFERENCES Premio(idPremio);
-ALTER TABLE Canje ADD CONSTRAINT fk_canje_encargado FOREIGN KEY (rfc_EncargadoDePremios) REFERENCES EncargadoDePremio(rfc);
+ALTER TABLE Canje ADD CONSTRAINT fk_canje_encargado FOREIGN KEY (rfc_EncargadoDePremio) REFERENCES EncargadoDePremio(rfc);
 
 -- Para Inventario
 ALTER TABLE Inventario ADD CONSTRAINT fk_inventario_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
@@ -425,19 +425,18 @@ ALTER TABLE Mantenimiento ADD CONSTRAINT fk_mantenimiento_tecnico FOREIGN KEY (r
 -- Para Gerente
 ALTER TABLE Gerente ADD CONSTRAINT fk_gerente_sucursal FOREIGN KEY (idSucursal) REFERENCES Sucursal(idSucursal);
 
--- Para Multivaluados de Cajero
-ALTER TABLE CajeroTelefono ADD CONSTRAINT fk_telefono_cajero FOREIGN KEY (rfc) REFERENCES Cajero(rfc);
-ALTER TABLE CajeroCorreo ADD CONSTRAINT fk_correo_cajero FOREIGN KEY (rfc) REFERENCES Cajero(rfc);
+-- Para los telefonos y correos de cada subentidad
+ALTER TABLE CajeroTelefono ADD CONSTRAINT fk_cajerotelefono_cajero FOREIGN KEY (rfc) REFERENCES Cajero(rfc);
+ALTER TABLE CajeroCorreo ADD CONSTRAINT fk_cajerocorreo_cajero FOREIGN KEY (rfc) REFERENCES Cajero(rfc);
 
--- Para Multivaluados de Gerente
-ALTER TABLE GerenteTelefono ADD CONSTRAINT fk_telefono_gerente FOREIGN KEY (rfc) REFERENCES Gerente(rfc);
-ALTER TABLE GerenteCorreo ADD CONSTRAINT fk_correo_gerente FOREIGN KEY (rfc) REFERENCES Gerente(rfc);
+ALTER TABLE GerenteTelefono ADD CONSTRAINT fk_gerentetelefono_gerente FOREIGN KEY (rfc) REFERENCES Gerente(rfc);
+ALTER TABLE GerenteCorreo ADD CONSTRAINT fk_gerentecorreo_gerente FOREIGN KEY (rfc) REFERENCES Gerente(rfc);
 
--- Para Multivaluados de Encargado
-ALTER TABLE EncargadoDePremioTelefono ADD CONSTRAINT fk_telefono_encargado FOREIGN KEY (rfc) REFERENCES EncargadoDePremio(rfc);
-ALTER TABLE EncargadoDePremioCorreo ADD CONSTRAINT fk_correo_encargado FOREIGN KEY (rfc) REFERENCES EncargadoDePremio(rfc);
+ALTER TABLE EncargadoDePremioTelefono ADD CONSTRAINT fk_encargadodepremiotelefono_encargado FOREIGN KEY (rfc) REFERENCES EncargadoDePremio(rfc);
+ALTER TABLE EncargadoDePremioCorreo ADD CONSTRAINT fk_encargadodepremiocorreo_encargado FOREIGN KEY (rfc) REFERENCES EncargadoDePremio(rfc);
 
--- Para Multivaluados de Tecnico
-ALTER TABLE TecnicoTelefono ADD CONSTRAINT fk_telefono_tecnico FOREIGN KEY (rfc) REFERENCES Tecnico(rfc);
-ALTER TABLE TecnicoCorreo ADD CONSTRAINT fk_correo_tecnico FOREIGN KEY (rfc) REFERENCES Tecnico(rfc);
+ALTER TABLE TecnicoTelefono ADD CONSTRAINT fk_tecnicotelefono_tecnico FOREIGN KEY (rfc) REFERENCES Tecnico(rfc);
+ALTER TABLE TecnicoCorreo ADD CONSTRAINT fk_tecnicocorreo_tecnico FOREIGN KEY (rfc) REFERENCES Tecnico(rfc);
+
+-- Para Certificacion_Tecnico
 ALTER TABLE Certificacion_Tecnico ADD CONSTRAINT fk_certificacion_tecnico FOREIGN KEY (rfcTecnico) REFERENCES Tecnico(rfc);
