@@ -226,7 +226,7 @@
     \item \textbf{Columna: idCanje.} Pertenece al dominio de los enteros (\texttt{int}). Está sujeta a la restricción de integridad de entidad (\texttt{NOT NULL}, \texttt{UNIQUE}) por ser la llave primaria de la tabla.
     \item \textbf{Columnas: fecha, hora, PuntosUtilizados, CantidadPremiosObtenidos.} Operan bajo los dominios temporales \texttt{date} y \texttt{time}, y el dominio numérico entero \texttt{int} respectivamente. Todas operan bajo restricciones explícitas de integridad de dominio (\texttt{NOT NULL}), forzando al sistema a registrar los detalles precisos de cada transacción.
     \item \textbf{Columnas: idSucursal, idCliente, idPremio.} Pertenecen al dominio de los enteros (\texttt{int}). Actúan como llaves foráneas (FK) individuales que aplican reglas de integridad referencial hacia las tablas Sucursal, Cliente y Premio.
-    \item \textbf{Columna: rfc\_EncargadoDePremios.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Funge como llave foránea (FK) con integridad referencial hacia la subentidad EncargadoDePremio, vinculando al empleado responsable de la autorización.
+    \item \textbf{Columna: rfc\_EncargadoDePremio.} Pertenece al dominio de cadena de caracteres \texttt{varchar(100)}. Funge como llave foránea (FK) con integridad referencial hacia la subentidad EncargadoDePremio, vinculando al empleado responsable de la autorización.
 \end{itemize}
 
 \subsection*{Premio}
