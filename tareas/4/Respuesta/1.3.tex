@@ -1,0 +1,17 @@
+\item $R=$ $\mathrel{\!\!\bowtie}$ $S$ - Al ser un Join Externo por la izquierda, tomamos las filas del Join Natural y agregamos las filas en $R$ que no estén en el Join, agregando NULL en las columnas que no estén en $R$.
+
+\begin{center}
+\begin{tabular}{cccc}
+\toprule
+\textbf{A} & \textbf{B} & \textbf{C} & \textbf{D} \\
+\midrule
+1 & x & 0 & 3 \\
+2 & y & 2 & 1 \\
+2 & y & 3 & 3 \\
+2 & y & 4 & 2 \\
+3 & x & 0 & 3 \\
+2 & z & NULL & NULL \\
+9 & a & NULL & NULL \\
+\bottomrule
+\end{tabular}
+\end{center}

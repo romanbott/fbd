@@ -1,0 +1,20 @@
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+\textbf{Expresión Relacional} & \textbf{Cardinalidad} \\
+\midrule
+$R \times S$ & 25 \\
+$R \bowtie_{D > A} S$ & 7 \\
+$R=$ $\mathrel{\!\!\bowtie}$ $S$  & 7 \\
+$R$ $\mathrel{\bowtie\!\!}$ $=S$ & 6 \\
+$R \bowtie_{A = D} S$ & 5 \\
+$\rho_{C \leftarrow A} (R) \bowtie S$ & 1 \\
+$\pi_B (R) - \pi_B (\sigma_{C \ge 3} (S))$ & 3 \\
+$\pi_A (R) \cap \rho_{A \leftarrow D} (\pi_D (S))$ & 3 \\
+$\pi_D (S) \bowtie R$ & 20 \\
+$\gamma_{A; \text{count}(B) \rightarrow t}$ $(R=$ $\mathrel{\!\!\bowtie\!\!}$ $=S)$ & 5 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+% $\gamma_{A; \text{count}(B) \rightarrow t}$ $\left(R \mathrel{=\!\!\bowtie\!\!=} S\right)$ & 5 \\
