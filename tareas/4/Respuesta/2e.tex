@@ -1,1 +1,21 @@
 \item Obtener el estado, segmento y el total de clientes que no han solicitado ninguna orden.
+
+\begin{lstlisting}
+con_orden = π customerid (orders)
+
+sin_orden = π customerid (customer) - con_orden
+
+clientes = customer ⨝ sin_orden
+
+γ state,segment; count(customerid)→total (clientes)
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2e_1.jpg}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2e_2.png}
+\end{figure}

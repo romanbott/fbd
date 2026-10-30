@@ -1,1 +1,21 @@
 \item Obtener una relación de los productos que pertenecen a la categoría Technology con precio mayor de \$400 y menor de \$850, pero que no hayan sido solicitados en ninguna orden.
+
+\begin{lstlisting}
+productos = σ category = 'Technology' ∧ price > 400 ∧ price < 850 (products)
+
+solicitados = π productid (orders)
+
+no_solicitados = π productid (productos) - solicitados
+
+π * (no_solicitados ⨝ productos)
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2b_1.jpg}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2b_2.png}
+\end{figure}

@@ -1,2 +1,21 @@
 \item Obtener el nombre de todos los clientes que vivan en la región South y hayan solicitados productos de las subcategorías Bookcases o Chairs o Appliances o Copiers. El pedido debió de solicitarse el primer o tercer trimestre de 2015 y el modo de envío debe ser Standard Class.
 
+\begin{lstlisting}
+clientes = σ region = 'South' (customer)
+
+productos = σ subcategory = 'Bookcases' ∨ subcategory = 'Chairs' ∨ subcategory = 'Appliances' ∨ subcategory = 'Copiers' (products)
+
+pedidos = σ (orderdate ≥ date('2015-01-01') ∧ orderdate ≤ date('2015-03-31') ∨ orderdate ≥ date('2015-07-01') ∧ orderdate ≤ date('2015-09-30')) ∧ shipmode = 'Standard Class' (orders)
+
+π customername (clientes ⨝ pedidos ⨝ productos)
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2c_1.jpg}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2c_2.png}
+\end{figure}

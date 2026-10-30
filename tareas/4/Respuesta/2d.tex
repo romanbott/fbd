@@ -1,1 +1,21 @@
 \item Toda la información de los clientes del segmento Consumer que realizaron una orden con modo de envío Second Class y que no viven en Nevada.
+
+\begin{lstlisting}
+consumidores = σ segment = 'Consumer' (customer)
+
+pedidos = σ shipmode = 'Second Class' (orders)
+
+clientes = σ state ≠ 'Nevada' (consumidores)
+
+π * (clientes ⨝ pedidos)
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2d_1.jpg}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.35\textwidth]{figuras/2d_2.png}
+\end{figure}
