@@ -1,1 +1,23 @@
 \item Obtener el modo de envío y categoría que más productos ha vendido.
+
+\begin{lstlisting}
+ventas = γ shipmode,category; sum(quantity)→total (orders ⨝ products)
+
+maximo = γ ; max(total)→maxventa (ventas)
+
+resultado = π shipmode,category,total (σ total = maxventa (ventas ⨯ maximo))
+
+resultado
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/2g_1.jpg}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.5\textwidth]{figuras/2g_2.png}
+\end{figure}
+
+\newpage

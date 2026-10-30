@@ -1,1 +1,25 @@
 \item El estado que ha realizado la menor cantidad de órdenes. Se debe mostrar también el total de ordenes que haya entregado.
+
+\begin{lstlisting}
+ordenes = π state,orderid (customer ⨝ orders)
+
+por_estado = γ state; count(orderid)→total (ordenes)
+
+minimo = γ ; min(total)→menor (por_estado)
+
+resultado = π state,total (σ total = menor (por_estado ⨯ minimo))
+
+resultado
+\end{lstlisting}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.6\textwidth]{figuras/2i_1.jpg}
+\end{figure}
+
+\begin{figure}[h]
+\centering
+\includegraphics[width=0.4\textwidth]{figuras/2i_2.png}
+\end{figure}
+
+\newpage
