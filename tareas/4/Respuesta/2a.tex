@@ -5,9 +5,9 @@ residencia = σ city = 'New York' ∨ city = 'Washington' (customer)
 
 segmento = σ segment = 'Consumer' (residencia)
 
-trimestre = σ orderdate ≥ date('2016-07-01') ∧ orderdate ≤ date('2016-09-30') (segmento ⨝ orders)
+trimestre = σ orderdate ≥ date('2016-07-01') ∧ orderdate ≤ date('2016-09-30') (orders)
 
-π customerid,customername,segment,country,city,state,postalcode,region,quantity (trimestre)
+π customerid,customername,segment,country,city,state,postalcode,region,quantity (segmento ⨝ trimestre)
 \end{lstlisting}
 
 \begin{figure}[h]
