@@ -7,17 +7,16 @@ pedidos = σ shipmode = 'Second Class' (orders)
 
 clientes = σ state ≠ 'Nevada' (consumidores)
 
-π * (clientes ⨝ pedidos)
+π customerid, customername, segment, country, city, state, postalcode, region
+  (clientes ⨝ π customerid (pedidos))
 \end{lstlisting}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.6\textwidth]{figuras/2d_1.jpg}
-\end{figure}
+\begin{center}
+\includegraphics[width=0.75\textwidth]{figuras/2d_arbol.jpg}
+\end{center}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.35\textwidth]{figuras/2d_2.png}
-\end{figure}
+\begin{center}
+\includegraphics[width=0.4\textwidth]{figuras/2d_tuples.png}
+\end{center}
 
 \newpage

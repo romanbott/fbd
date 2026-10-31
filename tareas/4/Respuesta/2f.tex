@@ -1,7 +1,7 @@
 \item Una lista que muestre la región, el estado y el total de clientes que se tienen, considerando que los clientes deben haber realizado órdenes con al menos 6 productos durante 2016 o 2017. Ordenar la información por región y estado.
 
 \begin{lstlisting}
-date('2017-12-31') ∧ quantity ≥ 6 (orders)
+periodo = σ orderdate ≥ date('2016-01-01') ∧ orderdate ≤ date('2017-12-31') ∧ quantity ≥ 6 (orders)
 
 clientes = π customerid,region,state (customer ⨝ periodo)
 
@@ -10,12 +10,12 @@ resultado = γ region,state; count(customerid)→total (clientes)
 τ region ASC, state ASC (resultado)
 \end{lstlisting}
 
-\begin{figure}[h]
-\centering
-\includegraphics[width=0.5\textwidth]{figuras/2f_1.jpg}
-\end{figure}
+\begin{center}
+\includegraphics[width=0.85\textwidth]{figuras/2f_1.jpg}
+\end{center}
 
-\begin{figure}[h]
-\centering
+\begin{center}
 \includegraphics[width=0.3\textwidth]{figuras/2f_2.png}
-\end{figure}
+\end{center}
+
+\newpage
